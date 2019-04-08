@@ -1,22 +1,24 @@
 import React from 'react';
-import bottom from './B1451_bottom.png'
-import top from './B1451_top.png'
-import left from './B1451_left.png'
-import right from './B1451_right.png'
-import middle from './B1451_middle.png'
+import bottomVertical from './B1451_bottom_v.png'
+import topVertical from './B1451_top_v.png'
+import leftVertical from './B1451_left_v.png'
+import rightVertical from './B1451_right_v.png'
+import middleVertical from './B1451_middle_v.png'
 
+import bottomHorizontal from './B1451_bottom_h.png'
+import topHorizontal from './B1451_top_h.png'
+import leftHorizontal from './B1451_left_h.png'
+import rightHorizontal from './B1451_right_h.png'
+import middleHorizontal from './B1451_middle_h.png'
 
-const styles = {
-    img: {
-        display: 'block',
-        width: '100%',
-        height: '100%'
-    }
-}
+export const TopVertical = ({ style, className }) => <img src={topVertical} style={style} className={className} alt='topVertical' />;
+export const BottomVertical = ({ style, className }) => <img src={bottomVertical} style={style} className={className} alt='bottomVertical' />;
+export const LeftVertical = ({ style, className }) => <img src={leftVertical} style={style} className={className} alt='leftVertical' />;
+export const MiddleVertical = ({ style, className }) => <img src={middleVertical} style={style} className={className} alt='middleVertical' />;
+export const RightVertical = ({ style, className }) => <img src={rightVertical} style={style} className={className} alt='rightVertical' />;
 
-
-export const Top = ({ style }) => <img src={top} style={style || styles.img} alt='top' />;
-export const Bottom = ({ style }) => <img src={bottom} style={style || styles.img} alt='bottom' />;
-export const Left = ({ style }) => <img src={left} style={style || styles.img} alt='left' />;
-export const Middle = ({ style }) => <img src={middle} style={style || styles.img} alt='middle' />;
-export const Right = ({ style }) => <img src={right} style={style || styles.img} alt='right' />;
+export const TopHorizontal = ({ style, className }) => <img src={topHorizontal} style={style} className={className} alt='topHorizontal' />;
+export const BottomHorizontal = ({ style, className }) => <img src={bottomHorizontal} style={style} className={className} alt='bottomHorizontal' />;
+export const LeftHorizontal = ({ style, className }) => <img src={leftHorizontal} style={style} className={className} alt='leftHorizontal' />;
+export const MiddleHorizontal = ({ style, className }) => <img src={middleHorizontal} style={style} className={className} alt='middleHorizontal' />;
+export const RightHorizontal = ({ style, className }) => <img src={rightHorizontal} style={style} className={className} alt='rightHorizontal' />;
