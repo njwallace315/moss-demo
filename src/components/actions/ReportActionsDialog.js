@@ -16,11 +16,11 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-const ReportActionsDialog = ({ open = false, onClose, handleOpen }) => {
+const ReportActionsDialog = ({ onClose, handleOpen }) => {
   return (
     <div>
       <Dialog
-        open={open}
+        open
         TransitionComponent={Transition}
         keepMounted
         onClose={onClose}

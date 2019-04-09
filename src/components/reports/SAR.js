@@ -83,6 +83,7 @@ class SAR extends React.Component {
             <Grid item xs={6}>
               <InputLabel>Species</InputLabel>
               <Select
+                variant="outlined"
                 value={species}
                 className={classes.field}
                 onChange={this.handleChange('species')}
@@ -100,6 +101,7 @@ class SAR extends React.Component {
             <Grid item xs={6}>
               <InputLabel>observations</InputLabel>
               <Select
+                variant="outlined"
                 value={observations}
                 className={classes.field}
                 onChange={this.handleChange('observations')}
@@ -132,6 +134,7 @@ class SAR extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="vetCardNum"
@@ -142,6 +145,7 @@ class SAR extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="numSick"
@@ -152,6 +156,7 @@ class SAR extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="numInCage"
@@ -162,6 +167,7 @@ class SAR extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="protocol"
@@ -172,6 +178,7 @@ class SAR extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="reportedBy"
@@ -182,6 +189,7 @@ class SAR extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="placement"

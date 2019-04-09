@@ -18,7 +18,10 @@ export const generateTempData = (numPoints = 1000) => {
 export const generateHumidData = (numPoints = 1000) => {
     let values = []
     for (let i = 0; i < numPoints; i++) {
-        values.push(generateDataPoint(i > 0 ? values[i - 1] : 25, 0.5))
+        let val = generateDataPoint(i > 0 ? values[i - 1] : 50, 1)
+        if (val > 100) val = 100
+        if (val < 0) val = 0
+        values.push(val)
     }
     return values;
 }

@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Card, CardActions, CardContent, IconButton, Typography, Tooltip } from '@material-ui/core';
+import { Card, CardContent, IconButton, Typography, Tooltip } from '@material-ui/core';
 import { Timeline } from '@material-ui/icons';
 
 const styles = {
   card: {
-    opacity: .75,
-    display: 'block',
     width: 330,
-    zIndex: 1000,
-    position: 'relative'
   },
   title: {
     fontSize: 14,
@@ -28,7 +24,8 @@ const styles = {
     display: 'inline-block',
     float: 'right',
     padding: '0px 5px',
-    height: '100%'
+    height: '100%',
+    color: '#000'
   },
   row: {
     display: 'block'
@@ -79,10 +76,10 @@ const getTextStyle = (val, base) => {
 function EnvOverview(props) {
   const tempBase = 72;
   const humidBase = 25;
-  const { classes, temperature = generateTemp(tempBase), humidity = generateHumid(humidBase), light = generateLight(), handleOpen, temperatureOpen } = props;
+  const { classes, temperature = generateTemp(tempBase), humidity = generateHumid(humidBase), light = generateLight(), handleOpen } = props;
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised>
       <CardContent className={classes.content}>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Environment Overview
@@ -118,7 +115,6 @@ function EnvOverview(props) {
 EnvOverview.propTypes = {
   classes: PropTypes.object.isRequired,
   handleOpen: PropTypes.func.isRequired,
-  temperatureOpen: PropTypes.bool,
 };
 
 export default withStyles(styles)(EnvOverview);

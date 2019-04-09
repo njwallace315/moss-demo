@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment'
 import echarts from 'echarts'
-import { ClickAwayListener } from '@material-ui/core';
+import { ClickAwayListener, Card } from '@material-ui/core';
 
 export default class Humidity extends PureComponent {
     getOption = () => {
@@ -27,10 +27,6 @@ export default class Humidity extends PureComponent {
         for (let i = 0; i < values.length; i++) {
             data.push([times[i], values[i]])
         }
-
-        const yMin = Math.min(...values);
-        const yMax = Math.max(...values);
-        const diff = Math.abs(yMax - yMin);
 
         return {
             title: {
@@ -67,8 +63,8 @@ export default class Humidity extends PureComponent {
                 {
                     type: 'value',
                     name: 'Humidity (%)',
-                    min: Math.round((yMin - (0.2 * diff)) * 100) / 100,
-                    max: Math.round((yMax + (0.2 * diff)) * 100) / 100
+                    min: 0,
+                    max: 100
                 }
             ],
             series: [
@@ -104,10 +100,12 @@ export default class Humidity extends PureComponent {
         const { onClose } = this.props;
         return (
             <ClickAwayListener onClickAway={onClose}>
-                <ReactEcharts
-                    option={this.getOption()}
-                    style={{ height: '350px', width: '100%' }}
-                    className='react_for_echarts' />
+                <Card raised>
+                    <ReactEcharts
+                        option={this.getOption()}
+                        style={{ height: '350px', width: '100%' }}
+                        className='react_for_echarts' />
+                </Card>
             </ClickAwayListener>
         );
     }

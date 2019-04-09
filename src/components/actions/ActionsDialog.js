@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import Announcement from '@material-ui/icons/Announcement';
 import Assignment from '@material-ui/icons/Assignment';
-import CreditCard from '@material-ui/icons/CreditCard';
+import Build from '@material-ui/icons/Build';
 
 function Transition(props) {
     return <Slide direction="up" {...props} />;
@@ -38,9 +38,9 @@ const ActionsDialog = ({ open = false, onClose, handleOpen }) => {
                             </ListItemIcon>
                             <ListItemText primary="Report" />
                         </ListItem>
-                        <ListItem button>
+                        <ListItem button onClick={handleOpen('workOrderOpen')}>
                             <ListItemIcon>
-                                <CreditCard />
+                                <Build />
                             </ListItemIcon>
                             <ListItemText primary="Work Order" />
                         </ListItem>

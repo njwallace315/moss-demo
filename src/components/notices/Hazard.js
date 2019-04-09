@@ -10,7 +10,6 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import moment from 'moment';
 
 class Hazard extends React.Component {
   state = {

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment'
 import echarts from 'echarts'
-import { ClickAwayListener } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
+import { ClickAwayListener, Card } from '@material-ui/core';
 
-export default class Temperature extends PureComponent {
+class Temperature extends PureComponent {
     getOption = () => {
         // TODO: add color-coded boundaries
         let { room = 'B1451', temps, times, building = 'WIMR' } = this.props
@@ -100,17 +101,24 @@ export default class Temperature extends PureComponent {
         const { onClose } = this.props;
         return (
             <ClickAwayListener onClickAway={onClose}>
-                <ReactEcharts
-                    option={this.getOption()}
-                    style={{ height: '350px', width: '100%' }}
-                    className='react_for_echarts' />
+                <Card raised>
+                    <ReactEcharts
+                        option={this.getOption()}
+                        style={{ height: '350px', width: '100%' }}
+                        className='react_for_echarts' />
+                </Card>
             </ClickAwayListener>
         );
     }
 }
+
+const styles = theme => ({
+})
 
 Temperature.propTypes = {
     room: PropTypes.string,
     building: PropTypes.string,
     onClose: PropTypes.func.isRequired,
 }
+
+export default withStyles(styles)(Temperature)
