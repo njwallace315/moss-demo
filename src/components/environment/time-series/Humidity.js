@@ -1,3 +1,4 @@
+
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types'
 import ReactEcharts from 'echarts-for-react';
@@ -5,35 +6,35 @@ import moment from 'moment'
 import echarts from 'echarts'
 import { ClickAwayListener } from '@material-ui/core';
 
-export default class Temperature extends PureComponent {
+export default class Humidity extends PureComponent {
     getOption = () => {
         // TODO: add color-coded boundaries
-        let { room = 'B1451', temps, times, building = 'WIMR' } = this.props
+        let { room = 'B1451', values, times, building = 'WIMR' } = this.props
         let timeGen = moment()
-        if (!temps) {
-            temps = [74, 72, 73, 74, 72, 68]
+        if (!values) {
+            values = [20, 22, 25, 23, 20, 15, 12]
             times = []
-            for (let i = 0; i < temps.length; i++) {
+            for (let i = 0; i < values.length; i++) {
                 times.unshift(timeGen.subtract(1, 'm').toDate())
             }
         } else if (!times) {
             times = []
-            for (let i = 0; i < temps.length; i++) {
+            for (let i = 0; i < values.length; i++) {
                 times.unshift(timeGen.subtract(1, 'm').toDate())
             }
         }
         let data = [];
-        for (let i = 0; i < temps.length; i++) {
-            data.push([times[i], temps[i]])
+        for (let i = 0; i < values.length; i++) {
+            data.push([times[i], values[i]])
         }
 
-        const yMin = Math.min(...temps);
-        const yMax = Math.max(...temps);
+        const yMin = Math.min(...values);
+        const yMax = Math.max(...values);
         const diff = Math.abs(yMax - yMin);
 
         return {
             title: {
-                text: room && building ? `Temperature in ${room} ${building} vs Time` : 'Temperature vs Time',
+                text: room && building ? `Humidity in ${room} ${building} vs Time` : 'Humidity vs Time',
                 x: "center",
                 align: "right"
             },
@@ -65,7 +66,7 @@ export default class Temperature extends PureComponent {
             yAxis: [
                 {
                     type: 'value',
-                    name: 'Temperature (F)',
+                    name: 'Humidity (%)',
                     min: Math.round((yMin - (0.2 * diff)) * 100) / 100,
                     max: Math.round((yMax + (0.2 * diff)) * 100) / 100
                 }
@@ -77,16 +78,19 @@ export default class Temperature extends PureComponent {
 
                     showSymbol: false,
                     smooth: true,
+                    lineStyle: {
+                        color: "rgb(62, 5, 205)"
+                    },
                     areaStyle: {
                         normal: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                                 {
                                     offset: 0,
-                                    color: "rgb(197, 5, 12)"
+                                    color: "rgba(62, 5, 205, 1)"
                                 },
                                 {
                                     offset: 1,
-                                    color: "rgb(107, 5, 80)"
+                                    color: "rgba(62, 5, 205, 0)"
                                 }
                             ])
                         }
@@ -109,7 +113,7 @@ export default class Temperature extends PureComponent {
     }
 }
 
-Temperature.propTypes = {
+Humidity.propTypes = {
     room: PropTypes.string,
     building: PropTypes.string,
     onClose: PropTypes.func.isRequired,

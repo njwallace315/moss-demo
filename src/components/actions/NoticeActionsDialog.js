@@ -16,7 +16,7 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-const ReportActionsDialog = ({ open = false, onClose, handleOpen }) => {
+const NoticeActionsDialog = ({ open = false, onClose, handleOpen }) => {
   return (
     <div>
       <Dialog
@@ -27,18 +27,18 @@ const ReportActionsDialog = ({ open = false, onClose, handleOpen }) => {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>Select a Report Type</DialogTitle>
+        <DialogTitle>Select a Notice Type</DialogTitle>
         <DialogContent>
 
           <List component="nav">
-            <ListItem button onClick={handleOpen('SAROpen')}>
-              <ListItemText primary="Sick Animal Report" />
+            <ListItem button onClick={handleOpen('alertOpen')}>
+              <ListItemText primary="Alert" />
             </ListItem>
-            <ListItem button onClick={handleOpen('DAROpen')}>
-              <ListItemText primary="Dead Animal Report" />
+            <ListItem button onClick={handleOpen('hazardOpen')}>
+              <ListItemText primary="Hazard" />
             </ListItem>
-            <ListItem button onClick={handleOpen('OCROpen')}>
-              <ListItemText primary="Overcrowded Cage Report" />
+            <ListItem button onClick={handleOpen('taskOpen')}>
+              <ListItemText primary="Task" />
             </ListItem>
           </List>
         </DialogContent>
@@ -52,10 +52,10 @@ const ReportActionsDialog = ({ open = false, onClose, handleOpen }) => {
   );
 }
 
-ReportActionsDialog.propTypes = {
+NoticeActionsDialog.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
 }
 
-export default ReportActionsDialog;
+export default NoticeActionsDialog;
 

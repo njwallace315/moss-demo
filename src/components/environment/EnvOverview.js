@@ -8,7 +8,7 @@ const styles = {
   card: {
     opacity: .75,
     display: 'block',
-    width: 300,
+    width: 330,
     zIndex: 1000,
     position: 'relative'
   },
@@ -21,8 +21,17 @@ const styles = {
   content: {
     paddingBottom: 0
   },
+  inline: {
+    display: 'inline'
+  },
   timeline: {
-    float: 'right'
+    display: 'inline-block',
+    float: 'right',
+    padding: '0px 5px',
+    height: '100%'
+  },
+  row: {
+    display: 'block'
   }
 };
 
@@ -70,7 +79,7 @@ const getTextStyle = (val, base) => {
 function EnvOverview(props) {
   const tempBase = 72;
   const humidBase = 25;
-  const { classes, temperature = generateTemp(tempBase), humidity = generateHumid(humidBase), light = generateLight() } = props;
+  const { classes, temperature = generateTemp(tempBase), humidity = generateHumid(humidBase), light = generateLight(), handleOpen, temperatureOpen } = props;
 
   return (
     <Card className={classes.card}>
@@ -78,20 +87,29 @@ function EnvOverview(props) {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Environment Overview
         </Typography>
-        <Typography variant="h5" component="h2">
-          Temperature: <span style={getTextStyle(temperature, tempBase)}>{temperature} F</span>
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Humidity: <span style={getTextStyle(humidity, humidBase)}>{humidity} %</span>
-        </Typography>
-        <Typography variant="h5" component="h2">
+        <div className={classes.row}>
+          <Typography variant="h5" component="h2" className={classes.inline}>
+            Temperature: <span style={getTextStyle(temperature, tempBase)}>{temperature} F</span>
+          </Typography>
+          <Tooltip title="Show Temperature Time Series Data">
+            <IconButton className={classes.timeline} onClick={handleOpen('temperatureOpen')}>
+              <Timeline />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <div className={classes.row}>
+          <Typography variant="h5" component="h2" className={classes.inline}>
+            Humidity: <span style={getTextStyle(humidity, humidBase)}>{humidity} %</span>
+          </Typography>
+          <Tooltip title="Show Humidity Time Series Data">
+            <IconButton className={classes.timeline} onClick={handleOpen('humidityOpen')}>
+              <Timeline />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <Typography variant="h5" component="h2" className={classes.inline}>
           Lights: {light}
         </Typography>
-        <Tooltip title="Show time series data">
-          <IconButton className={classes.timeline}>
-            <Timeline />
-          </IconButton>
-        </Tooltip>
       </CardContent>
     </Card>
   );
@@ -99,6 +117,8 @@ function EnvOverview(props) {
 
 EnvOverview.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleOpen: PropTypes.func.isRequired,
+  temperatureOpen: PropTypes.bool,
 };
 
 export default withStyles(styles)(EnvOverview);

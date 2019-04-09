@@ -19,50 +19,47 @@ function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
 
-class ActionsDialog extends React.Component {
-    render() {
-        const { open = false, onClose, handleOpen } = this.props;
-        return (
-            <div>
-                <Dialog
-                    open={open}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={onClose}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description"
-                >
-                    <DialogContent>
-                        <List component="nav">
-                            <ListItem button onClick={handleOpen('reportOpen')}>
-                                <ListItemIcon>
-                                    <Assignment />
-                                </ListItemIcon>
-                                <ListItemText primary="Report" />
-                            </ListItem>
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <CreditCard />
-                                </ListItemIcon>
-                                <ListItemText primary="Work Order" />
-                            </ListItem>
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <Announcement />
-                                </ListItemIcon>
-                                <ListItemText primary="Notice" />
-                            </ListItem>
-                        </List>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={onClose} color="primary">
-                            Cancel
+const ActionsDialog = ({ open = false, onClose, handleOpen }) => {
+    return (
+        <div>
+            <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={onClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogContent>
+                    <List component="nav">
+                        <ListItem button onClick={handleOpen('reportOpen')}>
+                            <ListItemIcon>
+                                <Assignment />
+                            </ListItemIcon>
+                            <ListItemText primary="Report" />
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <CreditCard />
+                            </ListItemIcon>
+                            <ListItemText primary="Work Order" />
+                        </ListItem>
+                        <ListItem button onClick={handleOpen('noticeOpen')}>
+                            <ListItemIcon>
+                                <Announcement />
+                            </ListItemIcon>
+                            <ListItemText primary="Notice" />
+                        </ListItem>
+                    </List>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onClose} color="primary">
+                        Cancel
                         </Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
-        );
-    }
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
 }
 
 ActionsDialog.propTypes = {
