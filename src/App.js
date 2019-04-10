@@ -33,8 +33,8 @@ class App extends Component {
       humids: generateHumidData(),
       SARs: [{ text: 'test' }],
       light: 'On',
-      inventory: Object.assign({}, demoInventory),
-      maintenanceOpen: true
+      inventory: demoInventory.slice(0),
+      lightOpen: false,
     }
   }
 
@@ -66,11 +66,9 @@ class App extends Component {
   }
 
   applyMaintenanceToItem = order => {
-    console.log('here')
     const inventory = Object.assign({}, this.state.inventory)
     if (order.itemKey && inventory[order.itemKey]) {
       inventory[order.itemKey].orders.push(order)
-      console.log('newInventory: ', inventory)
       this.setState({ inventory });
     } else {
       throw new Error('could not apply work order to item. order: ', order)
@@ -78,8 +76,6 @@ class App extends Component {
   }
 
   handleSubmit = name => data => {
-    console.log('name: ', name)
-    console.log('data: ', data)
     if (name === 'workOrders' && data.type === 'maintenance' && data.itemKey) {
       this.applyMaintenanceToItem(data)
     }

@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput'
 
 class Alert extends React.Component {
   state = {
@@ -61,15 +62,15 @@ class Alert extends React.Component {
       >
         <DialogTitle id="form-dialog-title">New Alert</DialogTitle>
         <DialogContent>
-          <Grid container>
+          <Grid container spacing={16}>
             <Grid item xs={6}>
               <InputLabel>Posted By</InputLabel>
               <TextField
                 className={classes.field}
                 margin="dense"
                 id="postedBy"
+                variant="outlined"
                 value={postedBy}
-                style={{ margin: '18px 10px 0px 0px' }}
                 onChange={this.handleChange('postedBy')}
               />
             </Grid>
@@ -77,7 +78,10 @@ class Alert extends React.Component {
               <InputLabel>Priority</InputLabel>
               <Select
                 value={priority}
-                className={classes.field}
+                className={classes.select}
+                input={
+                  <OutlinedInput />
+                }
                 onChange={this.handleChange('priority')}
                 inputProps={{
                   name: 'priority',
@@ -94,8 +98,9 @@ class Alert extends React.Component {
             <Grid item xs={12}>
               <InputLabel>Alert Subject</InputLabel>
               <TextField
-                className={classes.fullWidth}
+                className={classes.field}
                 margin="dense"
+                variant="outlined"
                 id="subject"
                 value={subject}
                 onChange={this.handleChange('subject')}
@@ -103,7 +108,7 @@ class Alert extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                className={classes.fullWidth}
+                className={classes.field}
                 multiline
                 rows={2}
                 variant="outlined"
@@ -117,7 +122,7 @@ class Alert extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                className={classes.fullWidth}
+                className={classes.field}
                 multiline
                 rows={3}
                 margin="dense"
@@ -150,12 +155,11 @@ const styles = {
     textAlign: 'center'
   },
   field: {
-    width: '90%',
-    margin: '10px 10px 10px 0px',
-    padding: 5
+    width: '100%',
   },
-  fullWidth: {
-    width: '100%'
+  select: {
+    width: '100%',
+    marginTop: 7
   }
 }
 

@@ -84,6 +84,11 @@ const theme = createMuiTheme({
                 opacity: .9
             }
         },
+        MuiOutlinedInput: {
+            input: {
+                padding: 15
+            }
+        },
     },
     props: {
         MuiTextField: {

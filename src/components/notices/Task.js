@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput'
 
 class Task extends React.Component {
   state = {
@@ -61,15 +62,15 @@ class Task extends React.Component {
       >
         <DialogTitle id="form-dialog-title">New Task</DialogTitle>
         <DialogContent>
-          <Grid container>
+          <Grid container spacing={16}>
             <Grid item xs={6}>
               <InputLabel>Assigned By</InputLabel>
               <TextField
                 className={classes.field}
+                variant="outlined"
                 margin="dense"
                 id="postedBy"
                 value={postedBy}
-                style={{ margin: '18px 10px 0px 0px' }}
                 onChange={this.handleChange('postedBy')}
               />
             </Grid>
@@ -77,8 +78,11 @@ class Task extends React.Component {
               <InputLabel>Priority</InputLabel>
               <Select
                 value={priority}
-                className={classes.field}
+                className={classes.select}
                 onChange={this.handleChange('priority')}
+                input={
+                  <OutlinedInput />
+                }
                 inputProps={{
                   name: 'priority',
                   id: 'priority',
@@ -94,7 +98,8 @@ class Task extends React.Component {
             <Grid item xs={12}>
               <InputLabel>Task Name</InputLabel>
               <TextField
-                className={classes.fullWidth}
+                className={classes.field}
+                variant="outlined"
                 margin="dense"
                 id="taskName"
                 value={taskName}
@@ -103,7 +108,7 @@ class Task extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                className={classes.fullWidth}
+                className={classes.field}
                 multiline
                 rows={2}
                 variant="outlined"
@@ -117,7 +122,7 @@ class Task extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                className={classes.fullWidth}
+                className={classes.field}
                 multiline
                 rows={3}
                 margin="dense"
@@ -150,12 +155,11 @@ const styles = {
     textAlign: 'center'
   },
   field: {
-    width: '90%',
-    margin: '10px 10px 10px 0px',
-    padding: 5
+    width: '100%',
   },
-  fullWidth: {
-    width: '100%'
+  select: {
+    width: '100%',
+    marginTop: 7
   }
 }
 

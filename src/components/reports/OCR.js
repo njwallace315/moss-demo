@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput'
 import moment from 'moment';
 
 class OCR extends React.Component {
@@ -68,23 +69,25 @@ class OCR extends React.Component {
 
         <DialogTitle id="form-dialog-title" >New Overcrowded Cage Report</DialogTitle>
         <DialogContent>
-          <Grid container>
+          <Grid container spacing={16}>
             <Grid item xs={6}>
+              <InputLabel>Reported By</InputLabel>
               <TextField
                 className={classes.field}
+                variant="outlined"
                 margin="dense"
                 id="reportedBy"
-                label="Reported By"
                 value={reportedBy}
                 onChange={this.handleChange('reportedBy')}
               />
             </Grid>
             <Grid item xs={6}>
+              <InputLabel>Protocol Number</InputLabel>
               <TextField
                 className={classes.field}
+                variant="outlined"
                 margin="dense"
                 id="protocol"
-                label="Protocol Number"
                 value={protocol}
                 onChange={this.handleChange('protocol')}
               />
@@ -93,8 +96,11 @@ class OCR extends React.Component {
               <InputLabel>Reason</InputLabel>
               <Select
                 value={reason}
-                className={classes.field}
+                className={classes.select}
                 onChange={this.handleChange('reason')}
+                input={
+                  <OutlinedInput />
+                }
                 inputProps={{
                   name: 'reason',
                   id: 'reason',
@@ -108,24 +114,24 @@ class OCR extends React.Component {
             </Grid>
 
             <Grid item xs={6}>
+              <InputLabel>Placement</InputLabel>
               <TextField
                 className={classes.field}
                 margin="dense"
+                variant="outlined"
                 id="placement"
-                label="Placement"
                 value={placement}
-                style={{ marginBottom: 0, marginTop: 20 }}
                 onChange={this.handleChange('placement')}
               />
             </Grid>
             <Grid item xs={12}>
+              <InputLabel>Additional Comments</InputLabel>
               <TextField
-                className={classes.fieldOutlined}
+                className={classes.field}
                 multiline
                 rows={3}
                 margin="dense"
                 id="comments"
-                label="Additional Comments"
                 variant="outlined"
                 value={comments}
                 onChange={this.handleChange('comments')}
@@ -153,12 +159,11 @@ const styles = {
     textAlign: 'center'
   },
   field: {
-    width: '90%',
-    margin: '10px 10px 10px 0px',
-    padding: 5
+    width: '100%',
   },
-  fieldOutlined: {
-    width: '100%'
+  select: {
+    width: '100%',
+    marginTop: 7
   }
 }
 

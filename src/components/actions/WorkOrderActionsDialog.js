@@ -33,9 +33,9 @@ const WorkOrderActionsDialog = ({ onClose, handleOpen }) => {
                         <ListItem button onClick={handleOpen('lightOpen')}>
                             <ListItemText primary="Adjust Light Schedule" />
                         </ListItem>
-                        <ListItem button onClick={handleOpen('envSettingsOpen')}>
+                        {/* <ListItem button onClick={handleOpen('envSettingsOpen')}>
                             <ListItemText primary="Adjust Environment Settings" />
-                        </ListItem>
+                        </ListItem> */}
                         <ListItem button onClick={handleOpen('maintenanceOpen')}>
                             <ListItemText primary="Maintenance Request" />
                         </ListItem>

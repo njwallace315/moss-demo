@@ -10,7 +10,8 @@ import {
   MenuItem,
   InputLabel,
   Select,
-  Grid
+  Grid,
+  OutlinedInput
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -79,6 +80,7 @@ class Maintenance extends React.Component {
                 id="date"
                 type="date"
                 value={dueDate}
+                variant="outlined"
                 onChange={this.handleChange('dueDate')}
                 className={classes.fieldSmall}
                 InputLabelProps={{
@@ -91,6 +93,9 @@ class Maintenance extends React.Component {
               <Select
                 value={itemKey}
                 className={classes.fieldSmall}
+                input={
+                  <OutlinedInput />
+                }
                 onChange={this.handleChange('itemKey')}
                 inputProps={{
                   name: 'itemKey',

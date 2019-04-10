@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 class DAR extends React.Component {
   state = {
@@ -72,16 +73,18 @@ class DAR extends React.Component {
         maxWidth="sm"
         className={classes.root}
       >
-
-        <DialogTitle id="form-dialog-title" >New Dead Animal Report</DialogTitle>
+        <DialogTitle id="form-dialog-title">New Dead Animal Report</DialogTitle>
         <DialogContent>
-          <Grid container>
+          <Grid container spacing={16}>
             <Grid item xs={6}>
               <InputLabel>Species</InputLabel>
               <Select
                 value={species}
-                className={classes.field}
+                className={classes.select}
                 onChange={this.handleChange('species')}
+                input={
+                  <OutlinedInput />
+                }
                 inputProps={{
                   name: 'species',
                   id: 'species',
@@ -97,8 +100,11 @@ class DAR extends React.Component {
               <InputLabel>Age</InputLabel>
               <Select
                 value={age}
-                className={classes.field}
+                className={classes.select}
                 onChange={this.handleChange('age')}
+                input={
+                  <OutlinedInput />
+                }
                 inputProps={{
                   name: 'age',
                   id: 'age',
@@ -112,63 +118,68 @@ class DAR extends React.Component {
             </Grid>
 
             <Grid item xs={6}>
+              <InputLabel>Reported By</InputLabel>
               <TextField
                 className={classes.field}
+                variant="outlined"
                 margin="dense"
                 id="reportedBy"
-                label="Reported By"
                 value={reportedBy}
                 onChange={this.handleChange('reportedBy')}
               />
             </Grid>
             <Grid item xs={6}>
+              <InputLabel>Protocol Number</InputLabel>
               <TextField
                 className={classes.field}
                 margin="dense"
+                variant="outlined"
                 id="protocol"
-                label="Protocol Number"
                 value={protocol}
                 onChange={this.handleChange('protocol')}
               />
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Number Dead</InputLabel>
               <TextField
                 className={classes.field}
                 margin="dense"
+                variant="outlined"
                 id="numDead"
-                label="Number Dead"
                 value={numDead}
                 onChange={this.handleChange('numDead')}
               />
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Number in Cage</InputLabel>
               <TextField
                 className={classes.field}
                 margin="dense"
                 id="numInCage"
-                label="Number in Cage"
+                variant="outlined"
                 value={numInCage}
                 onChange={this.handleChange('numInCage')}
               />
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Placement</InputLabel>
               <TextField
                 className={classes.field}
                 margin="dense"
                 id="placement"
-                label="Placement"
+                variant="outlined"
                 value={placement}
                 onChange={this.handleChange('placement')}
               />
             </Grid>
             <Grid item xs={12}>
+              <InputLabel>Additional Comments</InputLabel>
               <TextField
-                className={classes.fieldOutlined}
+                className={classes.field}
                 multiline
                 rows={3}
                 margin="dense"
                 id="comments"
-                label="Additional Comments"
                 variant="outlined"
                 value={comments}
                 onChange={this.handleChange('comments')}
@@ -196,12 +207,11 @@ const styles = {
     textAlign: 'center'
   },
   field: {
-    width: '90%',
-    margin: '10px 10px 10px 0px',
-    padding: 5
+    width: '100%',
   },
-  fieldOutlined: {
-    width: '100%'
+  select: {
+    width: '100%',
+    marginTop: 7
   }
 }
 

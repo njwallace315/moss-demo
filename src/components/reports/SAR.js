@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputLabel from '@material-ui/core/InputLabel';
 
 class SAR extends React.Component {
@@ -79,14 +80,17 @@ class SAR extends React.Component {
 
         <DialogTitle id="form-dialog-title" >New Sick Animal Report</DialogTitle>
         <DialogContent>
-          <Grid container>
+          <Grid container spacing={16}>
             <Grid item xs={6}>
               <InputLabel>Species</InputLabel>
               <Select
                 variant="outlined"
                 value={species}
-                className={classes.field}
+                className={classes.select}
                 onChange={this.handleChange('species')}
+                input={
+                  <OutlinedInput />
+                }
                 inputProps={{
                   name: 'species',
                   id: 'species',
@@ -99,12 +103,15 @@ class SAR extends React.Component {
               </Select>
             </Grid>
             <Grid item xs={6}>
-              <InputLabel>observations</InputLabel>
+              <InputLabel>Observations</InputLabel>
               <Select
                 variant="outlined"
                 value={observations}
-                className={classes.field}
+                className={classes.select}
                 onChange={this.handleChange('observations')}
+                input={
+                  <OutlinedInput />
+                }
                 inputProps={{
                   name: 'observations',
                   id: 'observations',
@@ -133,85 +140,84 @@ class SAR extends React.Component {
               </Select>
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Vet Card #</InputLabel>
               <TextField
                 variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="vetCardNum"
-                label="Vet Card #"
                 value={vetCardNum}
                 onChange={this.handleChange('vetCardNum')}
               />
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Number Sick</InputLabel>
               <TextField
                 variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="numSick"
-                label="Number Sick"
                 value={numSick}
                 onChange={this.handleChange('numSick')}
               />
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Number in Cage</InputLabel>
               <TextField
                 variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="numInCage"
-                label="Number in Cage"
                 value={numInCage}
                 onChange={this.handleChange('numInCage')}
               />
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Protocol Number</InputLabel>
               <TextField
                 variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="protocol"
-                label="Protocol Number"
                 value={protocol}
                 onChange={this.handleChange('protocol')}
               />
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Reported By</InputLabel>
               <TextField
                 variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="reportedBy"
-                label="Reported By"
                 value={reportedBy}
                 onChange={this.handleChange('reportedBy')}
               />
             </Grid>
             <Grid item xs={4}>
+              <InputLabel>Placement</InputLabel>
               <TextField
                 variant="outlined"
                 className={classes.field}
                 margin="dense"
                 id="placement"
-                label="Placement"
                 value={placement}
                 onChange={this.handleChange('placement')}
               />
             </Grid>
             <Grid item xs={12}>
+              <InputLabel>Additional Description</InputLabel>
               <TextField
-                className={classes.fieldOutlined}
+                className={classes.field}
                 multiline
                 rows={3}
                 margin="dense"
                 id="description"
-                label="Additional Description"
                 variant="outlined"
                 value={description}
                 onChange={this.handleChange('description')}
               />
             </Grid>
-
           </Grid>
 
         </DialogContent>
@@ -234,12 +240,11 @@ const styles = {
     textAlign: 'center'
   },
   field: {
-    width: '90%',
-    margin: '10px 10px 10px 0px',
-    padding: 5
+    width: '100%',
   },
-  fieldOutlined: {
-    width: '100%'
+  select: {
+    width: '100%',
+    marginTop: 7
   }
 }
 

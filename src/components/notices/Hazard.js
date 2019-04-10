@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput'
 
 class Hazard extends React.Component {
   state = {
@@ -73,13 +74,14 @@ class Hazard extends React.Component {
       >
         <DialogTitle id="form-dialog-title" >New Hazard</DialogTitle>
         <DialogContent>
-          <Grid container>
+          <Grid container spacing={16}>
             <Grid item xs={6}>
               <InputLabel>Posted By</InputLabel>
               <TextField
                 className={classes.field}
                 margin="dense"
                 id="postedBy"
+                variant="outlined"
                 value={postedBy}
                 onChange={this.handleChange('postedBy')}
               />
@@ -90,6 +92,7 @@ class Hazard extends React.Component {
                 className={classes.field}
                 margin="dense"
                 id="protocol"
+                variant="outlined"
                 value={protocol}
                 onChange={this.handleChange('protocol')}
               />
@@ -98,8 +101,11 @@ class Hazard extends React.Component {
               <InputLabel>Type of Hazardous Material</InputLabel>
               <Select
                 value={type}
-                className={classes.field}
+                className={classes.select}
                 onChange={this.handleChange('type')}
+                input={
+                  <OutlinedInput />
+                }
                 inputProps={{
                   name: 'type',
                   id: 'type',
@@ -118,8 +124,8 @@ class Hazard extends React.Component {
                 className={classes.field}
                 margin="dense"
                 id="agent"
+                variant="outlined"
                 value={agent}
-                style={{ marginBottom: 0, marginTop: 20 }}
                 onChange={this.handleChange('agent')}
               />
             </Grid>
@@ -128,6 +134,7 @@ class Hazard extends React.Component {
                 <TextField
                   className={classes.field}
                   margin="dense"
+                  variant="outlined"
                   id="msds"
                   label="MSDS Number"
                   value={msds}
@@ -137,7 +144,7 @@ class Hazard extends React.Component {
 
             <Grid item xs={12}>
               <TextField
-                className={classes.fieldOutlined}
+                className={classes.field}
                 multiline
                 rows={3}
                 variant="outlined"
@@ -150,7 +157,7 @@ class Hazard extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                className={classes.fieldOutlined}
+                className={classes.field}
                 multiline
                 rows={3}
                 variant="outlined"
@@ -163,7 +170,7 @@ class Hazard extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                className={classes.fieldOutlined}
+                className={classes.field}
                 multiline
                 rows={3}
                 margin="dense"
@@ -196,12 +203,11 @@ const styles = {
     textAlign: 'center'
   },
   field: {
-    width: '90%',
-    margin: '10px 10px 10px 0px',
-    padding: 5
+    width: '100%',
   },
-  fieldOutlined: {
-    width: '100%'
+  select: {
+    width: '100%',
+    marginTop: 7
   }
 }
 
