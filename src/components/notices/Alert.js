@@ -80,7 +80,7 @@ class Alert extends React.Component {
                 value={priority}
                 className={classes.select}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
                 onChange={this.handleChange('priority')}
                 inputProps={{

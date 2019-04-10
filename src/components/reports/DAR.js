@@ -83,7 +83,7 @@ class DAR extends React.Component {
                 className={classes.select}
                 onChange={this.handleChange('species')}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
                 inputProps={{
                   name: 'species',
@@ -103,7 +103,7 @@ class DAR extends React.Component {
                 className={classes.select}
                 onChange={this.handleChange('age')}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
                 inputProps={{
                   name: 'age',

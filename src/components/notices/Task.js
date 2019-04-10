@@ -81,7 +81,7 @@ class Task extends React.Component {
                 className={classes.select}
                 onChange={this.handleChange('priority')}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
                 inputProps={{
                   name: 'priority',

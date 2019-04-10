@@ -99,7 +99,7 @@ class OCR extends React.Component {
                 className={classes.select}
                 onChange={this.handleChange('reason')}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
                 inputProps={{
                   name: 'reason',

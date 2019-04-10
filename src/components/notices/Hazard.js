@@ -104,7 +104,7 @@ class Hazard extends React.Component {
                 className={classes.select}
                 onChange={this.handleChange('type')}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
                 inputProps={{
                   name: 'type',

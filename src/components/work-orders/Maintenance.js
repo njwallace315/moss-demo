@@ -13,13 +13,14 @@ import {
   Grid,
   OutlinedInput
 } from '@material-ui/core';
+import uniqid from 'uniqid';
 import { withStyles } from '@material-ui/core/styles';
 
 class Maintenance extends React.Component {
   state = {
-    title: 'Filter Chance',
-    request: 'Replace the HEPPA filter in this BSC',
-    itemKey: '',
+    title: 'Replace HEPA Filter',
+    request: 'Replace the HEPA filter in B1451 BSC',
+    itemId: '',
     dueDate: "2019-08-24"
   };
 
@@ -28,19 +29,18 @@ class Maintenance extends React.Component {
   }
 
   handleSubmit = () => {
-    const { request, title, itemKey, dueDate } = this.state
+    const { request, title, itemId, dueDate } = this.state
     const { onSubmit } = this.props;
-    const order = { request, type: 'maintenance', title, dateRequested: new Date(), dueDate };
-    if (itemKey) {
-      order.itemKey = itemKey
+    const order = { request, type: 'maintenance', title, dateRequested: new Date(), dueDate, _id: uniqid() };
+    if (itemId) {
+      order.itemId = itemId
     }
     onSubmit(order)
   }
 
   render() {
     const { onClose, classes, inventory } = this.props;
-    const { itemKey, request, title, dueDate } = this.state;
-    const keys = Object.keys(inventory);
+    const { itemId, request, title, dueDate } = this.state;
     return (
       <Dialog
         open
@@ -91,21 +91,21 @@ class Maintenance extends React.Component {
             <Grid item xs={6} className={classes.selectContainer}>
               <InputLabel >Applicable Inventory Item</InputLabel>
               <Select
-                value={itemKey}
+                value={itemId}
                 className={classes.fieldSmall}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
-                onChange={this.handleChange('itemKey')}
+                onChange={this.handleChange('itemId')}
                 inputProps={{
-                  name: 'itemKey',
-                  id: 'itemKey',
+                  name: 'itemId',
+                  id: 'itemId',
                 }}
               >
                 <MenuItem value="">
                   <em></em>
                 </MenuItem>
-                {keys.map(key => <MenuItem value={key}>{inventory[key].name}</MenuItem>)}
+                {inventory.filter(x => x.type === 'item').map(x => <MenuItem value={x._id}>{x.name}</MenuItem>)}
               </Select>
             </Grid>
           </Grid>

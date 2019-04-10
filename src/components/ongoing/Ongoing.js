@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Assignment, Announcement, Build } from '@material-ui/icons'
 
 const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders }) => {
+  console.log('here')
   const numReports = totalReports(OCRs, SARs, DARs);
   const numNotices = totalNotices(alerts, tasks, hazards)
   const numOrders = workOrders.length;
@@ -58,6 +59,7 @@ const getWidth = (x, y, z) => {
       break;
     default: width = 0;
   }
+  console.log('width: ', width)
   return width
 }
 

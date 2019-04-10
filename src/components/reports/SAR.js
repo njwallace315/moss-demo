@@ -14,15 +14,15 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 class SAR extends React.Component {
   state = {
-    vetCardNum: '1',
-    protocol: '1',
+    vetCardNum: '12345',
+    protocol: 'M005160',
     species: 'Mouse',
     reportedBy: 'Nate',
-    placement: 'test',
-    numSick: '1',
+    placement: 'Rack 2, col C, row 8',
+    numSick: '2',
     numInCage: '5',
     observations: 'Hunched Posture',
-    description: 'test',
+    description: '',
   };
 
   handleChange = name => event => {
@@ -89,7 +89,7 @@ class SAR extends React.Component {
                 className={classes.select}
                 onChange={this.handleChange('species')}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
                 inputProps={{
                   name: 'species',
@@ -110,7 +110,7 @@ class SAR extends React.Component {
                 className={classes.select}
                 onChange={this.handleChange('observations')}
                 input={
-                  <OutlinedInput />
+                  <OutlinedInput labelWidth={0} />
                 }
                 inputProps={{
                   name: 'observations',
