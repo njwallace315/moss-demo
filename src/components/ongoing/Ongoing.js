@@ -10,13 +10,13 @@ const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders
   const numNotices = totalNotices(alerts, tasks, hazards)
   const numOrders = workOrders.length;
   return numReports + numNotices > 0 ? (
-    <Card className={classes.card} raised style={{ width: getWidth(numReports, numNotices, numOrders) }}>
+    <Card className={classes.card} raised style={{ width: 90 }}>
       <CardContent className={classes.content}>
         {numReports > 0 && (
           <Tooltip title={ReportTitle(OCRs, SARs, DARs)} TransitionComponent={Zoom}>
             <IconButton aria-label={`${numReports} Unresolved Reports`} className={classes.iconButton}>
               <Badge badgeContent={numReports} color="primary">
-                <Assignment />
+                <Assignment className={classes.icon} />
               </Badge>
             </IconButton>
           </Tooltip>
@@ -25,7 +25,7 @@ const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders
           <Tooltip title={NoticeTitle(alerts, tasks, hazards)} TransitionComponent={Zoom}>
             <IconButton aria-label={`${numNotices} Notices`} className={classes.iconButton}>
               <Badge badgeContent={numNotices} color="primary">
-                <Announcement />
+                <Announcement className={classes.icon} />
               </Badge>
             </IconButton>
           </Tooltip>
@@ -34,7 +34,7 @@ const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders
           <Tooltip title={`${numOrders} Open Order${numOrders > 1 ? 's' : ''}`} TransitionComponent={Zoom}>
             <IconButton aria-label={`${numOrders} Open Orders`} className={classes.iconButton}>
               <Badge badgeContent={numOrders} color="primary">
-                <Build />
+                <Build className={classes.icon} />
               </Badge>
             </IconButton>
           </Tooltip>
@@ -51,7 +51,7 @@ const getWidth = (x, y, z) => {
   if (z > 0) total++;
   let width;
   switch (total) {
-    case 1: width = 65;
+    case 1: width = 90;
       break;
     case 2: width = 120;
       break;
@@ -96,6 +96,7 @@ const totalNotices = (alerts, tasks, hazards) => {
 const styles = theme => ({
   card: {
     padding: 0,
+    opacity: .95
   },
   content: {
     padding: 5,
@@ -103,6 +104,9 @@ const styles = theme => ({
   },
   iconButton: {
     padding: '17px 12px 12px 12px'
+  },
+  icon: {
+    fontSize: 50
   }
 })
 

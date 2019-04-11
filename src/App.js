@@ -34,7 +34,7 @@ class App extends Component {
       envOpen: true,
       temps: generateTempData(),
       humids: generateHumidData(),
-      SARs: [],
+      SARs: [{ test: 'test' }],
       light: 'On',
       inventory: demoInventory.slice(0),
     }
@@ -136,7 +136,7 @@ class App extends Component {
               </div>
 
             } {/** not really a dialog but it's similar */}
-            <div style={{ position: 'absolute', float: 'right', zIndex: 1000 }}>
+            <div style={{ position: 'absolute', top: 175, zIndex: 1000 }}>
               <Ongoing
                 SARs={SARs}
                 DARs={DARs}
