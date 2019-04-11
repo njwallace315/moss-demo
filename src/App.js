@@ -22,10 +22,10 @@ import WorkOrderActionsDialog from './components/actions/WorkOrderActionsDialog'
 import LightSchedule from './components/work-orders/LightSchedule';
 import Maintenance from './components/work-orders/Maintenance'
 import { generateHumidData, generateTempData } from './helpers'
-import demoInventory from './private/inventory'
+import demoInventory from './inventory'
 import Item from './components/inventory/Item'
 import ReportsList from './components/reports/ReportsList'
-import background from './static/B1451_h.svg'
+import background from './static/B1451_h_ipad_6th.svg'
 import OrdersList from './components/work-orders/OrdersList';
 import NoticesList from './components/notices/NoticesList'
 
@@ -109,27 +109,24 @@ class App extends Component {
       ordersListOpen,
       noticesListOpen
     } = this.state;
-    const ipadProDims = { width: 1350, height: 1008 }
     return (
       <div className="App" style={{ width: '100%', height: '100%' }}>
-        <img style={{ ...ipadProDims, zIndex: 100, position: 'absolute' }} src={background} />
+        <img style={styles.img} src={background} alt="room enlarged view" />
         <MuiThemeProvider theme={theme}>
-          <div style={{}}>
+          <div style={styles.content}>
             {/** Layer one dialogs */}
             {actionsOpen && <ActionsDialog open={actionsOpen} onClose={this.handleClose('actionsOpen')} handleOpen={this.handleOpen} />}
             {envOpen &&
-              <div style={{ position: 'absolute', zIndex: 1000 }}>
-                <EnvOverview
-                  temperature={temps[temps.length - 1]}
-                  humidity={humids[humids.length - 1]}
-                  light={light}
-                  handleOpen={this.handleOpen}
-                  onClose={this.handleClose('envOpen')}
-                />
-              </div>
+              <EnvOverview
+                temperature={temps[temps.length - 1]}
+                humidity={humids[humids.length - 1]}
+                light={light}
+                handleOpen={this.handleOpen}
+                onClose={this.handleClose('envOpen')}
+              />
 
             } {/** not really a dialog but it's similar */}
-            <div style={{ position: 'absolute', top: 175, zIndex: 1000 }}>
+            <div style={styles.ongoing}>
               <Ongoing
                 SARs={SARs}
                 DARs={DARs}
@@ -141,6 +138,7 @@ class App extends Component {
                 handleOpen={this.handleOpen}
               />
             </div>
+
 
             {/** Layer two dialogs */}
             {reportOpen && <ReportActionsDialog onClose={this.handleClose('reportOpen')} handleOpen={this.handleOpen} />}
@@ -166,7 +164,7 @@ class App extends Component {
             {/** End dialogs */}
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} />)}
             <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.handleOpen('actionsOpen')}>
-              <Add />
+              <Add className={classes.icon} />
             </Fab>
           </div>
         </MuiThemeProvider>
@@ -177,24 +175,31 @@ class App extends Component {
 
 const styles = {
   img: {
-    opacity: .5,
-    '&:hover': {
-      opacity: 1,
-    },
+    zIndex: 100,
+    position: 'absolute',
+    height: '100%',
+    width: '100%'
   },
   fab: {
-    marginTop: '90vh',
-    marginLeft: '93vw',
-    height: 75,
-    width: 75,
-    zIndex: 1000
+    position: 'absolute',
+    zIndex: 1000,
+    top: 700,
+    left: 950
+  },
+  content: {
+    position: 'absolute',
+    padding: '7% 0px 0px 5%',
+    zIndex: 1000,
+    height: '82%',
+    width: '89.5%',
   },
   chart: {
-    width: '70%',
-    zIndex: 1000,
-    position: 'absolute',
-    marginTop: 300,
-    marginLeft: 200
+    width: '75%',
+    position: 'relative',
+    margin: '200px auto'
+  },
+  ongoing: {
+    marginTop: 175
   }
 }
 

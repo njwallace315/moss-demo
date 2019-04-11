@@ -11,6 +11,7 @@ import {
     ListItemIcon,
     ListItemText
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
 import Announcement from '@material-ui/icons/Announcement';
 import Assignment from '@material-ui/icons/Assignment';
 import Build from '@material-ui/icons/Build';
@@ -19,7 +20,7 @@ function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
 
-const ActionsDialog = ({ open = false, onClose, handleOpen }) => {
+const ActionsDialog = ({ open = false, onClose, handleOpen, classes }) => {
     return (
         <div>
             <Dialog
@@ -34,19 +35,19 @@ const ActionsDialog = ({ open = false, onClose, handleOpen }) => {
                     <List component="nav">
                         <ListItem button onClick={handleOpen('reportOpen')}>
                             <ListItemIcon>
-                                <Assignment />
+                                <Assignment className={classes.icon} />
                             </ListItemIcon>
                             <ListItemText primary="Report" />
                         </ListItem>
                         <ListItem button onClick={handleOpen('workOrderOpen')}>
                             <ListItemIcon>
-                                <Build />
+                                <Build className={classes.icon} />
                             </ListItemIcon>
                             <ListItemText primary="Work Order" />
                         </ListItem>
                         <ListItem button onClick={handleOpen('noticeOpen')}>
                             <ListItemIcon>
-                                <Announcement />
+                                <Announcement className={classes.icon} />
                             </ListItemIcon>
                             <ListItemText primary="Notice" />
                         </ListItem>
@@ -66,5 +67,8 @@ ActionsDialog.propTypes = {
     open: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
 }
-
-export default ActionsDialog;
+const styles = {
+    icon: {
+    }
+}
+export default withStyles(styles)(ActionsDialog);

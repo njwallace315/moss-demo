@@ -89,6 +89,11 @@ const theme = createMuiTheme({
                 padding: 15
             }
         },
+        // MuiListItemText: {
+        //     primary: {
+        //         fontSize: '2rem'
+        //     }
+        // }
     },
     props: {
         MuiTextField: {

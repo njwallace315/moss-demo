@@ -74,7 +74,7 @@ class SAR extends React.Component {
         open={open}
         onClose={onClose}
         aria-labelledby="form-dialog-title"
-        maxWidth="sm"
+        // fullScreen
         className={classes.root}
       >
 

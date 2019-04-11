@@ -9,7 +9,7 @@ const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders
   const numNotices = totalNotices(alerts, tasks, hazards)
   const numOrders = workOrders.length;
   return numReports + numNotices + numOrders > 0 ? (
-    <Card className={classes.card} raised style={{ width: 90 }}>
+    <Card className={classes.card} raised style={{ width: 60 }}>
       <CardContent className={classes.content}>
         {numReports > 0 && (
           <Tooltip title={ReportTitle(OCRs, SARs, DARs)} TransitionComponent={Zoom}>
@@ -86,7 +86,6 @@ const styles = theme => ({
     padding: '17px 12px 12px 12px'
   },
   icon: {
-    fontSize: 50
   }
 })
 
