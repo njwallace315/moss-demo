@@ -14,12 +14,14 @@ import OutlinedInput from '@material-ui/core/OutlinedInput'
 
 class Hazard extends React.Component {
   state = {
-    protocol: '1',
-    type: 'Double Litter',
-    postedBy: 'Nate',
-    agent: 'test',
-    ppe: 'test',
-    msds: ''
+    protocol: 'M005160',
+    type: 'Chemical',
+    postedBy: 'Demo Researcher',
+    agent: 'Diethyl Ether',
+    ppe: 'Gloves, saftey glasses.',
+    msds: '60-29-7',
+    effects: 'Extremely flammable. High volitility and density can cause flash fires with ignition sources below workstation. Harmful if inhaled. Skin and eye irritant.',
+    practices: 'Only to be used in fume hood. Cap when not in use.'
   };
 
   handleChange = name => event => {
@@ -136,7 +138,7 @@ class Hazard extends React.Component {
                   margin="dense"
                   variant="outlined"
                   id="msds"
-                  label="MSDS Number"
+                  label="MSDS/CAS Identifier"
                   value={msds}
                   onChange={this.handleChange('msds')}
                 />

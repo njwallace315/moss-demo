@@ -34,9 +34,9 @@ class App extends Component {
       envOpen: true,
       temps: generateTempData(),
       humids: generateHumidData(),
-      SARs: [{ test: 'test' }],
       light: 'On',
       inventory: demoInventory.slice(0),
+      OCROpen: true
     }
   }
 
@@ -57,7 +57,7 @@ class App extends Component {
       SAROpen: false,
       DAROpen: false,
       OCROpen: false,
-      reportsListOpen: false,
+      reportsListOpen: true,
       temperatureOpen: false,
       hazardOpen: false,
       alertOpen: false,
@@ -152,7 +152,7 @@ class App extends Component {
             {reportOpen && <ReportActionsDialog onClose={this.handleClose('reportOpen')} handleOpen={this.handleOpen} />}
             {noticeOpen && <NoticeActionsDialog onClose={this.handleClose('noticeOpen')} handleOpen={this.handleOpen} />}
             {workOrderOpen && <WorkOrderActionsDialog onClose={this.handleClose('workOrderOpen')} handleOpen={this.handleOpen} />}
-            {reportsListOpen && <ReportsList onClose={this.handleClose('reportsListOpen')} SARs={SARs} />}
+            {reportsListOpen && <ReportsList onClose={this.handleClose('reportsListOpen')} SARs={SARs} DARs={DARs} OCRs={OCRs} />}
             <div className={classes.chart}>
               {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} />}
               {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} />}

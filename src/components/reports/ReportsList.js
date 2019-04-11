@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,51 +12,76 @@ import ReportItem from './ReportItem';
 import moment from 'moment'
 
 class ReportsList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            openReport: null,
+            type: null
+        }
+    }
+
+    handleOpen = (openReport, type) => () => {
+        this.setState({ openReport, type });
+    }
+
+    handleClose = () => {
+        this.setState({ openReport: null });
+    }
 
     render() {
-        const { onClose, classes, SARs, DARs, OCRs } = this.props;
+        const { onClose, classes, SARs, DARs, OCRs, } = this.props;
+        const { openReport, type } = this.state;
         return (
-            <Dialog
-                open={true}
-                onClose={onClose}
-                aria-labelledby="form-dialog-title"
-                maxWidth="sm"
-                className={classes.root}
-            >
+            <div>
+                {openReport && <ReportItem report={openReport} type={type} onClose={this.handleClose} />}
+                <Dialog
+                    open={true}
+                    onClose={onClose}
+                    aria-labelledby="form-dialog-title"
+                    maxWidth="sm"
+                    className={classes.root}
+                >
 
-                <DialogTitle id="form-dialog-title" >Open Reports</DialogTitle>
-                <DialogContent>
-                    {SARs.length > 0 && <Typography variant="subheading">Sick Animal Reports</Typography>}
-                    <List>
-                        {SARs.map(x => <ListItem button>{x.protocol}: {moment(x.dateFound).format('hh:mm a MM/DD/YYYY')}</ListItem>)}
-                    </List>
-
-
-                    {/* {DARs.length > 0 && <h3>Dead Animal Reports</h3>}
-                    {DARs.map(x => <ReportItem type={'DAR'} report={x} />)}
-
-                    {SARs.length > 0 && <h3>Overcrowded Cage Reports</h3>}
-                    {OCRs.map(x => <ReportItem type={'OCR'} report={x} />)} */}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onClose} color="primary">
-                        Cancel
+                    <DialogTitle id="form-dialog-title" className={classes.title}>Open Reports</DialogTitle>
+                    <DialogContent>
+                        <List>
+                            {SARs.map(x => <ListItem button onClick={this.handleOpen(x, 'SAR')} ><Typography><em className={classes.heading}>Sick: </em>{x.protocol} - {moment(x.dateFound).format('hh:mm a MM/DD/YYYY')}</Typography></ListItem>)}
+                            {DARs.map(x => <ListItem button onClick={this.handleOpen(x, 'DAR')} ><Typography><em className={classes.heading}>Dead: </em>{x.protocol} - {moment(x.dateFound).format('hh:mm a MM/DD/YYYY')}</Typography></ListItem>)}
+                            {OCRs.map(x => <ListItem button onClick={this.handleOpen(x, 'OCR')} ><Typography><em className={classes.heading}>Overcrowded: </em>{x.protocol} - {moment(x.dateFound).format('hh:mm a MM/DD/YYYY')}</Typography></ListItem>)}
+                        </List>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={onClose} color="primary">
+                            Cancel
                     </Button>
-                </DialogActions>
-            </Dialog>
+                    </DialogActions>
+                </Dialog>
+            </div>
         );
     }
 }
 
 const styles = {
     title: {
-        width: 600,
-        textAlign: 'center'
+        textAlign: 'center',
+
     },
     heading: {
-        textAlign: 'center',
-        margin: '20px 0px'
+        fontSize: 16
     }
 }
+
+ReportsList.propTypes = {
+    SARs: PropTypes.array,
+    DARs: PropTypes.array,
+    OCRs: PropTypes.array,
+}
+
+ReportsList.defaultProps = {
+    SARs: [],
+    DARs: [],
+    OCRs: [],
+}
+
 
 export default withStyles(styles)(ReportsList);
