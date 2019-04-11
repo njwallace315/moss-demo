@@ -30,10 +30,11 @@ class Maintenance extends React.Component {
 
   handleSubmit = () => {
     const { request, title, itemId, dueDate } = this.state
-    const { onSubmit } = this.props;
+    const { onSubmit, inventory } = this.props;
     const order = { request, type: 'maintenance', title, dateRequested: new Date(), dueDate, _id: uniqid() };
     if (itemId) {
       order.itemId = itemId
+      order.itemName = inventory.filter(x => x._id === itemId)[0].name
     }
     onSubmit(order)
   }

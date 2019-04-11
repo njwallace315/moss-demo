@@ -10,8 +10,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 class LightSchedule extends React.Component {
   state = {
-    start: '',
-    end: ''
+    start: '07:30',
+    end: '21:30'
   };
 
   handleChange = name => event => {
@@ -23,11 +23,12 @@ class LightSchedule extends React.Component {
   handleSubmit = () => {
     const { start, end } = this.state;
     const { onSubmit } = this.props;
-    onSubmit({ start, end });
+    onSubmit({ start, end, type: 'lightSchedule', title: 'Update Light Schedule' });
   }
 
   render() {
     const { onClose, classes } = this.props;
+    const { start, end } = this.state;
     return (
       <Dialog
         open
@@ -45,7 +46,7 @@ class LightSchedule extends React.Component {
                 label="Turn lights on at"
                 type="time"
                 variant="outlined"
-                defaultValue="07:30"
+                value={start}
                 onChange={this.handleChange('start')}
                 className={classes.textField}
                 InputLabelProps={{
@@ -62,7 +63,7 @@ class LightSchedule extends React.Component {
                 label="Turn lights off at"
                 type="time"
                 variant="outlined"
-                defaultValue="21:30"
+                value={end}
                 onChange={this.handleChange('end')}
                 className={classes.textField}
               />

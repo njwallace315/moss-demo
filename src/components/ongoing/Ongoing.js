@@ -4,17 +4,16 @@ import { IconButton, Badge, Tooltip, Zoom, Card, CardContent } from '@material-u
 import { withStyles } from '@material-ui/core/styles'
 import { Assignment, Announcement, Build } from '@material-ui/icons'
 
-const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders }) => {
-  console.log('here')
+const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders, handleOpen }) => {
   const numReports = totalReports(OCRs, SARs, DARs);
   const numNotices = totalNotices(alerts, tasks, hazards)
   const numOrders = workOrders.length;
-  return numReports + numNotices > 0 ? (
+  return numReports + numNotices + numOrders > 0 ? (
     <Card className={classes.card} raised style={{ width: 90 }}>
       <CardContent className={classes.content}>
         {numReports > 0 && (
           <Tooltip title={ReportTitle(OCRs, SARs, DARs)} TransitionComponent={Zoom}>
-            <IconButton aria-label={`${numReports} Unresolved Reports`} className={classes.iconButton}>
+            <IconButton aria-label={`${numReports} Unresolved Reports`} className={classes.iconButton} onClick={handleOpen('reportsListOpen')}>
               <Badge badgeContent={numReports} color="primary">
                 <Assignment className={classes.icon} />
               </Badge>
@@ -23,7 +22,7 @@ const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders
         )}
         {numNotices > 0 && (
           <Tooltip title={NoticeTitle(alerts, tasks, hazards)} TransitionComponent={Zoom}>
-            <IconButton aria-label={`${numNotices} Notices`} className={classes.iconButton}>
+            <IconButton aria-label={`${numNotices} Notices`} className={classes.iconButton} onClick={handleOpen('noticesListOpen')}>
               <Badge badgeContent={numNotices} color="primary">
                 <Announcement className={classes.icon} />
               </Badge>
@@ -32,7 +31,7 @@ const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders
         )}
         {numOrders > 0 && (
           <Tooltip title={`${numOrders} Open Order${numOrders > 1 ? 's' : ''}`} TransitionComponent={Zoom}>
-            <IconButton aria-label={`${numOrders} Open Orders`} className={classes.iconButton}>
+            <IconButton aria-label={`${numOrders} Open Orders`} className={classes.iconButton} onClick={handleOpen('ordersListOpen')}>
               <Badge badgeContent={numOrders} color="primary">
                 <Build className={classes.icon} />
               </Badge>

@@ -26,6 +26,7 @@ import demoInventory from './private/inventory'
 import Item from './components/inventory/Item'
 import ReportsList from './components/reports/ReportsList'
 import background from './static/B1451_h.svg'
+import OrdersList from './components/work-orders/OrdersList';
 
 class App extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class App extends Component {
       humids: generateHumidData(),
       light: 'On',
       inventory: demoInventory.slice(0),
-      OCROpen: true
+      lightOpen: true
     }
   }
 
@@ -57,13 +58,14 @@ class App extends Component {
       SAROpen: false,
       DAROpen: false,
       OCROpen: false,
-      reportsListOpen: true,
+      reportsListOpen: false,
       temperatureOpen: false,
       hazardOpen: false,
       alertOpen: false,
       taskOpen: false,
       lightOpen: false,
       maintenanceOpen: false,
+      ordersListOpen: true,
     });
   }
 
@@ -115,7 +117,8 @@ class App extends Component {
       workOrders,
       maintenanceOpen,
       inventory,
-      reportsListOpen
+      reportsListOpen,
+      ordersListOpen
     } = this.state;
     return (
       <div className="App" style={{ width: '100%', height: '100%' }}>
@@ -145,6 +148,7 @@ class App extends Component {
                 tasks={tasks}
                 hazards={hazards}
                 workOrders={workOrders}
+                handleOpen={this.handleOpen}
               />
             </div>
 
@@ -153,6 +157,7 @@ class App extends Component {
             {noticeOpen && <NoticeActionsDialog onClose={this.handleClose('noticeOpen')} handleOpen={this.handleOpen} />}
             {workOrderOpen && <WorkOrderActionsDialog onClose={this.handleClose('workOrderOpen')} handleOpen={this.handleOpen} />}
             {reportsListOpen && <ReportsList onClose={this.handleClose('reportsListOpen')} SARs={SARs} DARs={DARs} OCRs={OCRs} />}
+            {ordersListOpen && <OrdersList onClose={this.handleClose('ordersListOpen')} workOrders={workOrders} />}
             <div className={classes.chart}>
               {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} />}
               {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} />}

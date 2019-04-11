@@ -8,7 +8,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
 import { DialogTitle, List, ListItem, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import ReportItem from './ReportItem';
 import moment from 'moment'
 
 class ReportsList extends React.Component {
