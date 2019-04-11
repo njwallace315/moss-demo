@@ -238,8 +238,7 @@ class ReportsList extends React.Component {
     }
 
     render() {
-        const { onClose, classes, report, type } = this.props;
-        console.log('report: ', report)
+        const { onClose, classes, type } = this.props;
         return (
             <div>
                 <Dialog

@@ -43,25 +43,6 @@ const Ongoing = ({ OCRs, SARs, DARs, alerts, tasks, hazards, classes, workOrders
   ) : null
 };
 
-const getWidth = (x, y, z) => {
-  let total = 0;
-  if (x > 0) total++;
-  if (y > 0) total++;
-  if (z > 0) total++;
-  let width;
-  switch (total) {
-    case 1: width = 90;
-      break;
-    case 2: width = 120;
-      break;
-    case 3: width = 165;
-      break;
-    default: width = 0;
-  }
-  console.log('width: ', width)
-  return width
-}
-
 const ReportTitle = (OCRs, SARs, DARs) => {
   return (
     <div>

@@ -95,7 +95,6 @@ class OrdersList extends React.Component {
 
     render() {
         const { onClose, classes, order } = this.props;
-        console.log('order: ', order)
         return (
             <div>
                 <Dialog

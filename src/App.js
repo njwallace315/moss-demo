@@ -27,6 +27,7 @@ import Item from './components/inventory/Item'
 import ReportsList from './components/reports/ReportsList'
 import background from './static/B1451_h.svg'
 import OrdersList from './components/work-orders/OrdersList';
+import NoticesList from './components/notices/NoticesList'
 
 class App extends Component {
   constructor(props) {
@@ -37,7 +38,6 @@ class App extends Component {
       humids: generateHumidData(),
       light: 'On',
       inventory: demoInventory.slice(0),
-      lightOpen: true
     }
   }
 
@@ -65,24 +65,12 @@ class App extends Component {
       taskOpen: false,
       lightOpen: false,
       maintenanceOpen: false,
-      ordersListOpen: true,
+      ordersListOpen: false,
+      noticesListOpen: false
     });
   }
 
-  // applyMaintenanceToItem = order => {
-  //   const inventory = Object.assign({}, this.state.inventory)
-  //   if (order.itemKey && inventory[order.itemKey]) {
-  //     inventory[order.itemKey].orders.push(order)
-  //     this.setState({ inventory });
-  //   } else {
-  //     throw new Error('could not apply work order to item. order: ', order)
-  //   }
-  // }
-
   handleSubmit = name => data => {
-    // if (name === 'workOrders' && data.type === 'maintenance' && data.itemKey) {
-    //   this.applyMaintenanceToItem(data)
-    // }
     const arr = Array.isArray(this.state[name]) ? this.state[name].slice(0) : [];
     arr.push(data)
     this.setState({ [name]: arr }, this.closeAll);
@@ -118,11 +106,13 @@ class App extends Component {
       maintenanceOpen,
       inventory,
       reportsListOpen,
-      ordersListOpen
+      ordersListOpen,
+      noticesListOpen
     } = this.state;
+    const ipadProDims = { width: 1350, height: 1008 }
     return (
       <div className="App" style={{ width: '100%', height: '100%' }}>
-        <img style={{ width: 1350, height: 1008, zIndex: 100, position: 'absolute' }} src={background} />
+        <img style={{ ...ipadProDims, zIndex: 100, position: 'absolute' }} src={background} />
         <MuiThemeProvider theme={theme}>
           <div style={{}}>
             {/** Layer one dialogs */}
@@ -158,6 +148,7 @@ class App extends Component {
             {workOrderOpen && <WorkOrderActionsDialog onClose={this.handleClose('workOrderOpen')} handleOpen={this.handleOpen} />}
             {reportsListOpen && <ReportsList onClose={this.handleClose('reportsListOpen')} SARs={SARs} DARs={DARs} OCRs={OCRs} />}
             {ordersListOpen && <OrdersList onClose={this.handleClose('ordersListOpen')} workOrders={workOrders} />}
+            {noticesListOpen && <NoticesList onClose={this.handleClose('noticesListOpen')} hazards={hazards} alerts={alerts} tasks={tasks} />}
             <div className={classes.chart}>
               {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} />}
               {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} />}
