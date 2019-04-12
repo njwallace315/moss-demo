@@ -185,7 +185,9 @@ const styles = {
     width: 1024
   },
   fab: {
-    position: 'absolute',
+    position: 'fixed',
+    top: 690,
+    left: 950,
     zIndex: 1000,
   },
   left: {
