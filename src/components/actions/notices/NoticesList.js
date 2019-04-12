@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
 import { DialogTitle, List, ListItem, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import NoticeItem from './NoticeItem';
+import NoticeItem from '../../room/ongoing/NoticeItem';
 import moment from 'moment'
 
 class NoticesList extends React.Component {

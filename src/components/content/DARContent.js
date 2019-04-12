@@ -32,8 +32,8 @@ class DARContent extends React.Component {
                     {DARs.map(x => {
                         return (
                             <ListItem button onClick={this.handleOpen(x)} className={classes.listItem}>
-                                <Typography className={classes.inlineLabel}>
-                                    Dead Animal:&nbsp;
+                                <Typography className={classes.inlineLabel} variant="subheading">
+                                    <em>Dead Animal</em>:&nbsp;
                                 </Typography>
                                 <Typography className={classes.inline}>
                                     {x.protocol} - {moment(x.dateFound).format('hh:mm a MM/DD/YYYY')}

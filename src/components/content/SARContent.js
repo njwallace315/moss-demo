@@ -32,8 +32,8 @@ class SARContent extends React.Component {
                     {SARs.map(x => {
                         return (
                             <ListItem button onClick={this.handleOpen(x)} className={classes.listItem}>
-                                <Typography className={classes.inlineLabel}>
-                                    Sick Animal:&nbsp;
+                                <Typography className={classes.inlineLabel} variant="subheading">
+                                    <em>Sick Animal</em>:&nbsp;
                                 </Typography>
                                 <Typography className={classes.inline}>
                                     {x.protocol} - {moment(x.dateFound).format('hh:mm a MM/DD/YYYY')}

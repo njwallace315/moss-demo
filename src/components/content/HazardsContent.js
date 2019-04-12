@@ -2,41 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List, ListItem, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import _ from 'lodash'
-import moment from 'moment'
-import ReportItem from '../room/ongoing/ReportItem'
+import NoticeItem from '../room/ongoing/NoticeItem'
 
 
-class OCRContent extends React.Component {
+class HazardsContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            openReport: null,
+            openHazard: null,
         }
     }
 
-    handleOpen = (openReport) => () => {
-        this.setState({ openReport });
+    handleOpen = (openHazard) => () => {
+        this.setState({ openHazard });
     }
 
     handleClose = () => {
-        this.setState({ openReport: null });
+        this.setState({ openHazard: null });
     }
     render() {
-        const { classes, OCRs } = this.props;
-        const { openReport } = this.state;
+        const { classes, hazards } = this.props;
+        const { openHazard } = this.state;
         return (
             <div>
-                {openReport && <ReportItem report={openReport} type={'OCR'} onClose={this.handleClose} />}
+                {openHazard && <NoticeItem notice={openHazard} type="hazard" onClose={this.handleClose} />}
                 <List className={classes.list}>
-                    {OCRs.map(x => {
+                    {hazards.map(x => {
                         return (
                             <ListItem button onClick={this.handleOpen(x)} className={classes.listItem}>
                                 <Typography className={classes.inlineLabel} variant="subheading">
-                                    <em>Overcrowded Cage</em>:&nbsp;
+                                    <em>Hazard</em>:&nbsp;
                                 </Typography>
                                 <Typography className={classes.inline}>
-                                    {x.protocol} - {moment(x.dateFound).format('hh:mm a MM/DD/YYYY')}
+                                    {x.agent}
                                 </Typography>
                             </ListItem>
                         )
@@ -47,24 +45,16 @@ class OCRContent extends React.Component {
     }
 };
 
-OCRContent.propTypes = {
-    inventory: PropTypes.array,
-    handleOpen: PropTypes.func.isRequired,
+HazardsContent.propTypes = {
     classes: PropTypes.object.isRequired,
-    OCRs: PropTypes.array,
+    hazards: PropTypes.array,
 };
 
-OCRContent.defaultProps = {
-    OCRs: []
+HazardsContent.defaultProps = {
+    hazards: []
 }
 
 const styles = {
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
     inline: {
         display: 'inline',
         fontSize: '1.1em'
@@ -74,16 +64,6 @@ const styles = {
         fontWeight: 'bold',
         textDecoration: 'italics'
     },
-    timeline: {
-        display: 'inline-block',
-        float: 'right',
-        padding: '0px 5px',
-        height: '100%',
-        color: '#000'
-    },
-    row: {
-        display: 'block'
-    },
     listItem: {
         padding: '0px 16px'
     },
@@ -92,4 +72,4 @@ const styles = {
     }
 };
 
-export default withStyles(styles)(OCRContent);
+export default withStyles(styles)(HazardsContent);

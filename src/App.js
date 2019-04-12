@@ -131,6 +131,9 @@ class App extends Component {
                 OCRs={OCRs}
                 roomDetails={roomDetails}
                 workOrders={workOrders}
+                alerts={alerts}
+                hazards={hazards}
+                tasks={tasks}
               />
             </div>
 
