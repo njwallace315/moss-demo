@@ -106,7 +106,7 @@ class Maintenance extends React.Component {
                 <MenuItem value="">
                   <em></em>
                 </MenuItem>
-                {inventory.filter(x => x.type === 'item').map(x => <MenuItem value={x._id}>{x.name}</MenuItem>)}
+                {inventory.filter(x => x.type === 'item').map(x => <MenuItem value={x._id}>{x.label}</MenuItem>)}
               </Select>
             </Grid>
           </Grid>

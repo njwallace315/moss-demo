@@ -15,7 +15,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 class DAR extends React.Component {
   state = {
     age: 'Pup',
-    protocol: '1',
+    protocol: 'M005160',
     species: 'Mouse',
     reportedBy: 'Nate',
     placement: 'test',

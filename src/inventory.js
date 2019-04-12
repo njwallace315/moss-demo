@@ -26,6 +26,7 @@ const inventory = [
         type: 'item',
         _id: uniqid(),
         name: 'Class II BSC',
+        label: 'Class II BSC',
         description: 'Demo BSC. Does not necessarily reflect room inventory.',
         orders: [],
         style: {
@@ -42,8 +43,9 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 1',
-        description: 'Alternative Design IVC Mouse Rack',
+        name: 'Alternative Design IVC Mouse Rack',
+        label: 'Rack 1',
+        description: 'Rack 1',
         orders: [],
         style: {
             left: ipad6thRackBottom.x - (ipad6thRackBottom.width / 2),
@@ -59,8 +61,9 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 2',
-        description: 'Alternative Design IVC Mouse Rack',
+        name: 'Alternative Design IVC Mouse Rack',
+        label: 'Rack 2',
+        description: 'Rack 2',
         orders: [],
         style: {
             left: ipad6thRackBottom.x - (ipad6thRackBottom.width / 2) - rackShift,
@@ -76,8 +79,9 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 3',
-        description: 'Alternative Design IVC Mouse Rack',
+        name: 'Alternative Design IVC Mouse Rack',
+        label: 'Rack 3',
+        description: 'Rack 3',
         orders: [],
         style: {
             left: ipad6thRackBottom.x - (ipad6thRackBottom.width / 2) - 2 * rackShift,
@@ -93,8 +97,9 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 4',
-        description: 'Alternative Design IVC Mouse Rack',
+        name: 'Alternative Design IVC Mouse Rack',
+        label: 'Rack 4',
+        description: 'Rack 4',
         orders: [],
         style: {
             left: ipad6thRackTop.x - (ipad6thRackTop.width / 2) - 3 * rackShift,
@@ -110,8 +115,9 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 5',
-        description: 'Alternative Design IVC Mouse Rack',
+        name: 'Alternative Design IVC Mouse Rack',
+        label: 'Rack 5',
+        description: 'Rack 5',
         orders: [],
         style: {
             left: ipad6thRackTop.x - (ipad6thRackTop.width / 2) - 2 * rackShift,
@@ -127,8 +133,9 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 6',
-        description: 'Alternative Design IVC Mouse Rack',
+        name: 'Alternative Design IVC Mouse Rack',
+        label: 'Rack 6',
+        description: 'Rack 6',
         orders: [],
         style: {
             left: ipad6thRackTop.x - (ipad6thRackTop.width / 2) - rackShift,
@@ -144,8 +151,9 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 7',
-        description: 'Alternative Design IVC Mouse Rack',
+        name: 'Alternative Design IVC Mouse Rack',
+        label: 'Rack 7',
+        description: 'Rack 7',
         orders: [],
         style: {
             left: ipad6thRackTop.x - (ipad6thRackTop.width / 2),

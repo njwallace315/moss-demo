@@ -6,28 +6,28 @@ import { Add } from '@material-ui/icons';
 import ActionsDialog from './components/actions/ActionsDialog';
 import ReportActionsDialog from './components/actions/ReportActionsDialog';
 import NoticeActionsDialog from './components/actions/NoticeActionsDialog';
-import SAR from './components/reports/SAR';
-import DAR from './components/reports/DAR';
-import OCR from './components/reports/OCR';
-import EnvOverview from './components/environment/EnvOverview'
-import Temperature from './components/environment/time-series/Temperature'
-import Humidity from './components/environment/time-series/Humidity'
-import Hazard from './components/notices/Hazard';
-import Alert from './components/notices/Alert';
-import Task from './components/notices/Task';
-import Ongoing from './components/ongoing/Ongoing';
+import SAR from './components/actions/reports/SAR';
+import DAR from './components/actions/reports/DAR';
+import OCR from './components/actions/reports/OCR';
+import EnvOverview from './components/room/environment/EnvOverview'
+import Temperature from './components/room/environment/time-series/Temperature'
+import Humidity from './components/room/environment/time-series/Humidity'
+import Hazard from './components/actions/notices/Hazard';
+import Alert from './components/actions/notices/Alert';
+import Task from './components/actions/notices/Task';
+import Ongoing from './components/room/ongoing/Ongoing';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme'
 import WorkOrderActionsDialog from './components/actions/WorkOrderActionsDialog';
-import LightSchedule from './components/work-orders/LightSchedule';
-import Maintenance from './components/work-orders/Maintenance'
+import LightSchedule from './components/actions/work-orders/LightSchedule';
+import Maintenance from './components/actions/work-orders/Maintenance'
 import { generateHumidData, generateTempData } from './helpers'
 import demoInventory from './inventory'
-import Item from './components/inventory/Item'
-import ReportsList from './components/reports/ReportsList'
+import Item from './components/room/inventory/Item'
+import ReportsList from './components/room/ongoing/ReportsList'
 import background from './static/B1451_h_ipad_6th.svg'
-import OrdersList from './components/work-orders/OrdersList';
-import NoticesList from './components/notices/NoticesList'
+import OrdersList from './components/room/ongoing/OrdersList';
+import NoticesList from './components/actions/notices/NoticesList'
 import ContentBlocks from './components/content/ContentBlocks'
 
 class App extends Component {
@@ -39,6 +39,11 @@ class App extends Component {
       humids: generateHumidData(),
       light: 'On',
       inventory: demoInventory.slice(0),
+      roomDetails: [
+        { label: 'SPF Level', value: '2' },
+        { label: 'Models', value: 'Mouse' },
+        { label: 'Emergency Power', value: 'Available' },
+      ]
     }
   }
 
@@ -108,16 +113,25 @@ class App extends Component {
       inventory,
       reportsListOpen,
       ordersListOpen,
-      noticesListOpen
+      noticesListOpen,
+      roomDetails
     } = this.state;
     return (
-      <div className="App" style={{ width: '100%', height: '100%' }}>
+      <div className="App" style={{ width: 1024, height: 768 }}>
         <img style={styles.img} src={background} alt="room enlarged view" />
         <MuiThemeProvider theme={theme}>
           <div style={styles.content}>
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} />)}
             <div style={styles.full}>
-              <ContentBlocks handleOpen={this.handleOpen} />
+              <ContentBlocks
+                handleOpen={this.handleOpen}
+                inventory={inventory}
+                SARs={SARs}
+                DARs={DARs}
+                OCRs={OCRs}
+                roomDetails={roomDetails}
+                workOrders={workOrders}
+              />
             </div>
 
 
@@ -147,9 +161,9 @@ class App extends Component {
           {lightOpen && <LightSchedule onClose={this.handleClose('lightOpen')} onSubmit={this.handleSubmit('workOrders')} />}
           {maintenanceOpen && <Maintenance onClose={this.handleClose('maintenanceOpen')} onSubmit={this.handleSubmit('workOrders')} inventory={inventory} />}
         </MuiThemeProvider>
-        {/* <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.handleOpen('actionsOpen')}>
-              <Add className={classes.icon} />
-            </Fab> */}
+        <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.handleOpen('actionsOpen')}>
+          <Add className={classes.icon} />
+        </Fab>
       </div >
     );
   }
@@ -159,14 +173,12 @@ const styles = {
   img: {
     zIndex: 100,
     position: 'absolute',
-    height: '100%',
-    width: '100%'
+    height: 768,
+    width: 1024
   },
   fab: {
     position: 'absolute',
     zIndex: 1000,
-    top: 700,
-    left: 950
   },
   content: {
     position: 'absolute',

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip } from '@material-ui/core'
-import theme from '../../theme';
+import theme from '../../../theme';
 import moment from 'moment'
 
 
