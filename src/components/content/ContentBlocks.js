@@ -11,6 +11,8 @@ import OCRContent from './OCRContent';
 import RoomDetailsContent from './RoomDetailsContent'
 import OrdersContent from './OrdersContent';
 import HazardsContent from './HazardsContent';
+import TasksContent from './TasksContent';
+import AletrsContent from './AletrsContent';
 
 class ContentBlocks extends React.Component {
   constructor(props) {
@@ -40,7 +42,7 @@ class ContentBlocks extends React.Component {
   }
 
   render() {
-    const { classes, handleOpen, inventory, SARs, OCRs, DARs, roomDetails, workOrders, hazards } = this.props;
+    const { classes, handleOpen, inventory, SARs, OCRs, DARs, roomDetails, workOrders, hazards, tasks, alerts } = this.props;
     const { roomOpen, researchOpen, husbandryOpen, veterinaryOpen } = this.state;
     let numOpen = 0;
     if (roomOpen) numOpen++;
@@ -62,13 +64,20 @@ class ContentBlocks extends React.Component {
                 title="Room"
               />
               <CardContent className={classes.content}>
-
+                {alerts.length > 0 && (
+                  <div>
+                    <Divider className={classes.divider} />
+                    <Typography variant="h6" className={classes.center}><em className={classes.em}>Open Alerts</em></Typography>
+                    <AletrsContent alerts={alerts} />
+                    <Divider className={classes.divider} />
+                  </div>
+                )}
                 {workOrders && workOrders.length > 0 && (
                   <div>
-                    <Divider />
+                    <Divider className={classes.divider} />
                     <Typography variant="h6" className={classes.center}>Open Orders</Typography>
                     <OrdersContent orders={workOrders} />
-                    <Divider />
+                    <Divider className={classes.divider} />
                   </div>
                 )}
                 <EnvContent handleOpen={handleOpen} />
@@ -93,10 +102,10 @@ class ContentBlocks extends React.Component {
               <CardContent className={classes.content}>
                 {OCRs.length > 0 && (
                   <div>
-                    <Divider />
+                    <Divider className={classes.divider} />
                     <Typography variant="h6" className={classes.center}><em className={classes.em}>Time Sensitive</em></Typography>
                     <OCRContent OCRs={OCRs} />
-                    <Divider />
+                    <Divider className={classes.divider} />
                   </div>
                 )}
                 <DARContent DARs={DARs} />
@@ -117,6 +126,9 @@ class ContentBlocks extends React.Component {
                 }
                 title="Husbandry"
               />
+              <CardContent className={classes.content}>
+                <TasksContent tasks={tasks} />
+              </CardContent>
             </Card>
           </Grid>
         )}
@@ -136,10 +148,10 @@ class ContentBlocks extends React.Component {
 
                 {SARs && SARs.length > 0 && (
                   <div>
-                    <Divider />
+                    <Divider className={classes.divider} />
                     <Typography variant="h6" className={classes.center}><em className={classes.em}>Time Sensitive</em></Typography>
                     <SARContent SARs={SARs} />
-                    <Divider />
+                    <Divider className={classes.divider} />
                   </div>
                 )}
               </CardContent>
@@ -161,6 +173,8 @@ ContentBlocks.propTypes = {
   workOrders: PropTypes.array,
   roomDetails: PropTypes.array,
   hazards: PropTypes.array,
+  alerts: PropTypes.array,
+  tasks: PropTypes.array,
 };
 
 ContentBlocks.defaultProps = {
@@ -169,7 +183,9 @@ ContentBlocks.defaultProps = {
   OCRs: [],
   workOrders: [],
   roomDetails: [],
-  hazards: []
+  hazards: [],
+  tasks: [],
+  alerts: []
 }
 
 const styles = theme => ({
@@ -199,6 +215,9 @@ const styles = theme => ({
   },
   em: {
     color: theme.palette.primary.main
+  },
+  divider: {
+    margin: '5px 0px'
   }
 })
 

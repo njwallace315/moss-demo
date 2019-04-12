@@ -120,6 +120,11 @@ class App extends Component {
       <div className="App" style={{ width: 1024, height: 768 }}>
         <img style={styles.img} src={background} alt="room enlarged view" />
         <MuiThemeProvider theme={theme}>
+          {/* Define clickable border regions */}
+          <div style={styles.left} />
+          <div style={styles.top} />
+          <div style={styles.right} />
+          <div style={styles.bottom} />
           <div style={styles.content}>
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} />)}
             <div style={styles.full}>
@@ -183,9 +188,50 @@ const styles = {
     position: 'absolute',
     zIndex: 1000,
   },
+  left: {
+    width: 47,
+    height: '100%',
+    display: 'inline-block',
+    opacity: .5,
+    backgroundColor: 'blue',
+    position: 'absolute',
+    zIndex: '900'
+  },
+  top: {
+    height: 68,
+    width: 920,
+    left: 55,
+    display: 'inline-block',
+    position: 'absolute',
+    zIndex: '900',
+    backgroundColor: 'red',
+    opacity: .5,
+  },
+  bottom: {
+    height: 55,
+    width: 920,
+    left: 55,
+    top: 720,
+    display: 'inline-block',
+    position: 'absolute',
+    zIndex: '900',
+    backgroundColor: 'yellow',
+    opacity: .5,
+  },
+  right: {
+    width: 42,
+    left: 975,
+    height: '100%',
+    display: 'inline-block',
+    opacity: .5,
+    backgroundColor: 'green',
+    position: 'absolute',
+    zIndex: '900'
+  },
   content: {
     position: 'absolute',
-    padding: '6.7% 0px 0px 4.65%',
+    top: 75,
+    left: 55,
     zIndex: 1000,
     height: '82%',
     width: '89.5%',

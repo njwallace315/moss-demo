@@ -14,10 +14,10 @@ import OutlinedInput from '@material-ui/core/OutlinedInput'
 
 class Task extends React.Component {
   state = {
-    priority: 'Double Litter',
-    postedBy: 'Nate',
-    taskName: 'test',
-    description: 'test',
+    priority: 'Moderate',
+    postedBy: 'Demo Researcher',
+    taskName: 'Replace sharps container',
+    description: 'The sharps container is past the fill line and needs to be replaced so that we can continue injections.',
   };
 
   handleChange = name => event => {
@@ -115,7 +115,6 @@ class Task extends React.Component {
                 margin="dense"
                 id="targets"
                 label="Assigned To"
-                placeholder="ARTs, facility staff, researchers..."
                 value={targets}
                 onChange={this.handleChange('targets')}
               />

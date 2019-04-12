@@ -14,10 +14,11 @@ import OutlinedInput from '@material-ui/core/OutlinedInput'
 
 class Alert extends React.Component {
   state = {
-    priority: 'Double Litter',
-    postedBy: 'Nate',
-    subject: 'test',
-    message: 'test',
+    priority: 'High',
+    postedBy: 'Demo PI',
+    subject: 'New Room Order',
+    message: 'The room order for this hallway has been changed. Please do not enter this room after you have entered room B1453.',
+    targets: 'Everyone'
   };
 
   handleChange = name => event => {

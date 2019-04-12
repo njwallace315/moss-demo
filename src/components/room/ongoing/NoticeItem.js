@@ -159,6 +159,7 @@ class NoticesList extends React.Component {
             taskName,
             targets,
             postedBy,
+            description
         } = notice
         return (
             <div>
@@ -196,6 +197,12 @@ class NoticesList extends React.Component {
                     <div className={classes.line}>
                         <Typography className={classes.label}>Posted By: </Typography>
                         <Typography className={classes.info}>{postedBy}</Typography>
+                    </div>
+                )}
+                {description && (
+                    <div className={classes.line}>
+                        <Typography className={classes.label}>Task Description: </Typography>
+                        <Typography className={classes.info}>{description}</Typography>
                     </div>
                 )}
             </div>
