@@ -28,6 +28,7 @@ import ReportsList from './components/reports/ReportsList'
 import background from './static/B1451_h_ipad_6th.svg'
 import OrdersList from './components/work-orders/OrdersList';
 import NoticesList from './components/notices/NoticesList'
+import ContentBlocks from './components/content/ContentBlocks'
 
 class App extends Component {
   constructor(props) {
@@ -114,60 +115,41 @@ class App extends Component {
         <img style={styles.img} src={background} alt="room enlarged view" />
         <MuiThemeProvider theme={theme}>
           <div style={styles.content}>
-            {/** Layer one dialogs */}
-            {actionsOpen && <ActionsDialog open={actionsOpen} onClose={this.handleClose('actionsOpen')} handleOpen={this.handleOpen} />}
-            {envOpen &&
-              <EnvOverview
-                temperature={temps[temps.length - 1]}
-                humidity={humids[humids.length - 1]}
-                light={light}
-                handleOpen={this.handleOpen}
-                onClose={this.handleClose('envOpen')}
-              />
-
-            } {/** not really a dialog but it's similar */}
-            <div style={styles.ongoing}>
-              <Ongoing
-                SARs={SARs}
-                DARs={DARs}
-                OCRs={OCRs}
-                alerts={alerts}
-                tasks={tasks}
-                hazards={hazards}
-                workOrders={workOrders}
-                handleOpen={this.handleOpen}
-              />
-            </div>
-
-
-            {/** Layer two dialogs */}
-            {reportOpen && <ReportActionsDialog onClose={this.handleClose('reportOpen')} handleOpen={this.handleOpen} />}
-            {noticeOpen && <NoticeActionsDialog onClose={this.handleClose('noticeOpen')} handleOpen={this.handleOpen} />}
-            {workOrderOpen && <WorkOrderActionsDialog onClose={this.handleClose('workOrderOpen')} handleOpen={this.handleOpen} />}
-            {reportsListOpen && <ReportsList onClose={this.handleClose('reportsListOpen')} SARs={SARs} DARs={DARs} OCRs={OCRs} />}
-            {ordersListOpen && <OrdersList onClose={this.handleClose('ordersListOpen')} workOrders={workOrders} />}
-            {noticesListOpen && <NoticesList onClose={this.handleClose('noticesListOpen')} hazards={hazards} alerts={alerts} tasks={tasks} />}
-            <div className={classes.chart}>
-              {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} />}
-              {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} />}
-            </div>
-
-            {/** Layer three dialogs */}
-            {SAROpen && <SAR open={SAROpen} onClose={this.handleClose('SAROpen')} onSubmit={this.handleSubmit('SARs')} />}
-            {DAROpen && <DAR open={DAROpen} onClose={this.handleClose('DAROpen')} onSubmit={this.handleSubmit('DARs')} />}
-            {OCROpen && <OCR open={OCROpen} onClose={this.handleClose('OCROpen')} onSubmit={this.handleSubmit('OCRs')} />}
-            {hazardOpen && <Hazard onClose={this.handleClose('hazardOpen')} onSubmit={this.handleSubmit('hazards')} />}
-            {alertOpen && <Alert onClose={this.handleClose('alertOpen')} onSubmit={this.handleSubmit('alerts')} />}
-            {taskOpen && <Task onClose={this.handleClose('taskOpen')} onSubmit={this.handleSubmit('tasks')} />}
-            {lightOpen && <LightSchedule onClose={this.handleClose('lightOpen')} onSubmit={this.handleSubmit('workOrders')} />}
-            {maintenanceOpen && <Maintenance onClose={this.handleClose('maintenanceOpen')} onSubmit={this.handleSubmit('workOrders')} inventory={inventory} />}
-            {/** End dialogs */}
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} />)}
-            <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.handleOpen('actionsOpen')}>
-              <Add className={classes.icon} />
-            </Fab>
+            <div style={styles.full}>
+              <ContentBlocks handleOpen={this.handleOpen} />
+            </div>
+
+
+            {/** End dialogs */}
           </div>
+          {/** Layer one dialogs */}
+          {actionsOpen && <ActionsDialog open={actionsOpen} onClose={this.handleClose('actionsOpen')} handleOpen={this.handleOpen} />}
+
+          {/** Layer two dialogs */}
+          {reportOpen && <ReportActionsDialog onClose={this.handleClose('reportOpen')} handleOpen={this.handleOpen} />}
+          {noticeOpen && <NoticeActionsDialog onClose={this.handleClose('noticeOpen')} handleOpen={this.handleOpen} />}
+          {workOrderOpen && <WorkOrderActionsDialog onClose={this.handleClose('workOrderOpen')} handleOpen={this.handleOpen} />}
+          {reportsListOpen && <ReportsList onClose={this.handleClose('reportsListOpen')} SARs={SARs} DARs={DARs} OCRs={OCRs} />}
+          {ordersListOpen && <OrdersList onClose={this.handleClose('ordersListOpen')} workOrders={workOrders} />}
+          {noticesListOpen && <NoticesList onClose={this.handleClose('noticesListOpen')} hazards={hazards} alerts={alerts} tasks={tasks} />}
+          {/* <div className={classes.chart}>
+            {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} />}
+            {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} />}
+          </div> */}
+          {/** Layer three dialogs */}
+          {SAROpen && <SAR open={SAROpen} onClose={this.handleClose('SAROpen')} onSubmit={this.handleSubmit('SARs')} />}
+          {DAROpen && <DAR open={DAROpen} onClose={this.handleClose('DAROpen')} onSubmit={this.handleSubmit('DARs')} />}
+          {OCROpen && <OCR open={OCROpen} onClose={this.handleClose('OCROpen')} onSubmit={this.handleSubmit('OCRs')} />}
+          {hazardOpen && <Hazard onClose={this.handleClose('hazardOpen')} onSubmit={this.handleSubmit('hazards')} />}
+          {alertOpen && <Alert onClose={this.handleClose('alertOpen')} onSubmit={this.handleSubmit('alerts')} />}
+          {taskOpen && <Task onClose={this.handleClose('taskOpen')} onSubmit={this.handleSubmit('tasks')} />}
+          {lightOpen && <LightSchedule onClose={this.handleClose('lightOpen')} onSubmit={this.handleSubmit('workOrders')} />}
+          {maintenanceOpen && <Maintenance onClose={this.handleClose('maintenanceOpen')} onSubmit={this.handleSubmit('workOrders')} inventory={inventory} />}
         </MuiThemeProvider>
+        {/* <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.handleOpen('actionsOpen')}>
+              <Add className={classes.icon} />
+            </Fab> */}
       </div >
     );
   }
@@ -188,7 +170,7 @@ const styles = {
   },
   content: {
     position: 'absolute',
-    padding: '7% 0px 0px 5%',
+    padding: '6.7% 0px 0px 4.65%',
     zIndex: 1000,
     height: '82%',
     width: '89.5%',
@@ -200,6 +182,9 @@ const styles = {
   },
   ongoing: {
     marginTop: 175
+  },
+  full: {
+    height: '100%', width: '100%'
   }
 }
 

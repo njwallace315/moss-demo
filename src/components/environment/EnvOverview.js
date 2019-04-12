@@ -6,9 +6,9 @@ import { Timeline } from '@material-ui/icons';
 
 const styles = {
   card: {
-    width: 330,
-    zIndex: 1000,
-    position: 'absolute'
+    width: '100%',
+    position: 'relative',
+    zIndex: 1000
   },
   title: {
     fontSize: 14,

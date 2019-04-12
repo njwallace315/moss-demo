@@ -93,28 +93,11 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 7',
+        name: 'Rack 4',
         description: 'Alternative Design IVC Mouse Rack',
         orders: [],
         style: {
-            left: ipad6thRackTop.x - (ipad6thRackTop.width / 2),
-            top: ipad6thRackTop.y - (ipad6thRackTop.height / 2),
-            height: ipad6thRackTop.height,
-            width: ipad6thRackTop.width,
-            opacity: 0,
-            position: 'absolute',
-            zIndex: 101,
-
-        }
-    },
-    {
-        type: 'item',
-        _id: uniqid(),
-        name: 'Rack 6',
-        description: 'Alternative Design IVC Mouse Rack',
-        orders: [],
-        style: {
-            left: ipad6thRackTop.x - (ipad6thRackTop.width / 2) - rackShift,
+            left: ipad6thRackTop.x - (ipad6thRackTop.width / 2) - 3 * rackShift,
             top: ipad6thRackTop.y - (ipad6thRackTop.height / 2),
             height: ipad6thRackTop.height,
             width: ipad6thRackTop.width,
@@ -144,11 +127,28 @@ const inventory = [
     {
         type: 'item',
         _id: uniqid(),
-        name: 'Rack 4',
+        name: 'Rack 6',
         description: 'Alternative Design IVC Mouse Rack',
         orders: [],
         style: {
-            left: ipad6thRackTop.x - (ipad6thRackTop.width / 2) - 3 * rackShift,
+            left: ipad6thRackTop.x - (ipad6thRackTop.width / 2) - rackShift,
+            top: ipad6thRackTop.y - (ipad6thRackTop.height / 2),
+            height: ipad6thRackTop.height,
+            width: ipad6thRackTop.width,
+            opacity: 0,
+            position: 'absolute',
+            zIndex: 101,
+
+        }
+    },
+    {
+        type: 'item',
+        _id: uniqid(),
+        name: 'Rack 7',
+        description: 'Alternative Design IVC Mouse Rack',
+        orders: [],
+        style: {
+            left: ipad6thRackTop.x - (ipad6thRackTop.width / 2),
             top: ipad6thRackTop.y - (ipad6thRackTop.height / 2),
             height: ipad6thRackTop.height,
             width: ipad6thRackTop.width,
