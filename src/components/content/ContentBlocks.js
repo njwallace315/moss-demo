@@ -15,23 +15,13 @@ import TasksContent from './TasksContent';
 import AletrsContent from './AletrsContent';
 
 class ContentBlocks extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      roomOpen: true,
-      researchOpen: true,
-      husbandryOpen: true,
-      veterinaryOpen: true
-    }
-  }
 
   handleClose = name => () => {
-    console.log('here')
     this.setState({ [name]: false });
   }
 
   getCols = name => {
-    const { roomOpen, researchOpen, husbandryOpen, veterinaryOpen } = this.state;
+    const { roomOpen, researchOpen, husbandryOpen, veterinaryOpen } = this.props
     switch (name) {
       case 'room': return !researchOpen || (!husbandryOpen && !veterinaryOpen) ? 12 : 6
       case 'res': return !roomOpen || (!husbandryOpen && !veterinaryOpen) ? 12 : 6
@@ -42,121 +32,137 @@ class ContentBlocks extends React.Component {
   }
 
   render() {
-    const { classes, handleOpen, inventory, SARs, OCRs, DARs, roomDetails, workOrders, hazards, tasks, alerts, orientation } = this.props;
-    const { roomOpen, researchOpen, husbandryOpen, veterinaryOpen } = this.state;
-    let numOpen = 0;
-    if (roomOpen) numOpen++;
-    if (researchOpen) numOpen++;
-    if (husbandryOpen) numOpen++;
-    if (veterinaryOpen) numOpen++;
+    const {
+      classes,
+      handleOpen,
+      inventory,
+      SARs,
+      OCRs,
+      DARs,
+      roomDetails,
+      workOrders,
+      hazards,
+      tasks,
+      alerts,
+      orientation,
+      roomOpen,
+      researchOpen,
+      husbandryOpen,
+      veterinaryOpen,
+      handleClose
+    } = this.props;
     return (
       <Grid container justify="space-between" className={classes.root} style={orientation === 'vertical' ? { overflowY: 'scroll' } : null}>
-        {roomOpen && (
+        {(roomOpen || orientation === 'horizontal') && (
           <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null}>
-            <Card className={classes.card}>
-              <CardHeader
-                className={classes.heading}
-                action={
-                  <IconButton onClick={this.handleClose('roomOpen')}>
-                    <Close />
-                  </IconButton>
-                }
-                title="Room"
-              />
-              <CardContent className={classes.content}>
-                {alerts.length > 0 && (
-                  <div>
-                    <Divider className={classes.divider} />
-                    <Typography variant="h6" className={classes.center}><em className={classes.em}>Open Alerts</em></Typography>
-                    <AletrsContent alerts={alerts} />
-                    <Divider className={classes.divider} />
-                  </div>
-                )}
-                {workOrders && workOrders.length > 0 && (
-                  <div>
-                    <Divider className={classes.divider} />
-                    <Typography variant="h6" className={classes.center}>Open Orders</Typography>
-                    <OrdersContent orders={workOrders} />
-                    <Divider className={classes.divider} />
-                  </div>
-                )}
-                <EnvContent handleOpen={handleOpen} />
-                <InventoryContent inventory={inventory} />
-                <RoomDetailsContent roomDetails={roomDetails} />
-              </CardContent>
-            </Card>
+            {roomOpen && (
+              <Card className={classes.card}>
+                <CardHeader
+                  className={classes.heading}
+                  action={
+                    <IconButton onClick={handleClose('roomOpen')}>
+                      <Close />
+                    </IconButton>
+                  }
+                  title="Room"
+                />
+                <CardContent className={classes.content}>
+                  {alerts.length > 0 && (
+                    <div>
+                      <Divider className={classes.divider} />
+                      <Typography variant="h6" className={classes.center}><em className={classes.em}>Open Alerts</em></Typography>
+                      <AletrsContent alerts={alerts} />
+                      <Divider className={classes.divider} />
+                    </div>
+                  )}
+                  {workOrders && workOrders.length > 0 && (
+                    <div>
+                      <Divider className={classes.divider} />
+                      <Typography variant="h6" className={classes.center}>Open Orders</Typography>
+                      <OrdersContent orders={workOrders} />
+                      <Divider className={classes.divider} />
+                    </div>
+                  )}
+                  <EnvContent handleOpen={handleOpen} />
+                  <InventoryContent inventory={inventory} />
+                  <RoomDetailsContent roomDetails={roomDetails} />
+                </CardContent>
+              </Card>)}
           </Grid>
         )}
-        {researchOpen && (
+        {(researchOpen || orientation === 'horizontal') && (
           <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
-            <Card className={classes.card}>
-              <CardHeader
-                className={classes.heading}
-                action={
-                  <IconButton onClick={this.handleClose('researchOpen')}>
-                    <Close />
-                  </IconButton>
-                }
-                title="Research"
-              />
-              <CardContent className={classes.content}>
-                {OCRs.length > 0 && (
-                  <div>
-                    <Divider className={classes.divider} />
-                    <Typography variant="h6" className={classes.center}><em className={classes.em}>Time Sensitive</em></Typography>
-                    <OCRContent OCRs={OCRs} />
-                    <Divider className={classes.divider} />
-                  </div>
-                )}
-                <DARContent DARs={DARs} />
-                <HazardsContent hazards={hazards} />
-              </CardContent>
-            </Card>
+            {researchOpen && (
+              <Card className={classes.card}>
+                <CardHeader
+                  className={classes.heading}
+                  action={
+                    <IconButton onClick={handleClose('researchOpen')}>
+                      <Close />
+                    </IconButton>
+                  }
+                  title="Research"
+                />
+                <CardContent className={classes.content}>
+                  {OCRs.length > 0 && (
+                    <div>
+                      <Divider className={classes.divider} />
+                      <Typography variant="h6" className={classes.center}><em className={classes.em}>Time Sensitive</em></Typography>
+                      <OCRContent OCRs={OCRs} />
+                      <Divider className={classes.divider} />
+                    </div>
+                  )}
+                  <DARContent DARs={DARs} />
+                  <HazardsContent hazards={hazards} />
+                </CardContent>
+              </Card>)}
           </Grid>
         )}
-        {husbandryOpen && (
+        {(husbandryOpen || orientation === 'horizontal') && (
           <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
-            <Card className={classes.card}>
-              <CardHeader
-                className={classes.heading}
-                action={
-                  <IconButton onClick={this.handleClose('husbandryOpen')}>
-                    <Close />
-                  </IconButton>
-                }
-                title="Husbandry"
-              />
-              <CardContent className={classes.content}>
-                <TasksContent tasks={tasks} />
-              </CardContent>
-            </Card>
+            {husbandryOpen && (
+              <Card className={classes.card}>
+                <CardHeader
+                  className={classes.heading}
+                  action={
+                    <IconButton onClick={handleClose('husbandryOpen')}>
+                      <Close />
+                    </IconButton>
+                  }
+                  title="Husbandry"
+                />
+                <CardContent className={classes.content}>
+                  <TasksContent tasks={tasks} />
+                </CardContent>
+              </Card>)}
           </Grid>
         )}
-        {veterinaryOpen && (
+        {(veterinaryOpen || orientation === 'horizontal') && (
           <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
-            <Card className={classes.card}>
-              <CardHeader
-                className={classes.heading}
-                action={
-                  <IconButton onClick={this.handleClose('veterinaryOpen')}>
-                    <Close />
-                  </IconButton>
-                }
-                title="Veterinary"
-              />
-              <CardContent className={classes.content}>
+            {veterinaryOpen && (
+              <Card className={classes.card}>
+                <CardHeader
+                  className={classes.heading}
+                  action={
+                    <IconButton onClick={handleClose('veterinaryOpen')}>
+                      <Close />
+                    </IconButton>
+                  }
+                  title="Veterinary"
+                />
+                <CardContent className={classes.content}>
 
-                {SARs && SARs.length > 0 && (
-                  <div>
-                    <Divider className={classes.divider} />
-                    <Typography variant="h6" className={classes.center}><em className={classes.em}>Time Sensitive</em></Typography>
-                    <SARContent SARs={SARs} />
-                    <Divider className={classes.divider} />
-                  </div>
-                )}
-              </CardContent>
+                  {SARs && SARs.length > 0 && (
+                    <div>
+                      <Divider className={classes.divider} />
+                      <Typography variant="h6" className={classes.center}><em className={classes.em}>Time Sensitive</em></Typography>
+                      <SARContent SARs={SARs} />
+                      <Divider className={classes.divider} />
+                    </div>
+                  )}
+                </CardContent>
 
-            </Card>
+              </Card>)}
           </Grid>
         )}
       </Grid>

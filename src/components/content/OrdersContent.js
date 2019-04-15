@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List, ListItem, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import _ from 'lodash'
 import moment from 'moment'
 import OrderItem from '../room/ongoing/OrderItem'
 

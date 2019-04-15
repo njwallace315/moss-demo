@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Fab, Tooltip, Hidden } from '@material-ui/core'
+import { Fab, Hidden, IconButton } from '@material-ui/core'
 import { Add } from '@material-ui/icons';
+import MenuIcon from '@material-ui/icons/Menu'
 import ActionsDialog from './components/actions/ActionsDialog';
 import ReportActionsDialog from './components/actions/ReportActionsDialog';
 import NoticeActionsDialog from './components/actions/NoticeActionsDialog';
 import SAR from './components/actions/reports/SAR';
 import DAR from './components/actions/reports/DAR';
 import OCR from './components/actions/reports/OCR';
-import EnvOverview from './components/room/environment/EnvOverview'
-import Temperature from './components/room/environment/time-series/Temperature'
-import Humidity from './components/room/environment/time-series/Humidity'
+// import EnvOverview from './components/room/environment/EnvOverview'
+// import Temperature from './components/room/environment/time-series/Temperature'
+// import Humidity from './components/room/environment/time-series/Humidity'
 import Hazard from './components/actions/notices/Hazard';
 import Alert from './components/actions/notices/Alert';
 import Task from './components/actions/notices/Task';
-import Ongoing from './components/room/ongoing/Ongoing';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './theme'
 import WorkOrderActionsDialog from './components/actions/WorkOrderActionsDialog';
@@ -29,6 +29,7 @@ import background_v from './static/B1451_v_ipad_6th.svg'
 import OrdersList from './components/room/ongoing/OrdersList';
 import NoticesList from './components/actions/notices/NoticesList'
 import ContentBlocks from './components/content/ContentBlocks'
+import Menu from './components/actions/Menu'
 
 class App extends Component {
   constructor(props) {
@@ -44,7 +45,11 @@ class App extends Component {
         { label: 'SPF Level', value: '2' },
         { label: 'Models', value: 'Mouse' },
         { label: 'Emergency Power', value: 'Available' },
-      ]
+      ],
+      researchOpen: true,
+      roomOpen: true,
+      veterinaryOpen: true,
+      husbandryOpen: true
     }
   }
 
@@ -54,6 +59,18 @@ class App extends Component {
 
   handleClose = name => () => {
     this.setState({ [name]: false });
+  }
+
+  toggle = name => () => {
+    this.setState({ [name]: !this.state[name] });
+  }
+
+  menuOpen = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  menuClose = () => {
+    this.setState({ anchorEl: null });
   }
 
   closeAll = () => {
@@ -73,7 +90,7 @@ class App extends Component {
       lightOpen: false,
       maintenanceOpen: false,
       ordersListOpen: false,
-      noticesListOpen: false
+      noticesListOpen: false,
     });
   }
 
@@ -91,15 +108,9 @@ class App extends Component {
       SAROpen,
       DAROpen,
       OCROpen,
-      temps,
-      temperatureOpen,
-      humids,
-      humidityOpen,
-      envOpen,
       hazardOpen,
       alertOpen,
       taskOpen,
-      light,
       workOrderOpen,
       lightOpen,
       maintenanceOpen,
@@ -113,7 +124,6 @@ class App extends Component {
       hazards,
       alerts,
       tasks,
-      inventoryH,
       inventoryV
     } = this.state
     return (
@@ -146,44 +156,61 @@ class App extends Component {
 
   }
 
+  closeAllContent = () => {
+    this.setState({
+      roomOpen: false,
+      researchOpen: false,
+      husbandryOpen: false,
+      veterinaryOpen: false,
+    });
+  }
+  openAllContent = () => {
+    this.setState({
+      roomOpen: true,
+      researchOpen: true,
+      husbandryOpen: true,
+      veterinaryOpen: true,
+    });
+  }
+
   render() {
-    const { classes } = this.props;
     const {
-      actionsOpen,
-      reportOpen,
-      noticeOpen,
-      SAROpen,
-      DAROpen,
-      OCROpen,
-      temps,
-      temperatureOpen,
-      humids,
-      humidityOpen,
-      envOpen,
-      hazardOpen,
-      alertOpen,
-      taskOpen,
-      light,
-      DARs,
-      SARs,
-      OCRs,
-      alerts,
-      tasks,
-      hazards,
-      workOrderOpen,
-      lightOpen,
       workOrders,
-      maintenanceOpen,
       inventoryH,
       inventoryV,
-      reportsListOpen,
-      ordersListOpen,
-      noticesListOpen,
-      roomDetails
+      researchOpen,
+      roomOpen,
+      veterinaryOpen,
+      husbandryOpen,
+      SARs,
+      DARs,
+      OCRs,
+      roomDetails,
+      hazards,
+      alerts,
+      tasks,
+      anchorEl
     } = this.state;
     return (
-      <MuiThemeProvider className="App" theme={theme}>
+      <MuiThemeProvider theme={theme}>
         {this.renderDialogs()}
+        <Menu
+          handleOpen={this.handleOpen}
+          handleClose={this.handleClose}
+          toggleResearch={this.toggle('researchOpen')}
+          toggleHusbandry={this.toggle('husbandryOpen')}
+          toggleRoom={this.toggle('roomOpen')}
+          toggleVet={this.toggle('veterinaryOpen')}
+          researchOpen={researchOpen}
+          roomOpen={roomOpen}
+          veterinaryOpen={veterinaryOpen}
+          husbandryOpen={husbandryOpen}
+          closeContent={this.closeAllContent}
+          openContent={this.openAllContent}
+          anchorEl={anchorEl}
+          onClose={this.menuClose}
+        />
+
         <Hidden mdDown>
           <div style={{ width: 1024, height: 768 }}>
             <img style={horizontalStyles.img} src={background_h} alt="room enlarged view" />
@@ -192,10 +219,10 @@ class App extends Component {
             <div style={horizontalStyles.top} />
             <div style={horizontalStyles.right} />
             <div style={horizontalStyles.bottom} />
+            {inventoryH.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} />)}
             <div style={horizontalStyles.content}>
-              {inventoryH.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} />)}
               <div style={horizontalStyles.full}>
-                {/* <ContentBlocks
+                <ContentBlocks
                   orientation='horizontal'
                   handleOpen={this.handleOpen}
                   inventory={inventoryH}
@@ -207,9 +234,17 @@ class App extends Component {
                   alerts={alerts}
                   hazards={hazards}
                   tasks={tasks}
-                /> */}
+                  researchOpen={researchOpen}
+                  roomOpen={roomOpen}
+                  veterinaryOpen={veterinaryOpen}
+                  husbandryOpen={husbandryOpen}
+                  handleClose={this.handleClose}
+                />
               </div>
             </div>
+            <Fab color="primary" aria-label="Add" style={horizontalStyles.menuFab} onClick={this.menuOpen}>
+              <MenuIcon style={horizontalStyles.icon} />
+            </Fab>
             <Fab color="primary" aria-label="Add" style={horizontalStyles.fab} onClick={this.handleOpen('actionsOpen')}>
               <Add style={horizontalStyles.icon} />
             </Fab>
@@ -223,10 +258,10 @@ class App extends Component {
             <div style={verticalStyles.top} />
             <div style={verticalStyles.right} />
             <div style={verticalStyles.bottom} />
+            {inventoryV.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} />)}
             <div style={verticalStyles.content}>
-              {inventoryV.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} />)}
               <div style={verticalStyles.full}>
-                {/* <ContentBlocks
+                <ContentBlocks
                   orientation='vertical'
                   handleOpen={this.handleOpen}
                   inventory={inventoryV}
@@ -238,15 +273,22 @@ class App extends Component {
                   alerts={alerts}
                   hazards={hazards}
                   tasks={tasks}
-                /> */}
+                  researchOpen={researchOpen}
+                  roomOpen={roomOpen}
+                  veterinaryOpen={veterinaryOpen}
+                  husbandryOpen={husbandryOpen}
+                  handleClose={this.handleClose}
+                />
               </div>
             </div>
+            <Fab color="primary" aria-label="Add" style={verticalStyles.menuFab} onClick={this.menuOpen}>
+              <MenuIcon style={horizontalStyles.icon} />
+            </Fab>
             <Fab color="primary" aria-label="Add" style={verticalStyles.fab} onClick={this.handleOpen('actionsOpen')}>
-              <Add style={verticalStyles.icon} />
+              <Add style={horizontalStyles.icon} />
             </Fab>
           </div >
         </Hidden>
-
       </MuiThemeProvider>
     );
   }
@@ -265,14 +307,20 @@ const verticalStyles = {
     left: 690,
     zIndex: 1000,
   },
+  menuFab: {
+    position: 'fixed',
+    top: 935,
+    left: 615,
+    zIndex: 1000,
+  },
   left: {
     height: 47,
     width: 768,
     display: 'inline-block',
     opacity: .5,
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
     position: 'absolute',
-    zIndex: '900'
+    zIndex: 900
   },
   top: {
     width: 55,
@@ -281,8 +329,8 @@ const verticalStyles = {
     top: 55,
     display: 'inline-block',
     position: 'absolute',
-    zIndex: '900',
-    backgroundColor: 'red',
+    zIndex: 900,
+    // backgroundColor: 'red',
     opacity: .5,
   },
   bottom: {
@@ -291,8 +339,8 @@ const verticalStyles = {
     top: 55,
     display: 'inline-block',
     position: 'absolute',
-    zIndex: '900',
-    backgroundColor: 'yellow',
+    zIndex: 900,
+    // backgroundColor: 'yellow',
     opacity: .5,
   },
   right: {
@@ -301,15 +349,14 @@ const verticalStyles = {
     top: 975,
     display: 'inline-block',
     opacity: .5,
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
     position: 'absolute',
-    zIndex: '900'
+    zIndex: 900
   },
   content: {
     position: 'absolute',
     top: 55,
     left: 75,
-    zIndex: 1000,
     width: 630,
     height: 917,
   },
@@ -339,14 +386,20 @@ const horizontalStyles = {
     left: 950,
     zIndex: 1000,
   },
+  menuFab: {
+    position: 'fixed',
+    top: 690,
+    left: 875,
+    zIndex: 1000,
+  },
   left: {
     width: 47,
     height: 768,
     display: 'inline-block',
     opacity: .5,
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
     position: 'absolute',
-    zIndex: '900'
+    zIndex: 900
   },
   top: {
     height: 68,
@@ -354,8 +407,8 @@ const horizontalStyles = {
     left: 55,
     display: 'inline-block',
     position: 'absolute',
-    zIndex: '900',
-    backgroundColor: 'red',
+    zIndex: 900,
+    // backgroundColor: 'red',
     opacity: .5,
   },
   bottom: {
@@ -365,8 +418,8 @@ const horizontalStyles = {
     top: 720,
     display: 'inline-block',
     position: 'absolute',
-    zIndex: '900',
-    backgroundColor: 'yellow',
+    zIndex: 900,
+    // backgroundColor: 'yellow',
     opacity: .5,
   },
   right: {
@@ -375,15 +428,14 @@ const horizontalStyles = {
     height: 768,
     display: 'inline-block',
     opacity: .5,
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
     position: 'absolute',
-    zIndex: '900'
+    zIndex: 900
   },
   content: {
     position: 'absolute',
     top: 75,
     left: 55,
-    zIndex: 1000,
     height: 630,
     width: 917,
   },
