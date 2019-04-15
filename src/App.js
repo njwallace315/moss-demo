@@ -10,8 +10,8 @@ import SAR from './components/actions/reports/SAR';
 import DAR from './components/actions/reports/DAR';
 import OCR from './components/actions/reports/OCR';
 // import EnvOverview from './components/room/environment/EnvOverview'
-// import Temperature from './components/room/environment/time-series/Temperature'
-// import Humidity from './components/room/environment/time-series/Humidity'
+import Temperature from './components/room/environment/time-series/Temperature'
+import Humidity from './components/room/environment/time-series/Humidity'
 import Hazard from './components/actions/notices/Hazard';
 import Alert from './components/actions/notices/Alert';
 import Task from './components/actions/notices/Task';
@@ -124,7 +124,11 @@ class App extends Component {
       hazards,
       alerts,
       tasks,
-      inventoryV
+      inventoryV,
+      temperatureOpen,
+      humidityOpen,
+      temps,
+      humids
     } = this.state
     return (
       <div>
@@ -138,10 +142,8 @@ class App extends Component {
         {reportsListOpen && <ReportsList onClose={this.handleClose('reportsListOpen')} SARs={SARs} DARs={DARs} OCRs={OCRs} />}
         {ordersListOpen && <OrdersList onClose={this.handleClose('ordersListOpen')} workOrders={workOrders} />}
         {noticesListOpen && <NoticesList onClose={this.handleClose('noticesListOpen')} hazards={hazards} alerts={alerts} tasks={tasks} />}
-        {/* <div className={classes.chart}>
-  {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} />}
-  {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} />}
-</div> */}
+        {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} />}
+        {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} />}
         {/** Layer three dialogs */}
         {SAROpen && <SAR open={SAROpen} onClose={this.handleClose('SAROpen')} onSubmit={this.handleSubmit('SARs')} />}
         {DAROpen && <DAR open={DAROpen} onClose={this.handleClose('DAROpen')} onSubmit={this.handleSubmit('DARs')} />}

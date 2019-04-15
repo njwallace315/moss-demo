@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment'
 import echarts from 'echarts'
-import { ClickAwayListener, Card } from '@material-ui/core';
+import { Dialog, IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons'
 
 export default class Humidity extends PureComponent {
     getOption = () => {
@@ -99,14 +100,18 @@ export default class Humidity extends PureComponent {
     render() {
         const { onClose } = this.props;
         return (
-            <ClickAwayListener onClickAway={onClose}>
-                <Card raised>
+            <Dialog open={true} onClose={onClose} fullScreen>
+                <IconButton style={{ width: 35, margin: '0px 10px 0px auto' }} onClick={onClose}>
+                    <Close style={{ fontSize: 35 }} />
+                </IconButton>
+                <div>
                     <ReactEcharts
                         option={this.getOption()}
-                        style={{ height: '350px', width: '100%' }}
-                        className='react_for_echarts' />
-                </Card>
-            </ClickAwayListener>
+                        style={{ height: '350px', width: '100%', }}
+                        className='react_for_echarts'
+                    />
+                </div>
+            </Dialog>
         );
     }
 }
