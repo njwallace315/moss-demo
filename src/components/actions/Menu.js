@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, Menu, MenuItem, FormControlLabel, Checkbox } from '@material-ui/core';
+import { IconButton, Menu, MenuItem, FormControlLabel, Checkbox, FormControl } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu'
 
 class ViewMenu extends React.Component {
@@ -37,49 +37,52 @@ class ViewMenu extends React.Component {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={onClose}
+
                 >
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={roomOpen}
-                                onChange={toggleRoom}
-                                value="room"
-                            />
-                        }
-                        label="Room"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={researchOpen}
-                                onChange={toggleResearch}
-                                value="research"
-                            />
-                        }
-                        label="Research"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={husbandryOpen}
-                                onChange={toggleHusbandry}
-                                value="husbandry"
-                            />
-                        }
-                        label="Husbandry"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={veterinaryOpen}
-                                onChange={toggleVet}
-                                value="veterinary"
-                            />
-                        }
-                        label="Veterinary"
-                    />
-                    {(roomOpen || researchOpen || husbandryOpen || veterinaryOpen) && <MenuItem onClick={closeContent}>Close All Content</MenuItem>}
-                    {(!roomOpen || !researchOpen || !husbandryOpen || !veterinaryOpen) && <MenuItem onClick={openContent}>Open All Content</MenuItem>}
+                    <div style={{ marginLeft: 15 }}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={roomOpen}
+                                    onChange={toggleRoom}
+                                    value="room"
+                                />
+                            }
+                            label="Room"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={researchOpen}
+                                    onChange={toggleResearch}
+                                    value="research"
+                                />
+                            }
+                            label="Research"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={husbandryOpen}
+                                    onChange={toggleHusbandry}
+                                    value="husbandry"
+                                />
+                            }
+                            label="Husbandry"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={veterinaryOpen}
+                                    onChange={toggleVet}
+                                    value="veterinary"
+                                />
+                            }
+                            label="Veterinary"
+                        />
+                    </div>
+                    <MenuItem onClick={openContent}>Open All Content</MenuItem>
+                    <MenuItem onClick={closeContent}>Close All Content</MenuItem>
                 </Menu>
             </div>
         );
