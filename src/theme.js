@@ -100,6 +100,17 @@ const theme = createMuiTheme({
             variant: 'outlined',
         },
     },
+    breakpoints: {
+        values: {
+            lg: 1024,
+            md: 960,
+            sm: 600,
+            xl: 1920,
+            xs: 0
+        }
+    }
 });
+
+console.log('theme: ', theme)
 
 export default theme;

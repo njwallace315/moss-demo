@@ -42,7 +42,7 @@ class ContentBlocks extends React.Component {
   }
 
   render() {
-    const { classes, handleOpen, inventory, SARs, OCRs, DARs, roomDetails, workOrders, hazards, tasks, alerts } = this.props;
+    const { classes, handleOpen, inventory, SARs, OCRs, DARs, roomDetails, workOrders, hazards, tasks, alerts, orientation } = this.props;
     const { roomOpen, researchOpen, husbandryOpen, veterinaryOpen } = this.state;
     let numOpen = 0;
     if (roomOpen) numOpen++;
@@ -50,9 +50,9 @@ class ContentBlocks extends React.Component {
     if (husbandryOpen) numOpen++;
     if (veterinaryOpen) numOpen++;
     return (
-      <Grid container justify="space-between" className={classes.full}>
+      <Grid container justify="space-between" className={classes.root} style={orientation === 'vertical' ? { overflowY: 'scroll' } : null}>
         {roomOpen && (
-          <Grid item xs={this.getCols('room')} className={classes.item} style={{ height: numOpen > 1 ? '50%' : '100%' }}>
+          <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null}>
             <Card className={classes.card}>
               <CardHeader
                 className={classes.heading}
@@ -88,7 +88,7 @@ class ContentBlocks extends React.Component {
           </Grid>
         )}
         {researchOpen && (
-          <Grid item xs={this.getCols('res')} className={classes.item} style={{ height: numOpen > 1 ? '50%' : '100%' }} >
+          <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
             <Card className={classes.card}>
               <CardHeader
                 className={classes.heading}
@@ -115,7 +115,7 @@ class ContentBlocks extends React.Component {
           </Grid>
         )}
         {husbandryOpen && (
-          <Grid item xs={this.getCols('hus')} className={classes.item} style={{ height: numOpen > 1 ? '50%' : '100%' }} >
+          <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
             <Card className={classes.card}>
               <CardHeader
                 className={classes.heading}
@@ -133,7 +133,7 @@ class ContentBlocks extends React.Component {
           </Grid>
         )}
         {veterinaryOpen && (
-          <Grid item xs={this.getCols('vet')} className={classes.item} style={{ height: numOpen > 1 ? '50%' : '100%' }} >
+          <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
             <Card className={classes.card}>
               <CardHeader
                 className={classes.heading}
@@ -175,6 +175,7 @@ ContentBlocks.propTypes = {
   hazards: PropTypes.array,
   alerts: PropTypes.array,
   tasks: PropTypes.array,
+  orientation: PropTypes.string.isRequired,
 };
 
 ContentBlocks.defaultProps = {
@@ -189,9 +190,9 @@ ContentBlocks.defaultProps = {
 }
 
 const styles = theme => ({
-  full: {
+  root: {
     height: '100%',
-    width: '100%'
+    width: '100%',
   },
   item: {
     padding: 8,
