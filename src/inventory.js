@@ -93,7 +93,7 @@ const inventory = [
                 zIndex: 101,
 
             },
-            ipad_h: {
+            ipad_l: {
                 left: ipad6thBSC_h.x - (ipad6thBSC_h.width / 2),
                 top: ipad6thBSC_h.y - (ipad6thBSC_h.height / 2),
                 height: ipad6thBSC_h.height,
