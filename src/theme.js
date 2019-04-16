@@ -102,13 +102,18 @@ const theme = createMuiTheme({
     },
     breakpoints: {
         values: {
-            lg: 1024,
-            md: 960,
+            lg: 1366,
+            md: 1024,
             sm: 600,
             xl: 1920,
-            xs: 0
+            ipad_h: 1024,
+            ipad_v: 768,
+            pro_h: 1366,
+            pro_v: 1024,
+            xs: 768
         }
     }
 });
+console.log('theme: ', theme)
 
 export default theme;

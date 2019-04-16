@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Fab, Hidden, IconButton } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import { Add } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu'
 import ActionsDialog from './components/actions/ActionsDialog';
@@ -30,6 +31,13 @@ import OrdersList from './components/room/ongoing/OrdersList';
 import NoticesList from './components/actions/notices/NoticesList'
 import ContentBlocks from './components/content/ContentBlocks'
 import Menu from './components/actions/Menu'
+import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+
+function SimpleMediaQuery() {
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
+
+  return <div style={{ height: 100, width: 100, '@media screen and (orientation:landscape)': { backgroundColor: 'red' } }}>{`(max-width:600px) matches: ${matches}`}</div>;
+}
 
 class App extends Component {
   constructor(props) {
@@ -191,12 +199,15 @@ class App extends Component {
       hazards,
       alerts,
       tasks,
-      anchorEl
+      anchorEl,
+      classes
     } = this.state;
+
     return (
       <MuiThemeProvider theme={theme}>
-        {this.renderDialogs()}
-        <Menu
+        <SimpleMediaQuery />
+        {/* {this.renderDialogs()} */}
+        {/* <Menu
           handleOpen={this.handleOpen}
           handleClose={this.handleClose}
           toggleResearch={this.toggle('researchOpen')}
@@ -214,9 +225,8 @@ class App extends Component {
         />
 
         <Hidden mdDown>
-          <div style={{ width: 1024, height: 768 }}>
+          <div>
             <img style={horizontalStyles.img} src={background_h} alt="room enlarged view" />
-            {/* Define clickable border regions */}
             <div style={horizontalStyles.left} />
             <div style={horizontalStyles.top} />
             <div style={horizontalStyles.right} />
@@ -253,9 +263,8 @@ class App extends Component {
           </div >
         </Hidden>
         <Hidden lgUp>
-          <div style={{ height: 1024, width: 768 }}>
+          <div>
             <img style={verticalStyles.img} src={background_v} alt="room enlarged view" />
-            {/* Define clickable border regions */}
             <div style={verticalStyles.left} />
             <div style={verticalStyles.top} />
             <div style={verticalStyles.right} />
@@ -290,18 +299,38 @@ class App extends Component {
               <Add style={horizontalStyles.icon} />
             </Fab>
           </div >
-        </Hidden>
+        </Hidden> */}
       </MuiThemeProvider>
     );
   }
 }
 
+console.log('***', theme.breakpoints.only('ipad_v'), '***')
+const styles = {
+  ipad: {
+    height: 500,
+    width: 500,
+    backgroundColor: 'red'
+    // [theme.breakpoints.only('ipad_h')]: {
+    //   '@media screen and (orientation:landscape)': {
+    //     backfroundColor: 'blue'
+    //   },
+    //   '@media screen and (orientation:portrait)': {
+    //     backfroundColor: 'yellow'
+    //   }
+    // },
+    // [theme.breakpoints.only('pro_h')]: {
+    //   backgroundColor: 'green',
+    // },
+  },
+}
+
 const verticalStyles = {
   img: {
     zIndex: 100,
-    position: 'absolute',
-    height: 1024,
-    width: 768
+    position: 'relative',
+    height: '100%',
+    width: '100%'
   },
   fab: {
     position: 'fixed',
@@ -379,8 +408,8 @@ const horizontalStyles = {
   img: {
     zIndex: 100,
     position: 'absolute',
-    height: 768,
-    width: 1024
+    // height: '100%',
+    width: '100%'
   },
   fab: {
     position: 'fixed',
@@ -454,4 +483,4 @@ const horizontalStyles = {
   }
 }
 
-export default App
+export default withStyles(styles)(App)
