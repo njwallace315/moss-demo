@@ -28,6 +28,7 @@ import ReportsList from './components/room/ongoing/ReportsList'
 import background_ipad_l from './static/B1451_h_ipad_6th.svg'
 import background_ipad_p from './static/B1451_v_ipad_6th.svg'
 import background_pro_p from './static/B1451_pro_p.svg'
+import background_pro_l from './static/B1451_pro_l.svg'
 import OrdersList from './components/room/ongoing/OrdersList';
 import NoticesList from './components/actions/notices/NoticesList'
 import ContentBlocks from './components/content/ContentBlocks'
@@ -278,7 +279,6 @@ class App extends Component {
         </Hidden>
         <Hidden mdUp xsDown>{this.getOrientation() === 'landscape' ? (
           <div>
-            {console.log('here')}
             <div style={styles.hall.ipad_l} />
             <div style={styles.B1447.ipad_l} />
             <div style={styles.B1453.ipad_l} />
@@ -351,8 +351,43 @@ class App extends Component {
               </Fab>
             </div>
           )}</Hidden>
-        <Hidden lgUp smDown><p>pro horizontal</p></Hidden>
-        <Hidden lgDown><p>desktop</p></Hidden>
+        <Hidden smDown>
+          <div style={styles.hall.pro_l} />
+          <div style={styles.B1447.pro_l} />
+          <div style={styles.B1453.pro_l} />
+          <div style={styles.B1498.pro_l} />
+          <img style={styles.img} src={background_pro_l} alt="room enlarged view" style={{ width: 1366 }} />
+          {/* {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_l" />)} */}
+          <div style={styles.content.pro_l}>
+            <div style={styles.full}>
+              <ContentBlocks
+                orientation='horizontal'
+                handleOpen={this.handleOpen}
+                inventory={inventory}
+                SARs={SARs}
+                DARs={DARs}
+                OCRs={OCRs}
+                roomDetails={roomDetails}
+                workOrders={workOrders}
+                alerts={alerts}
+                hazards={hazards}
+                tasks={tasks}
+                researchOpen={researchOpen}
+                roomOpen={roomOpen}
+                veterinaryOpen={veterinaryOpen}
+                husbandryOpen={husbandryOpen}
+                handleClose={this.handleClose}
+              />
+            </div>
+          </div>
+          <Fab color="primary" aria-label="Add" style={styles.menuFab.pro_l} onClick={this.menuOpen}>
+            <MenuIcon style={horizontalStyles.icon} />
+          </Fab>
+          <Fab color="primary" aria-label="Add" style={styles.fab.pro_l} onClick={this.handleOpen('actionsOpen')}>
+            <Add style={horizontalStyles.icon} />
+          </Fab>
+        </Hidden>
+        {/* <Hidden lgDown><p>desktop</p></Hidden> */}
       </MuiThemeProvider >
     );
   }
@@ -386,7 +421,13 @@ const styles = {
       width: 850,
       height: 1243,
     },
-    pro_l: {},
+    pro_l: {
+      position: 'absolute',
+      top: 95,
+      left: 65,
+      height: 850,
+      width: 1243,
+    },
     desktop: {}
   },
   fab: {
@@ -408,7 +449,12 @@ const styles = {
       left: 930,
       zIndex: 1000,
     },
-    pro_l: {},
+    pro_l: {
+      position: 'fixed',
+      top: 945,
+      left: 1275,
+      zIndex: 1000,
+    },
     desktop: {}
   },
   menuFab: {
@@ -430,7 +476,12 @@ const styles = {
       left: 855,
       zIndex: 1000,
     },
-    pro_l: {},
+    pro_l: {
+      position: 'fixed',
+      top: 945,
+      left: 1200,
+      zIndex: 1000,
+    },
     desktop: {}
   },
   // commented directions referr to position when hallway is on the bottom (portrait)
@@ -466,7 +517,16 @@ const styles = {
       position: 'absolute',
       zIndex: 900
     },
-    pro_l: {},
+    pro_l: {
+      width: 55,
+      left: 1320,
+      height: 1024,
+      display: 'inline-block',
+      opacity: .5,
+      backgroundColor: 'green',
+      position: 'absolute',
+      zIndex: 900
+    },
     desktop: {}
   },
   // right
@@ -503,7 +563,16 @@ const styles = {
       backgroundColor: 'red',
       opacity: .5,
     },
-    pro_l: {},
+    pro_l: {
+      height: 73,
+      width: 1244,
+      left: 65,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 900,
+      backgroundColor: 'red',
+      opacity: .5,
+    },
     desktop: {}
   },
   // left
@@ -539,7 +608,17 @@ const styles = {
       backgroundColor: 'yellow',
       opacity: .5,
     },
-    pro_l: {},
+    pro_l: {
+      height: 75,
+      width: 1244,
+      left: 65,
+      top: 950,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 900,
+      backgroundColor: 'yellow',
+      opacity: .5,
+    },
     desktop: {}
   },
   // top
@@ -571,7 +650,15 @@ const styles = {
       position: 'absolute',
       zIndex: 900
     },
-    pro_l: {},
+    pro_l: {
+      width: 57,
+      height: 1024,
+      display: 'inline-block',
+      opacity: .5,
+      backgroundColor: 'blue',
+      position: 'absolute',
+      zIndex: 900
+    },
     desktop: {}
   },
   full: {
