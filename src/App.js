@@ -22,7 +22,7 @@ import WorkOrderActionsDialog from './components/actions/WorkOrderActionsDialog'
 import LightSchedule from './components/actions/work-orders/LightSchedule';
 import Maintenance from './components/actions/work-orders/Maintenance'
 import { generateHumidData, generateTempData } from './helpers'
-import { horizontalInventory, verticalInventory } from './inventory'
+import demoInventory from './inventory'
 import Item from './components/room/inventory/Item'
 import ReportsList from './components/room/ongoing/ReportsList'
 import background_h from './static/B1451_h_ipad_6th.svg'
@@ -35,8 +35,8 @@ import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMe
 
 function SimpleMediaQuery() {
   const matches = useMediaQuery(theme.breakpoints.down('md'));
-
-  return <div style={{ height: 100, width: 100, '@media screen and (orientation:landscape)': { backgroundColor: 'red' } }}>{`(max-width:600px) matches: ${matches}`}</div>;
+  const orientation = window.screen.orientation.type
+  return !matches ? null : <div style={{ height: 100, width: 100, backfroundColor: 'red' }}>{orientation}</div>;
 }
 
 class App extends Component {
@@ -47,8 +47,7 @@ class App extends Component {
       temps: generateTempData(),
       humids: generateHumidData(),
       light: 'On',
-      inventoryH: horizontalInventory.slice(0),
-      inventoryV: verticalInventory.slice(0),
+      inventory: demoInventory.slice(0),
       roomDetails: [
         { label: 'SPF Level', value: '2' },
         { label: 'Models', value: 'Mouse' },
@@ -57,7 +56,8 @@ class App extends Component {
       researchOpen: true,
       roomOpen: true,
       veterinaryOpen: true,
-      husbandryOpen: true
+      husbandryOpen: true,
+      orientation: window.scceen ? window.screen.orientation.type : window.orientation
     }
   }
 
@@ -132,7 +132,7 @@ class App extends Component {
       hazards,
       alerts,
       tasks,
-      inventoryV,
+      inventory,
       temperatureOpen,
       humidityOpen,
       temps,
@@ -160,10 +160,18 @@ class App extends Component {
         {alertOpen && <Alert onClose={this.handleClose('alertOpen')} onSubmit={this.handleSubmit('alerts')} />}
         {taskOpen && <Task onClose={this.handleClose('taskOpen')} onSubmit={this.handleSubmit('tasks')} />}
         {lightOpen && <LightSchedule onClose={this.handleClose('lightOpen')} onSubmit={this.handleSubmit('workOrders')} />}
-        {maintenanceOpen && <Maintenance onClose={this.handleClose('maintenanceOpen')} onSubmit={this.handleSubmit('workOrders')} inventory={inventoryV} />}
+        {maintenanceOpen && <Maintenance onClose={this.handleClose('maintenanceOpen')} onSubmit={this.handleSubmit('workOrders')} inventory={inventory} />}
       </div>
     )
 
+  }
+
+  getOrientation = () => {
+    const { orientation } = this.state
+    if (typeof orientation === 'string') {
+      return orientation.includes('landscape') ? 'landscape' : 'portrait'
+    }
+    return (orientation === 90 || orientation === -90) ? 'landscape' : 'portrait'
   }
 
   closeAllContent = () => {
@@ -183,11 +191,19 @@ class App extends Component {
     });
   }
 
+  componentDidMount = () => {
+    let self = this;
+    window.addEventListener("orientationchange", function () {
+      // Announce the new orientation number
+      self.setState({ orientation: window.scceen ? window.screen.orientation.type : window.orientation });
+      // App.setState({ orientation: window.screen.orientation.type });
+    }, false);
+  }
+
   render() {
     const {
       workOrders,
-      inventoryH,
-      inventoryV,
+      inventory,
       researchOpen,
       roomOpen,
       veterinaryOpen,
@@ -200,14 +216,12 @@ class App extends Component {
       alerts,
       tasks,
       anchorEl,
-      classes
+      classes,
     } = this.state;
-
     return (
       <MuiThemeProvider theme={theme}>
-        <SimpleMediaQuery />
-        {/* {this.renderDialogs()} */}
-        {/* <Menu
+        {this.renderDialogs()}
+        <Menu
           handleOpen={this.handleOpen}
           handleClose={this.handleClose}
           toggleResearch={this.toggle('researchOpen')}
@@ -223,21 +237,59 @@ class App extends Component {
           anchorEl={anchorEl}
           onClose={this.menuClose}
         />
-
-        <Hidden mdDown>
+        <Hidden smUp>
+          <div style={styles.hall.ipad_p} />
+          <div style={styles.B1447.ipad_p} />
+          <div style={styles.B1453.ipad_p} />
+          <div style={styles.B1498.ipad_p} />
+          <img style={styles.img.ipad_p} src={background_v} alt="room enlarged view" />
           <div>
-            <img style={horizontalStyles.img} src={background_h} alt="room enlarged view" />
-            <div style={horizontalStyles.left} />
-            <div style={horizontalStyles.top} />
-            <div style={horizontalStyles.right} />
-            <div style={horizontalStyles.bottom} />
-            {inventoryH.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} />)}
+            {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_p" />)}
+            <div style={styles.content.ipad_p}>
+              <div style={styles.full}>
+                <ContentBlocks
+                  orientation='vertical'
+                  handleOpen={this.handleOpen}
+                  inventory={inventory}
+                  SARs={SARs}
+                  DARs={DARs}
+                  OCRs={OCRs}
+                  roomDetails={roomDetails}
+                  workOrders={workOrders}
+                  alerts={alerts}
+                  hazards={hazards}
+                  tasks={tasks}
+                  researchOpen={researchOpen}
+                  roomOpen={roomOpen}
+                  veterinaryOpen={veterinaryOpen}
+                  husbandryOpen={husbandryOpen}
+                  handleClose={this.handleClose}
+                />
+              </div>
+            </div>
+            <Fab color="primary" aria-label="Add" style={styles.menuFab.ipad_p} onClick={this.menuOpen}>
+              <MenuIcon style={horizontalStyles.icon} />
+            </Fab>
+            <Fab color="primary" aria-label="Add" style={styles.fab.ipad_p} onClick={this.handleOpen('actionsOpen')}>
+              <Add style={horizontalStyles.icon} />
+            </Fab>
+          </div>
+        </Hidden>
+        <Hidden mdUp xsDown>{this.getOrientation() === 'landscape' ? (
+          <div>
+            {console.log('here')}
+            <div style={styles.hall.ipad_l} />
+            <div style={styles.B1447.ipad_l} />
+            <div style={styles.B1453.ipad_l} />
+            <div style={styles.B1498.ipad_l} />
+            <img style={styles.img.ipad_l} src={background_h} alt="room enlarged view" />
+            {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_l" />)}
             <div style={horizontalStyles.content}>
               <div style={horizontalStyles.full}>
                 <ContentBlocks
                   orientation='horizontal'
                   handleOpen={this.handleOpen}
-                  inventory={inventoryH}
+                  inventory={inventory}
                   SARs={SARs}
                   DARs={DARs}
                   OCRs={OCRs}
@@ -260,69 +312,199 @@ class App extends Component {
             <Fab color="primary" aria-label="Add" style={horizontalStyles.fab} onClick={this.handleOpen('actionsOpen')}>
               <Add style={horizontalStyles.icon} />
             </Fab>
-          </div >
-        </Hidden>
-        <Hidden lgUp>
-          <div>
-            <img style={verticalStyles.img} src={background_v} alt="room enlarged view" />
-            <div style={verticalStyles.left} />
-            <div style={verticalStyles.top} />
-            <div style={verticalStyles.right} />
-            <div style={verticalStyles.bottom} />
-            {inventoryV.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} />)}
-            <div style={verticalStyles.content}>
-              <div style={verticalStyles.full}>
-                <ContentBlocks
-                  orientation='vertical'
-                  handleOpen={this.handleOpen}
-                  inventory={inventoryV}
-                  SARs={SARs}
-                  DARs={DARs}
-                  OCRs={OCRs}
-                  roomDetails={roomDetails}
-                  workOrders={workOrders}
-                  alerts={alerts}
-                  hazards={hazards}
-                  tasks={tasks}
-                  researchOpen={researchOpen}
-                  roomOpen={roomOpen}
-                  veterinaryOpen={veterinaryOpen}
-                  husbandryOpen={husbandryOpen}
-                  handleClose={this.handleClose}
-                />
-              </div>
+          </div>
+        ) : (
+            <div>
+
             </div>
-            <Fab color="primary" aria-label="Add" style={verticalStyles.menuFab} onClick={this.menuOpen}>
-              <MenuIcon style={horizontalStyles.icon} />
-            </Fab>
-            <Fab color="primary" aria-label="Add" style={verticalStyles.fab} onClick={this.handleOpen('actionsOpen')}>
-              <Add style={horizontalStyles.icon} />
-            </Fab>
-          </div >
-        </Hidden> */}
-      </MuiThemeProvider>
+          )}</Hidden>
+        <Hidden lgUp smDown><p>pro horizontal</p></Hidden>
+        <Hidden lgDown><p>desktop</p></Hidden>
+      </MuiThemeProvider >
     );
   }
 }
 
-console.log('***', theme.breakpoints.only('ipad_v'), '***')
 const styles = {
-  ipad: {
-    height: 500,
-    width: 500,
-    backgroundColor: 'red'
-    // [theme.breakpoints.only('ipad_h')]: {
-    //   '@media screen and (orientation:landscape)': {
-    //     backfroundColor: 'blue'
-    //   },
-    //   '@media screen and (orientation:portrait)': {
-    //     backfroundColor: 'yellow'
-    //   }
-    // },
-    // [theme.breakpoints.only('pro_h')]: {
-    //   backgroundColor: 'green',
-    // },
+  img: {
+    ipad_p: {
+      zIndex: 100,
+      position: 'relative',
+      // height: '100%',
+      width: '100%'
+    },
+    ipad_l: {
+      zIndex: 100,
+      position: 'absolute',
+      // height: '100%',
+      width: '100%'
+    },
+    pro_p: {},
+    pro_l: {},
+    desktop: {}
   },
+  content: {
+    ipad_p: {
+      position: 'absolute',
+      top: 45,
+      left: 68,
+      width: 630,
+      height: 917,
+    },
+    ipad_l: {
+      position: 'absolute',
+      top: 75,
+      left: 55,
+      height: 630,
+      width: 917,
+    },
+    pro_p: {},
+    pro_l: {},
+    desktop: {}
+  },
+  fab: {
+    ipad_p: {
+      position: 'fixed',
+      top: 935,
+      left: 690,
+      zIndex: 1000,
+    },
+    ipad_l: {
+      position: 'fixed',
+      top: 690,
+      left: 950,
+      zIndex: 1000,
+    },
+    pro_p: {},
+    pro_l: {},
+    desktop: {}
+  },
+  menuFab: {
+    ipad_p: {
+      position: 'fixed',
+      top: 935,
+      left: 615,
+      zIndex: 1000,
+    },
+    ipad_l: {
+      position: 'fixed',
+      top: 690,
+      left: 875,
+      zIndex: 1000,
+    },
+    pro_p: {},
+    pro_l: {},
+    desktop: {}
+  },
+  // commented directions referr to position when hallway is on the bottom (portrait)
+  // bottom
+  hall: {
+    ipad_p: {
+      height: 42,
+      width: 752,
+      top: 960,
+      display: 'inline-block',
+      opacity: .5,
+      backgroundColor: 'green',
+      position: 'absolute',
+      zIndex: 900
+    },
+    ipad_l: {
+      width: 42,
+      left: 975,
+      height: 768,
+      display: 'inline-block',
+      opacity: .5,
+      backgroundColor: 'green',
+      position: 'absolute',
+      zIndex: 900
+    },
+    pro_p: {},
+    pro_l: {},
+    desktop: {}
+  },
+  // right
+  B1453: {
+    ipad_p: {
+      width: 53,
+      height: 912,
+      left: 708,
+      top: 50,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 900,
+      backgroundColor: 'red',
+      opacity: .5,
+    },
+    ipad_l: {
+      height: 68,
+      width: 920,
+      left: 55,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 900,
+      backgroundColor: 'red',
+      opacity: .5,
+    },
+    pro_p: {},
+    pro_l: {},
+    desktop: {}
+  },
+  // left
+  B1447: {
+    ipad_p: {
+      width: 55,
+      height: 904,
+      top: 55,
+      display: 'inline-block',
+      position: 'fixed',
+      zIndex: 901,
+      backgroundColor: 'yellow',
+      opacity: .5,
+    },
+    ipad_l: {
+      height: 55,
+      width: 920,
+      left: 55,
+      top: 720,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 900,
+      backgroundColor: 'yellow',
+      opacity: .5,
+    },
+    pro_p: {},
+    pro_l: {},
+    desktop: {}
+  },
+  // top
+  B1498: {
+    ipad_p: {
+      height: 47,
+      width: 752,
+      display: 'inline-block',
+      opacity: .5,
+      backgroundColor: 'blue',
+      position: 'absolute',
+      zIndex: 900
+    },
+    ipad_l: {
+      width: 47,
+      height: 768,
+      display: 'inline-block',
+      opacity: .5,
+      backgroundColor: 'blue',
+      position: 'absolute',
+      zIndex: 900
+    },
+    pro_p: {},
+    pro_l: {},
+    desktop: {}
+  },
+  full: {
+    height: '100%',
+    width: '100%'
+  }
 }
 
 const verticalStyles = {
@@ -349,7 +531,7 @@ const verticalStyles = {
     width: 768,
     display: 'inline-block',
     opacity: .5,
-    // backgroundColor: 'blue',
+    backgroundColor: 'blue',
     position: 'absolute',
     zIndex: 900
   },
@@ -361,7 +543,7 @@ const verticalStyles = {
     display: 'inline-block',
     position: 'absolute',
     zIndex: 900,
-    // backgroundColor: 'red',
+    backgroundColor: 'red',
     opacity: .5,
   },
   bottom: {
@@ -371,7 +553,7 @@ const verticalStyles = {
     display: 'inline-block',
     position: 'absolute',
     zIndex: 900,
-    // backgroundColor: 'yellow',
+    backgroundColor: 'yellow',
     opacity: .5,
   },
   right: {
@@ -428,7 +610,7 @@ const horizontalStyles = {
     height: 768,
     display: 'inline-block',
     opacity: .5,
-    // backgroundColor: 'blue',
+    backgroundColor: 'blue',
     position: 'absolute',
     zIndex: 900
   },
@@ -439,7 +621,7 @@ const horizontalStyles = {
     display: 'inline-block',
     position: 'absolute',
     zIndex: 900,
-    // backgroundColor: 'red',
+    backgroundColor: 'red',
     opacity: .5,
   },
   bottom: {
@@ -450,7 +632,7 @@ const horizontalStyles = {
     display: 'inline-block',
     position: 'absolute',
     zIndex: 900,
-    // backgroundColor: 'yellow',
+    backgroundColor: 'yellow',
     opacity: .5,
   },
   right: {
@@ -459,7 +641,7 @@ const horizontalStyles = {
     height: 768,
     display: 'inline-block',
     opacity: .5,
-    // backgroundColor: 'green',
+    backgroundColor: 'green',
     position: 'absolute',
     zIndex: 900
   },
@@ -483,4 +665,4 @@ const horizontalStyles = {
   }
 }
 
-export default withStyles(styles)(App)
+export default App

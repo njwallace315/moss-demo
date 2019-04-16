@@ -54,7 +54,7 @@ class ContentBlocks extends React.Component {
     return (
       <Grid container justify="space-between" className={classes.root} style={orientation === 'vertical' ? { overflowY: 'scroll' } : null}>
         {(roomOpen || orientation === 'horizontal') && (
-          <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null}>
+          <Grid item xs={orientation === 'horizontal' ? 6 : 12} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null}>
             {roomOpen && (
               <Card className={classes.card}>
                 <CardHeader
@@ -91,7 +91,7 @@ class ContentBlocks extends React.Component {
           </Grid>
         )}
         {(researchOpen || orientation === 'horizontal') && (
-          <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
+          <Grid item xs={orientation === 'horizontal' ? 6 : 12} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
             {researchOpen && (
               <Card className={classes.card}>
                 <CardHeader
@@ -119,7 +119,7 @@ class ContentBlocks extends React.Component {
           </Grid>
         )}
         {(husbandryOpen || orientation === 'horizontal') && (
-          <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
+          <Grid item xs={orientation === 'horizontal' ? 6 : 12} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
             {husbandryOpen && (
               <Card className={classes.card}>
                 <CardHeader
@@ -138,7 +138,7 @@ class ContentBlocks extends React.Component {
           </Grid>
         )}
         {(veterinaryOpen || orientation === 'horizontal') && (
-          <Grid item xs={12} lg={6} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
+          <Grid item xs={orientation === 'horizontal' ? 6 : 12} className={classes.item} style={orientation === 'horizontal' ? { height: '50%' } : null} >
             {veterinaryOpen && (
               <Card className={classes.card}>
                 <CardHeader

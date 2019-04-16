@@ -23,8 +23,8 @@ class Item extends React.Component {
     }
 
     getStyle = () => {
-        const { item, workOrders } = this.props
-        const style = Object.assign({}, item.style);
+        const { item, workOrders, styleKey } = this.props
+        const style = Object.assign({}, item.style[styleKey]);
         if (this.applicableOrders(item, workOrders).length > 0) {
             style.backgroundColor = theme.palette.primary.main
             style.opacity = .5

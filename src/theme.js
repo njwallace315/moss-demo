@@ -102,14 +102,14 @@ const theme = createMuiTheme({
     },
     breakpoints: {
         values: {
-            lg: 1366,
-            md: 1024,
-            sm: 600,
-            xl: 1920,
-            ipad_h: 1024,
-            ipad_v: 768,
-            pro_h: 1366,
-            pro_v: 1024,
+            md: 1366,
+            sm: 1024,
+            lg: 1367,
+            xl: 1368,
+            // ipad_h: 1024,
+            // ipad_v: 768,
+            // pro_h: 1366,
+            // pro_v: 1024,
             xs: 768
         }
     }
