@@ -25,8 +25,9 @@ import { generateHumidData, generateTempData } from './helpers'
 import demoInventory from './inventory'
 import Item from './components/room/inventory/Item'
 import ReportsList from './components/room/ongoing/ReportsList'
-import background_h from './static/B1451_h_ipad_6th.svg'
-import background_v from './static/B1451_v_ipad_6th.svg'
+import background_ipad_l from './static/B1451_h_ipad_6th.svg'
+import background_ipad_p from './static/B1451_v_ipad_6th.svg'
+import background_pro_p from './static/B1451_pro_p.svg'
 import OrdersList from './components/room/ongoing/OrdersList';
 import NoticesList from './components/actions/notices/NoticesList'
 import ContentBlocks from './components/content/ContentBlocks'
@@ -242,7 +243,7 @@ class App extends Component {
           <div style={styles.B1447.ipad_p} />
           <div style={styles.B1453.ipad_p} />
           <div style={styles.B1498.ipad_p} />
-          <img style={styles.img.ipad_p} src={background_v} alt="room enlarged view" />
+          <img style={styles.img} src={background_ipad_p} alt="room enlarged view" />
           <div>
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_p" />)}
             <div style={styles.content.ipad_p}>
@@ -282,10 +283,10 @@ class App extends Component {
             <div style={styles.B1447.ipad_l} />
             <div style={styles.B1453.ipad_l} />
             <div style={styles.B1498.ipad_l} />
-            <img style={styles.img.ipad_l} src={background_h} alt="room enlarged view" />
+            <img style={styles.img} src={background_ipad_l} alt="room enlarged view" />
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_l" />)}
-            <div style={horizontalStyles.content}>
-              <div style={horizontalStyles.full}>
+            <div style={styles.content.ipad_l}>
+              <div style={styles.full}>
                 <ContentBlocks
                   orientation='horizontal'
                   handleOpen={this.handleOpen}
@@ -315,7 +316,39 @@ class App extends Component {
           </div>
         ) : (
             <div>
-
+              <div style={styles.hall.pro_p} />
+              <div style={styles.B1447.pro_p} />
+              <div style={styles.B1453.pro_p} />
+              <div style={styles.B1498.pro_p} />
+              <img style={styles.img} src={background_pro_p} alt="room enlarged view" />
+              <div style={styles.content.pro_p}>
+                <div style={styles.full}>
+                  <ContentBlocks
+                    orientation='vertical'
+                    handleOpen={this.handleOpen}
+                    inventory={inventory}
+                    SARs={SARs}
+                    DARs={DARs}
+                    OCRs={OCRs}
+                    roomDetails={roomDetails}
+                    workOrders={workOrders}
+                    alerts={alerts}
+                    hazards={hazards}
+                    tasks={tasks}
+                    researchOpen={researchOpen}
+                    roomOpen={roomOpen}
+                    veterinaryOpen={veterinaryOpen}
+                    husbandryOpen={husbandryOpen}
+                    handleClose={this.handleClose}
+                  />
+                </div>
+              </div>
+              <Fab color="primary" aria-label="Add" style={styles.menuFab.pro_p} onClick={this.menuOpen}>
+                <MenuIcon style={horizontalStyles.icon} />
+              </Fab>
+              <Fab color="primary" aria-label="Add" style={styles.fab.pro_p} onClick={this.handleOpen('actionsOpen')}>
+                <Add style={horizontalStyles.icon} />
+              </Fab>
             </div>
           )}</Hidden>
         <Hidden lgUp smDown><p>pro horizontal</p></Hidden>
@@ -327,21 +360,9 @@ class App extends Component {
 
 const styles = {
   img: {
-    ipad_p: {
-      zIndex: 100,
-      position: 'relative',
-      // height: '100%',
-      width: '100%'
-    },
-    ipad_l: {
-      zIndex: 100,
-      position: 'absolute',
-      // height: '100%',
-      width: '100%'
-    },
-    pro_p: {},
-    pro_l: {},
-    desktop: {}
+    zIndex: 100,
+    position: 'absolute',
+    width: '100%'
   },
   content: {
     ipad_p: {
@@ -358,7 +379,13 @@ const styles = {
       height: 630,
       width: 917,
     },
-    pro_p: {},
+    pro_p: {
+      position: 'absolute',
+      top: 65,
+      left: 95,
+      width: 850,
+      height: 1243,
+    },
     pro_l: {},
     desktop: {}
   },
@@ -375,7 +402,12 @@ const styles = {
       left: 950,
       zIndex: 1000,
     },
-    pro_p: {},
+    pro_p: {
+      position: 'fixed',
+      top: 1275,
+      left: 930,
+      zIndex: 1000,
+    },
     pro_l: {},
     desktop: {}
   },
@@ -392,7 +424,12 @@ const styles = {
       left: 875,
       zIndex: 1000,
     },
-    pro_p: {},
+    pro_p: {
+      position: 'fixed',
+      top: 1275,
+      left: 855,
+      zIndex: 1000,
+    },
     pro_l: {},
     desktop: {}
   },
@@ -419,7 +456,16 @@ const styles = {
       position: 'absolute',
       zIndex: 900
     },
-    pro_p: {},
+    pro_p: {
+      height: 55,
+      width: 1024,
+      top: 1320,
+      display: 'inline-block',
+      opacity: .5,
+      backgroundColor: 'green',
+      position: 'absolute',
+      zIndex: 900
+    },
     pro_l: {},
     desktop: {}
   },
@@ -446,7 +492,17 @@ const styles = {
       backgroundColor: 'red',
       opacity: .5,
     },
-    pro_p: {},
+    pro_p: {
+      width: 73,
+      height: 1244,
+      left: 950,
+      top: 65,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 900,
+      backgroundColor: 'red',
+      opacity: .5,
+    },
     pro_l: {},
     desktop: {}
   },
@@ -457,7 +513,7 @@ const styles = {
       height: 904,
       top: 55,
       display: 'inline-block',
-      position: 'fixed',
+      position: 'absolute',
       zIndex: 901,
       backgroundColor: 'yellow',
       opacity: .5,
@@ -473,7 +529,16 @@ const styles = {
       backgroundColor: 'yellow',
       opacity: .5,
     },
-    pro_p: {},
+    pro_p: {
+      width: 75,
+      height: 1244,
+      top: 65,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 901,
+      backgroundColor: 'yellow',
+      opacity: .5,
+    },
     pro_l: {},
     desktop: {}
   },
@@ -497,7 +562,15 @@ const styles = {
       position: 'absolute',
       zIndex: 900
     },
-    pro_p: {},
+    pro_p: {
+      height: 57,
+      width: 1024,
+      display: 'inline-block',
+      opacity: .5,
+      backgroundColor: 'blue',
+      position: 'absolute',
+      zIndex: 900
+    },
     pro_l: {},
     desktop: {}
   },
