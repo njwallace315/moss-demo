@@ -49,13 +49,15 @@ class Temperature extends PureComponent {
                 containLabel: true
             },
             xAxis: {
-                name: "Time",
+                name: "Time and Date (MM/DD)",
+                nameLocation: 'middle',
+                nameGap: 25,
                 axisTick: {
                     alignWithLabel: true
                 },
                 axisLabel: {
                     formatter: function (value, index) {
-                        return moment(value).format('h:mm a \n MM/DD')
+                        return moment(value).format('h:mm a MM/DD')
                     }
                 },
                 nameTextStyle: {
@@ -105,13 +107,11 @@ class Temperature extends PureComponent {
                 <IconButton style={{ width: 35, margin: '0px 10px 0px auto' }} onClick={onClose}>
                     <Close style={{ fontSize: 35 }} />
                 </IconButton>
-                <div>
-                    <ReactEcharts
-                        option={this.getOption()}
-                        style={{ height: '350px', width: '100%', }}
-                        className='react_for_echarts'
-                    />
-                </div>
+                <ReactEcharts
+                    option={this.getOption()}
+                    style={{ height: '67%', width: '100%', marginBottom: 50 }}
+                    className='react_for_echarts'
+                />
             </Dialog>
         );
     }
