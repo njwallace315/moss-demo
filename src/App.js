@@ -55,10 +55,10 @@ class App extends Component {
         { label: 'Models', value: 'Mouse' },
         { label: 'Emergency Power', value: 'Available' },
       ],
-      researchOpen: true,
-      roomOpen: true,
-      veterinaryOpen: true,
-      husbandryOpen: true,
+      researchOpen: false,
+      roomOpen: false,
+      veterinaryOpen: false,
+      husbandryOpen: false,
       orientation: window.scceen ? window.screen.orientation.type : window.orientation
     }
   }
@@ -217,8 +217,7 @@ class App extends Component {
       hazards,
       alerts,
       tasks,
-      anchorEl,
-      classes,
+      anchorEl
     } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
@@ -244,7 +243,7 @@ class App extends Component {
           <div style={styles.B1447.ipad_p} />
           <div style={styles.B1453.ipad_p} />
           <div style={styles.B1498.ipad_p} />
-          <img style={styles.img} src={background_ipad_p} alt="room enlarged view" />
+          <img style={styles.img.ipad_p} src={background_ipad_p} alt="room enlarged view" />
           <div>
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_p" />)}
             <div style={styles.content.ipad_p}>
@@ -283,7 +282,7 @@ class App extends Component {
             <div style={styles.B1447.ipad_l} />
             <div style={styles.B1453.ipad_l} />
             <div style={styles.B1498.ipad_l} />
-            <img style={styles.img} src={background_ipad_l} alt="room enlarged view" />
+            <img style={styles.img.ipad_l} src={background_ipad_l} alt="room enlarged view" />
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_l" />)}
             <div style={styles.content.ipad_l}>
               <div style={styles.full}>
@@ -320,7 +319,8 @@ class App extends Component {
               <div style={styles.B1447.pro_p} />
               <div style={styles.B1453.pro_p} />
               <div style={styles.B1498.pro_p} />
-              <img style={styles.img} src={background_pro_p} alt="room enlarged view" />
+              <img style={styles.img.pro_p} src={background_pro_p} alt="room enlarged view" />
+              {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="pro_p" />)}
               <div style={styles.content.pro_p}>
                 <div style={styles.full}>
                   <ContentBlocks
@@ -351,13 +351,13 @@ class App extends Component {
               </Fab>
             </div>
           )}</Hidden>
-        <Hidden smDown>
+        <Hidden smDown >
           <div style={styles.hall.pro_l} />
           <div style={styles.B1447.pro_l} />
           <div style={styles.B1453.pro_l} />
           <div style={styles.B1498.pro_l} />
-          <img style={styles.img} src={background_pro_l} alt="room enlarged view" style={{ width: 1366 }} />
-          {/* {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_l" />)} */}
+          <img style={styles.img.pro_l} src={background_pro_l} alt="room enlarged view" />
+          {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="pro_l" />)}
           <div style={styles.content.pro_l}>
             <div style={styles.full}>
               <ContentBlocks
@@ -395,9 +395,26 @@ class App extends Component {
 
 const styles = {
   img: {
-    zIndex: 100,
-    position: 'absolute',
-    width: '100%'
+    ipad_p: {
+      zIndex: 100,
+      position: 'absolute',
+      width: 752
+    },
+    ipad_l: {
+      zIndex: 100,
+      position: 'absolute',
+      width: 1024
+    },
+    pro_p: {
+      zIndex: 100,
+      position: 'absolute',
+      width: 1024
+    },
+    pro_l: {
+      zIndex: 100,
+      position: 'absolute',
+      width: 1366
+    },
   },
   content: {
     ipad_p: {

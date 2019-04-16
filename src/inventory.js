@@ -2,51 +2,97 @@ import uniqid from 'uniqid';
 import moment from 'moment'
 
 const bump = 8; // accounts for margin on html body
-const rackShift = 227;
 const shift_ipad_p_bottom = 222;
 const shift_ipad_l_bottom = 227;
 const shift_ipad_p_top = 224;
 const shift_ipad_l_top = 227;
-const ipad6thBSC_v = {
+const shift_pro_p_bottom = 305.5;
+const shift_pro_p_top = 306;
+const shift_pro_l_bottom = 305.5;
+const shift_pro_l_top = 306;
+
+const ipad_BSC_p = {
     height: 200,
     width: 129,
     x: 150 + bump,
     y: 162
 }
 
-const ipad6thRackBottom_v = {
+const ipad_rack_bottom_p = {
     width: 37,
     height: 215.5,
     x: 100 + bump,
     y: 830 + bump
 }
 
-const ipad6thRackTop_v = {
+const ipad_rack_top_p = {
     width: 39,
     height: 219,
     x: 650 + bump,
     y: 835 + bump
 }
 
-const ipad6thBSC_h = {
+const ipad_BSC_l = {
     height: 133,
     width: 203,
     x: 157 + bump,
     y: 613.7 + bump
 }
 
-const ipad6thRackBottom_h = {
+const ipad_rack_bottom_l = {
     height: 37,
     width: 215.5,
     x: 848.7 + bump,
     y: 667.4 + bump
 }
 
-const ipad6thRackTop_h = {
+const ipad_rack_top_l = {
     height: 39,
     width: 219,
     x: 848 + bump,
     y: 105 + bump
+}
+
+const pro_BSC_l = {
+    width: 273.5,
+    height: 177.8,
+    x: 211 + bump,
+    y: 819 + bump
+}
+
+const pro_rack_bottom_l = {
+    width: 290,
+    height: 49,
+    x: 1141.7 + bump,
+    y: 890.5 + bump,
+}
+
+const pro_rack_top_l = {
+    width: 295,
+    height: 51,
+    x: 1143.2 + bump,
+    y: 139 + bump,
+}
+
+const pro_BSC_p = {
+    height: 273.5,
+    width: 177.8,
+    x: 205 + bump,
+    y: 211 + bump
+}
+
+const pro_rack_bottom_p = {
+    height: 290,
+    width: 49,
+    x: 133.5 + bump,
+    y: 1141.6 + bump,
+}
+
+const pro_rack_top_p = {
+    height: 297,
+    width: 53,
+    x: 885 + bump,
+    y: 1143 + bump,
 }
 
 const bsc = uniqid()
@@ -83,10 +129,10 @@ const inventory = [
         orders: [],
         style: {
             ipad_p: {
-                left: ipad6thBSC_v.x - (ipad6thBSC_v.width / 2),
-                top: ipad6thBSC_v.y - (ipad6thBSC_v.height / 2),
-                height: ipad6thBSC_v.height,
-                width: ipad6thBSC_v.width,
+                left: ipad_BSC_p.x - (ipad_BSC_p.width / 2),
+                top: ipad_BSC_p.y - (ipad_BSC_p.height / 2),
+                height: ipad_BSC_p.height,
+                width: ipad_BSC_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
@@ -94,16 +140,38 @@ const inventory = [
 
             },
             ipad_l: {
-                left: ipad6thBSC_h.x - (ipad6thBSC_h.width / 2),
-                top: ipad6thBSC_h.y - (ipad6thBSC_h.height / 2),
-                height: ipad6thBSC_h.height,
-                width: ipad6thBSC_h.width,
+                left: ipad_BSC_l.x - (ipad_BSC_l.width / 2),
+                top: ipad_BSC_l.y - (ipad_BSC_l.height / 2),
+                height: ipad_BSC_l.height,
+                width: ipad_BSC_l.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
                 zIndex: 101,
 
-            }
+            },
+            pro_l: {
+                left: pro_BSC_l.x - (pro_BSC_l.width / 2),
+                top: pro_BSC_l.y - (pro_BSC_l.height / 2),
+                height: pro_BSC_l.height,
+                width: pro_BSC_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
+            pro_p: {
+                left: pro_BSC_p.x - (pro_BSC_p.width / 2),
+                top: pro_BSC_p.y - (pro_BSC_p.height / 2),
+                height: pro_BSC_p.height,
+                width: pro_BSC_p.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
         }
     },
     {
@@ -116,10 +184,10 @@ const inventory = [
         orders: [],
         style: {
             ipad_p: {
-                left: ipad6thRackBottom_v.x - (ipad6thRackBottom_v.width / 2),
-                top: ipad6thRackBottom_v.y - (ipad6thRackBottom_v.height / 2),
-                height: ipad6thRackBottom_v.height,
-                width: ipad6thRackBottom_v.width,
+                left: ipad_rack_bottom_p.x - (ipad_rack_bottom_p.width / 2),
+                top: ipad_rack_bottom_p.y - (ipad_rack_bottom_p.height / 2),
+                height: ipad_rack_bottom_p.height,
+                width: ipad_rack_bottom_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
@@ -127,10 +195,32 @@ const inventory = [
 
             },
             ipad_l: {
-                left: ipad6thRackBottom_h.x - (ipad6thRackBottom_h.width / 2),
-                top: ipad6thRackBottom_h.y - (ipad6thRackBottom_h.height / 2),
-                height: ipad6thRackBottom_h.height,
-                width: ipad6thRackBottom_h.width,
+                left: ipad_rack_bottom_l.x - (ipad_rack_bottom_l.width / 2),
+                top: ipad_rack_bottom_l.y - (ipad_rack_bottom_l.height / 2),
+                height: ipad_rack_bottom_l.height,
+                width: ipad_rack_bottom_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
+            pro_l: {
+                left: pro_rack_bottom_l.x - (pro_rack_bottom_l.width / 2),
+                top: pro_rack_bottom_l.y - (pro_rack_bottom_l.height / 2),
+                height: pro_rack_bottom_l.height,
+                width: pro_rack_bottom_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
+            pro_p: {
+                left: pro_rack_bottom_p.x - (pro_rack_bottom_p.width / 2),
+                top: pro_rack_bottom_p.y - (pro_rack_bottom_p.height / 2),
+                height: pro_rack_bottom_p.height,
+                width: pro_rack_bottom_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
@@ -149,10 +239,10 @@ const inventory = [
         orders: [],
         style: {
             ipad_p: {
-                left: ipad6thRackBottom_v.x - (ipad6thRackBottom_v.width / 2),
-                top: ipad6thRackBottom_v.y - (ipad6thRackBottom_v.height / 2) - shift_ipad_p_bottom,
-                height: ipad6thRackBottom_v.height,
-                width: ipad6thRackBottom_v.width,
+                left: ipad_rack_bottom_p.x - (ipad_rack_bottom_p.width / 2),
+                top: ipad_rack_bottom_p.y - (ipad_rack_bottom_p.height / 2) - shift_ipad_p_bottom,
+                height: ipad_rack_bottom_p.height,
+                width: ipad_rack_bottom_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
@@ -160,16 +250,38 @@ const inventory = [
 
             },
             ipad_l: {
-                left: ipad6thRackBottom_h.x - (ipad6thRackBottom_h.width / 2) - shift_ipad_l_bottom,
-                top: ipad6thRackBottom_h.y - (ipad6thRackBottom_h.height / 2),
-                height: ipad6thRackBottom_h.height,
-                width: ipad6thRackBottom_h.width,
+                left: ipad_rack_bottom_l.x - (ipad_rack_bottom_l.width / 2) - shift_ipad_l_bottom,
+                top: ipad_rack_bottom_l.y - (ipad_rack_bottom_l.height / 2),
+                height: ipad_rack_bottom_l.height,
+                width: ipad_rack_bottom_l.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
                 zIndex: 101,
 
-            }
+            },
+            pro_l: {
+                left: pro_rack_bottom_l.x - (pro_rack_bottom_l.width / 2) - shift_pro_l_bottom,
+                top: pro_rack_bottom_l.y - (pro_rack_bottom_l.height / 2),
+                height: pro_rack_bottom_l.height,
+                width: pro_rack_bottom_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
+            pro_p: {
+                left: pro_rack_bottom_p.x - (pro_rack_bottom_p.width / 2),
+                top: pro_rack_bottom_p.y - (pro_rack_bottom_p.height / 2) - shift_pro_p_bottom,
+                height: pro_rack_bottom_p.height,
+                width: pro_rack_bottom_p.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
         },
     },
     {
@@ -182,10 +294,10 @@ const inventory = [
         orders: [],
         style: {
             ipad_p: {
-                left: ipad6thRackBottom_v.x - (ipad6thRackBottom_v.width / 2),
-                top: ipad6thRackBottom_v.y - (ipad6thRackBottom_v.height / 2) - 2 * shift_ipad_p_bottom,
-                height: ipad6thRackBottom_v.height,
-                width: ipad6thRackBottom_v.width,
+                left: ipad_rack_bottom_p.x - (ipad_rack_bottom_p.width / 2),
+                top: ipad_rack_bottom_p.y - (ipad_rack_bottom_p.height / 2) - 2 * shift_ipad_p_bottom,
+                height: ipad_rack_bottom_p.height,
+                width: ipad_rack_bottom_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
@@ -193,16 +305,38 @@ const inventory = [
 
             },
             ipad_l: {
-                left: ipad6thRackBottom_h.x - (ipad6thRackBottom_h.width / 2) - 2 * shift_ipad_l_bottom,
-                top: ipad6thRackBottom_h.y - (ipad6thRackBottom_h.height / 2),
-                height: ipad6thRackBottom_h.height,
-                width: ipad6thRackBottom_h.width,
+                left: ipad_rack_bottom_l.x - (ipad_rack_bottom_l.width / 2) - 2 * shift_ipad_l_bottom,
+                top: ipad_rack_bottom_l.y - (ipad_rack_bottom_l.height / 2),
+                height: ipad_rack_bottom_l.height,
+                width: ipad_rack_bottom_l.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
                 zIndex: 101,
 
-            }
+            },
+            pro_l: {
+                left: pro_rack_bottom_l.x - (pro_rack_bottom_l.width / 2) - 2 * shift_pro_l_bottom,
+                top: pro_rack_bottom_l.y - (pro_rack_bottom_l.height / 2),
+                height: pro_rack_bottom_l.height,
+                width: pro_rack_bottom_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
+            pro_p: {
+                left: pro_rack_bottom_p.x - (pro_rack_bottom_p.width / 2),
+                top: pro_rack_bottom_p.y - (pro_rack_bottom_p.height / 2) - 2 * shift_pro_p_bottom,
+                height: pro_rack_bottom_p.height,
+                width: pro_rack_bottom_p.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
         },
     },
     {
@@ -215,10 +349,10 @@ const inventory = [
         orders: [],
         style: {
             ipad_p: {
-                left: ipad6thRackTop_v.x - (ipad6thRackTop_v.width / 2),
-                top: ipad6thRackTop_v.y - (ipad6thRackTop_v.height / 2) - 3 * shift_ipad_p_top,
-                height: ipad6thRackTop_v.height,
-                width: ipad6thRackTop_v.width,
+                left: ipad_rack_top_p.x - (ipad_rack_top_p.width / 2),
+                top: ipad_rack_top_p.y - (ipad_rack_top_p.height / 2) - 3 * shift_ipad_p_top,
+                height: ipad_rack_top_p.height,
+                width: ipad_rack_top_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
@@ -226,16 +360,36 @@ const inventory = [
 
             },
             ipad_l: {
-                left: ipad6thRackTop_h.x - (ipad6thRackTop_h.width / 2) - 3 * shift_ipad_l_top,
-                top: ipad6thRackTop_h.y - (ipad6thRackTop_h.height / 2),
-                height: ipad6thRackTop_h.height,
-                width: ipad6thRackTop_h.width,
+                left: ipad_rack_top_l.x - (ipad_rack_top_l.width / 2) - 3 * shift_ipad_l_top,
+                top: ipad_rack_top_l.y - (ipad_rack_top_l.height / 2),
+                height: ipad_rack_top_l.height,
+                width: ipad_rack_top_l.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
                 zIndex: 101,
 
-            }
+            },
+            pro_l: {
+                left: pro_rack_top_l.x - (pro_rack_top_l.width / 2) - 3 * shift_pro_l_top,
+                top: pro_rack_top_l.y - (pro_rack_top_l.height / 2),
+                height: pro_rack_top_l.height,
+                width: pro_rack_top_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+            },
+            pro_p: {
+                left: pro_rack_top_p.x - (pro_rack_top_p.width / 2),
+                top: pro_rack_top_p.y - (pro_rack_top_p.height / 2) - 3 * shift_pro_p_top,
+                height: pro_rack_top_p.height,
+                width: pro_rack_top_p.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+            },
         },
     },
     {
@@ -248,10 +402,10 @@ const inventory = [
         orders: [],
         style: {
             ipad_p: {
-                left: ipad6thRackTop_v.x - (ipad6thRackTop_v.width / 2),
-                top: ipad6thRackTop_v.y - (ipad6thRackTop_v.height / 2) - 2 * shift_ipad_p_top,
-                height: ipad6thRackTop_v.height,
-                width: ipad6thRackTop_v.width,
+                left: ipad_rack_top_p.x - (ipad_rack_top_p.width / 2),
+                top: ipad_rack_top_p.y - (ipad_rack_top_p.height / 2) - 2 * shift_ipad_p_top,
+                height: ipad_rack_top_p.height,
+                width: ipad_rack_top_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
@@ -259,16 +413,37 @@ const inventory = [
 
             },
             ipad_l: {
-                left: ipad6thRackTop_h.x - (ipad6thRackTop_h.width / 2) - 2 * shift_ipad_l_top,
-                top: ipad6thRackTop_h.y - (ipad6thRackTop_h.height / 2),
-                height: ipad6thRackTop_h.height,
-                width: ipad6thRackTop_h.width,
+                left: ipad_rack_top_l.x - (ipad_rack_top_l.width / 2) - 2 * shift_ipad_l_top,
+                top: ipad_rack_top_l.y - (ipad_rack_top_l.height / 2),
+                height: ipad_rack_top_l.height,
+                width: ipad_rack_top_l.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
                 zIndex: 101,
 
-            }
+            },
+            pro_l: {
+                left: pro_rack_top_l.x - (pro_rack_top_l.width / 2) - 2 * shift_pro_l_top,
+                top: pro_rack_top_l.y - (pro_rack_top_l.height / 2),
+                height: pro_rack_top_l.height,
+                width: pro_rack_top_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+            },
+            pro_p: {
+                left: pro_rack_top_p.x - (pro_rack_top_p.width / 2),
+                top: pro_rack_top_p.y - (pro_rack_top_p.height / 2) - 2 * shift_pro_p_top,
+                height: pro_rack_top_p.height,
+                width: pro_rack_top_p.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
         },
     },
     {
@@ -281,27 +456,45 @@ const inventory = [
         orders: [],
         style: {
             ipad_p: {
-                left: ipad6thRackTop_v.x - (ipad6thRackTop_v.width / 2),
-                top: ipad6thRackTop_v.y - (ipad6thRackTop_v.height / 2) - shift_ipad_p_top,
-                height: ipad6thRackTop_v.height,
-                width: ipad6thRackTop_v.width,
+                left: ipad_rack_top_p.x - (ipad_rack_top_p.width / 2),
+                top: ipad_rack_top_p.y - (ipad_rack_top_p.height / 2) - shift_ipad_p_top,
+                height: ipad_rack_top_p.height,
+                width: ipad_rack_top_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
                 zIndex: 101,
-
             },
             ipad_l: {
-                left: ipad6thRackTop_h.x - (ipad6thRackTop_h.width / 2) - shift_ipad_l_top,
-                top: ipad6thRackTop_h.y - (ipad6thRackTop_h.height / 2),
-                height: ipad6thRackTop_h.height,
-                width: ipad6thRackTop_h.width,
+                left: ipad_rack_top_l.x - (ipad_rack_top_l.width / 2) - shift_ipad_l_top,
+                top: ipad_rack_top_l.y - (ipad_rack_top_l.height / 2),
+                height: ipad_rack_top_l.height,
+                width: ipad_rack_top_l.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
                 zIndex: 101,
-
-            }
+            },
+            pro_l: {
+                left: pro_rack_top_l.x - (pro_rack_top_l.width / 2) - shift_pro_l_top,
+                top: pro_rack_top_l.y - (pro_rack_top_l.height / 2),
+                height: pro_rack_top_l.height,
+                width: pro_rack_top_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+            },
+            pro_p: {
+                left: pro_rack_top_p.x - (pro_rack_top_p.width / 2),
+                top: pro_rack_top_p.y - (pro_rack_top_p.height / 2) - shift_pro_p_top,
+                height: pro_rack_top_p.height,
+                width: pro_rack_top_p.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+            },
         },
     },
     {
@@ -314,10 +507,10 @@ const inventory = [
         orders: [],
         style: {
             ipad_p: {
-                left: ipad6thRackTop_v.x - (ipad6thRackTop_v.width / 2),
-                top: ipad6thRackTop_v.y - (ipad6thRackTop_v.height / 2),
-                height: ipad6thRackTop_v.height,
-                width: ipad6thRackTop_v.width,
+                left: ipad_rack_top_p.x - (ipad_rack_top_p.width / 2),
+                top: ipad_rack_top_p.y - (ipad_rack_top_p.height / 2),
+                height: ipad_rack_top_p.height,
+                width: ipad_rack_top_p.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
@@ -325,16 +518,38 @@ const inventory = [
 
             },
             ipad_l: {
-                left: ipad6thRackTop_h.x - (ipad6thRackTop_h.width / 2),
-                top: ipad6thRackTop_h.y - (ipad6thRackTop_h.height / 2),
-                height: ipad6thRackTop_h.height,
-                width: ipad6thRackTop_h.width,
+                left: ipad_rack_top_l.x - (ipad_rack_top_l.width / 2),
+                top: ipad_rack_top_l.y - (ipad_rack_top_l.height / 2),
+                height: ipad_rack_top_l.height,
+                width: ipad_rack_top_l.width,
                 opacity: .5,
                 backgroundColor: 'red',
                 position: 'absolute',
                 zIndex: 101,
 
-            }
+            },
+            pro_l: {
+                left: pro_rack_top_l.x - (pro_rack_top_l.width / 2),
+                top: pro_rack_top_l.y - (pro_rack_top_l.height / 2),
+                height: pro_rack_top_l.height,
+                width: pro_rack_top_l.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
+            pro_p: {
+                left: pro_rack_top_p.x - (pro_rack_top_p.width / 2),
+                top: pro_rack_top_p.y - (pro_rack_top_p.height / 2),
+                height: pro_rack_top_p.height,
+                width: pro_rack_top_p.width,
+                opacity: .5,
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 101,
+
+            },
         },
     },
 ]
