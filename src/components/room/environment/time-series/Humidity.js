@@ -108,7 +108,7 @@ export default class Humidity extends PureComponent {
                 </IconButton>
                 <ReactEcharts
                     option={this.getOption()}
-                    style={{ height: '50%', width: '100%', marginBottom: 50 }}
+                    style={{ height: '80%', width: '100%', marginBottom: 50 }}
                     className='react_for_echarts'
                 />
             </Dialog>
