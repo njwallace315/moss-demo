@@ -30,6 +30,7 @@ import OrdersList from './components/room/ongoing/OrdersList';
 import NoticesList from './components/actions/notices/NoticesList'
 import ContentBlocks from './components/content/ContentBlocks'
 import Menu from './components/actions/Menu'
+import axios from "axios";
 
 class App extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class App extends Component {
         { label: 'Models', value: 'Mouse' },
         { label: 'Emergency Power', value: 'Available' },
       ],
+      inventory: [],
       researchOpen: false,
       roomOpen: true,
       veterinaryOpen: false,
@@ -93,11 +95,17 @@ class App extends Component {
   }
 
   handleSubmit = name => data => {
-    console.log(data)
+    this.putDataToDB(name, data)
     const arr = Array.isArray(this.state[name]) ? this.state[name].slice(0) : [];
     arr.push(data)
     this.setState({ [name]: arr }, this.closeAll);
   }
+
+  putDataToDB = (name, data) => {
+    axios.post("https://nate-dev-brms-db.ngrok.io/api/putData", {
+      name, data
+    });
+  };
 
   renderDialogs = () => {
     const {
@@ -191,11 +199,65 @@ class App extends Component {
       self.setState({ orientation: window.scceen ? window.screen.orientation.type : window.orientation });
       // App.setState({ orientation: window.screen.orientation.type });
     }, false);
+    /** seed database */
+    // seed.SARs.forEach(x => {
+    //   this.putDataToDB('SARs', x)
+    // })
+    // seed.DARs.forEach(x => {
+    //   this.putDataToDB('DARs', x)
+    // })
+    // seed.OCRs.forEach(x => {
+    //   this.putDataToDB('OCRs', x)
+    // })
+    // seed.workOrders.forEach(x => {
+    //   this.putDataToDB('workOrders', x)
+    // })
+    // seed.alerts.forEach(x => {
+    //   this.putDataToDB('alerts', x)
+    // })
+    // seed.hazards.forEach(x => {
+    //   this.putDataToDB('hazards', x)
+    // })
+    // seed.tasks.forEach(x => {
+    //   this.putDataToDB('tasks', x)
+    // })
+    // seed.inventory.forEach(x => {
+    //   this.putDataToDB('inventory', x)
+    // })
+    this.getDataFromDb();
+    if (!this.state.intervalIsSet) {
+      let interval = setInterval(this.getDataFromDb, 1000);
+      this.setState({ intervalIsSet: interval });
+    }
+  }
+  componentWillUnmount() {
+    if (this.state.intervalIsSet) {
+      clearInterval(this.state.intervalIsSet);
+      this.setState({ intervalIsSet: null });
+    }
   }
 
   gradient = direction => {
     return `linear-gradient(to ${direction}, rgba(255,255,255,0), rgba(255,255,255,1))`
   }
+
+  getDataFromDb = () => {
+    fetch("https://nate-dev-brms-db.ngrok.io/api/getData")
+      .then(data => data.json())
+      .then(res => {
+        const data = res.data;
+        const SARs = data.filter(x => x.name === 'SARs').map(x => x.data)
+        const DARs = data.filter(x => x.name === 'DARs').map(x => x.data)
+        const OCRs = data.filter(x => x.name === 'OCRs').map(x => x.data)
+        const tasks = data.filter(x => x.name === 'tasks').map(x => x.data)
+        const hazards = data.filter(x => x.name === 'hazards').map(x => x.data)
+        const alerts = data.filter(x => x.name === 'alerts').map(x => x.data)
+        const workOrders = data.filter(x => x.name === 'workOrders').map(x => x.data)
+        const inventory = data.filter(x => x.name === 'inventory').map(x => x.data)
+        console.log(inventory)
+        this.setState({ SARs, DARs, OCRs, tasks, hazards, alerts, workOrders, inventory })
+      });
+  };
 
   render() {
     const {

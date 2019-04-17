@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ClickAwayListener, Dialog, DialogContent, DialogTitle, Divider, Typography, List, ListItem } from '@material-ui/core'
+import { ClickAwayListener, Dialog, DialogContent, DialogTitle, Divider, Typography, List, ListItem, Badge } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import theme from '../../../theme';
 import OrdersContent from '../../content/OrdersContent'
@@ -44,7 +44,7 @@ class Item extends React.Component {
     }
 
     render() {
-        const { item, workOrders, classes } = this.props
+        const { item, workOrders, classes, styleKey } = this.props
         const { dialogOpen } = this.state;
         const orders = this.applicableOrders()
         let ph = {
@@ -80,12 +80,11 @@ class Item extends React.Component {
             ph.materialsCost = materialsCost.toFixed(2);
             ph.smxCost = smxCost.toFixed(2);
             ph.umxCost = umxCost.toFixed(2)
-            console.log('ph: ', ph)
         }
         return (
             <div>
                 <ClickAwayListener onClickAway={this.handleClose}>
-                    <div style={this.getStyle(item, workOrders)} type="button" onClick={this.handleOpen('dialogOpen')} />
+                    <div style={item.style[styleKey]} type="button" onClick={this.handleOpen('dialogOpen')} />
                 </ClickAwayListener>
                 <Dialog open={dialogOpen} onClose={this.handleClose('dialogOpen')}>
                     <DialogTitle>
