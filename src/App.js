@@ -127,7 +127,9 @@ class App extends Component {
       temperatureOpen,
       humidityOpen,
       temps,
-      humids
+      humids,
+      tempMoments,
+      humidMoments
     } = this.state
     return (
       <div>
@@ -141,8 +143,8 @@ class App extends Component {
         {reportsListOpen && <ReportsList onClose={this.handleClose('reportsListOpen')} SARs={SARs} DARs={DARs} OCRs={OCRs} />}
         {ordersListOpen && <OrdersList onClose={this.handleClose('ordersListOpen')} workOrders={workOrders} />}
         {noticesListOpen && <NoticesList onClose={this.handleClose('noticesListOpen')} hazards={hazards} alerts={alerts} tasks={tasks} />}
-        {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} />}
-        {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} />}
+        {temperatureOpen && <Temperature temps={temps} onClose={this.handleClose('temperatureOpen')} tempMoments={tempMoments} />}
+        {humidityOpen && <Humidity values={humids} onClose={this.handleClose('humidityOpen')} humidMoments={humidMoments} />}
         {/** Layer three dialogs */}
         {SAROpen && <SAR open={SAROpen} onClose={this.handleClose('SAROpen')} onSubmit={this.handleSubmit('SARs')} />}
         {DAROpen && <DAR open={DAROpen} onClose={this.handleClose('DAROpen')} onSubmit={this.handleSubmit('DARs')} />}
@@ -217,6 +219,7 @@ class App extends Component {
       B1447Open,
       B1453Open,
       B1498Open,
+      light
     } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
@@ -249,6 +252,7 @@ class App extends Component {
               <div style={styles.content.ipad_p}>
                 <div style={styles.full}>
                   <ContentBlocks
+                    light={light}
                     temperature={temperature}
                     humidity={humidity}
                     orientation='vertical'
@@ -289,6 +293,7 @@ class App extends Component {
               <div style={styles.content.ipad_l}>
                 <div style={styles.full}>
                   <ContentBlocks
+                    light={light}
                     temperature={temperature}
                     humidity={humidity}
                     orientation='horizontal'
@@ -328,6 +333,7 @@ class App extends Component {
                 <div style={styles.content.pro_p}>
                   <div style={styles.full}>
                     <ContentBlocks
+                      light={light}
                       temperature={temperature}
                       humidity={humidity}
                       orientation='vertical'
@@ -367,6 +373,7 @@ class App extends Component {
             <div style={styles.content.pro_l}>
               <div style={styles.full}>
                 <ContentBlocks
+                  light={light}
                   temperature={temperature}
                   humidity={humidity}
                   orientation='horizontal'
@@ -605,7 +612,7 @@ const styles = {
       // backgroundColor: 'yellow',
     },
     ipad_l: {
-      height: 55,
+      height: 60,
       width: 943,
       left: 42,
       top: 720,

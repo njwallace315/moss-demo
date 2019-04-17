@@ -1,6 +1,7 @@
 import moment from 'moment'
 import inventory from './inventory';
 import { generateHumidData, generateTempData } from './helpers'
+import data from './private/environment-data';
 
 const SARs = [
     {
@@ -87,19 +88,25 @@ const tasks = [
         postedBy: "Demo Researcher",
         priority: "High",
         targets: "Husbandry or facility staff",
-        taskName: "Fix Watering Spigot",
+        taskName: "Fix water spigot",
     }
 ]
 
 
 const hazards = [];
 
+const temps = generateTempData()
+const humids = generateHumidData()
 
-const temps = generateTempData();
+// const temps = data.filter(x => x.Sensor === 'Temperature').map(x => parseFloat(x.Value))
 const temperature = temps[temps.length - 1]
 
-const humids = generateHumidData();
+// const humids = data.filter(x => x.Sensor === 'Humidity').map(x => parseFloat(x.Value))
 const humidity = humids[humids.length - 1]
+
+// const temps = data.filter(x => x.Sensor === 'Temperature').map(x => parseFloat(x.Value))
+const tempMoments = data.filter(x => x.Sensor === 'Temperature').map(x => moment(x.Date))
+const humidMoments = data.filter(x => x.Sensor === 'Humidity').map(x => moment(x.Date))
 
 const seed = {
     inventory,
@@ -114,6 +121,8 @@ const seed = {
     humidity,
     temps,
     humids,
+    tempMoments,
+    humidMoments
 }
 export default seed;
 
