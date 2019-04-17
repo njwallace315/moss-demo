@@ -15,11 +15,11 @@ import moment from 'moment';
 
 class OCR extends React.Component {
   state = {
-    protocol: '1',
+    protocol: 'M005160',
     reason: 'Double Litter',
     reportedBy: 'Nate',
-    placement: 'test',
-    comments: 'test',
+    placement: 'Rack 2, row 5, col D',
+    comments: '',
   };
 
   handleChange = name => event => {

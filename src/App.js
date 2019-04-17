@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Fab, Hidden, IconButton } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
+import { Fab, Hidden } from '@material-ui/core'
 import { Add } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu'
 import ActionsDialog from './components/actions/ActionsDialog';
@@ -10,7 +9,6 @@ import NoticeActionsDialog from './components/actions/NoticeActionsDialog';
 import SAR from './components/actions/reports/SAR';
 import DAR from './components/actions/reports/DAR';
 import OCR from './components/actions/reports/OCR';
-// import EnvOverview from './components/room/environment/EnvOverview'
 import Temperature from './components/room/environment/time-series/Temperature'
 import Humidity from './components/room/environment/time-series/Humidity'
 import Hazard from './components/actions/notices/Hazard';
@@ -21,8 +19,7 @@ import theme from './theme'
 import WorkOrderActionsDialog from './components/actions/WorkOrderActionsDialog';
 import LightSchedule from './components/actions/work-orders/LightSchedule';
 import Maintenance from './components/actions/work-orders/Maintenance'
-import { generateHumidData, generateTempData } from './helpers'
-import demoInventory from './inventory'
+import seed from './seed'
 import Item from './components/room/inventory/Item'
 import ReportsList from './components/room/ongoing/ReportsList'
 import background_ipad_l from './static/B1451_h_ipad_6th.svg'
@@ -33,23 +30,14 @@ import OrdersList from './components/room/ongoing/OrdersList';
 import NoticesList from './components/actions/notices/NoticesList'
 import ContentBlocks from './components/content/ContentBlocks'
 import Menu from './components/actions/Menu'
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
-
-function SimpleMediaQuery() {
-  const matches = useMediaQuery(theme.breakpoints.down('md'));
-  const orientation = window.screen.orientation.type
-  return !matches ? null : <div style={{ height: 100, width: 100, backfroundColor: 'red' }}>{orientation}</div>;
-}
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      ...seed,
       envOpen: true,
-      temps: generateTempData(),
-      humids: generateHumidData(),
       light: 'On',
-      inventory: demoInventory.slice(0),
       roomDetails: [
         { label: 'SPF Level', value: '2' },
         { label: 'Models', value: 'Mouse' },
@@ -105,6 +93,7 @@ class App extends Component {
   }
 
   handleSubmit = name => data => {
+    console.log(data)
     const arr = Array.isArray(this.state[name]) ? this.state[name].slice(0) : [];
     arr.push(data)
     this.setState({ [name]: arr }, this.closeAll);
@@ -202,6 +191,10 @@ class App extends Component {
     }, false);
   }
 
+  gradient = direction => {
+    return `linear-gradient(to ${direction}, rgba(255,255,255,0), rgba(255,255,255,1))`
+  }
+
   render() {
     const {
       workOrders,
@@ -217,7 +210,13 @@ class App extends Component {
       hazards,
       alerts,
       tasks,
-      anchorEl
+      anchorEl,
+      temperature,
+      humidity,
+      hallOpen,
+      B1447Open,
+      B1453Open,
+      B1498Open,
     } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
@@ -240,17 +239,18 @@ class App extends Component {
             onClose={this.menuClose}
           />
           <Hidden smUp>
-            {console.log('1')}
-            <div style={styles.hall.ipad_p} />
-            <div style={styles.B1447.ipad_p} />
-            <div style={styles.B1453.ipad_p} />
-            <div style={styles.B1498.ipad_p} />
+            <div onMouseEnter={this.handleOpen('hallOpen')} onMouseLeave={this.handleClose('hallOpen')} style={{ ...styles.hall.ipad_p, backgroundImage: hallOpen ? null : this.gradient('bottom') }} />
+            <div onMouseEnter={this.handleOpen('B1447Open')} onMouseLeave={this.handleClose('B1447Open')} style={{ ...styles.B1447.ipad_p, backgroundImage: B1447Open ? null : this.gradient('left') }} />
+            <div onMouseEnter={this.handleOpen('B1453Open')} onMouseLeave={this.handleClose('B1453Open')} style={{ ...styles.B1453.ipad_p, backgroundImage: B1453Open ? null : this.gradient('right') }} />
+            <div onMouseEnter={this.handleOpen('B1498Open')} onMouseLeave={this.handleClose('B1498Open')} style={{ ...styles.B1498.ipad_p, backgroundImage: B1498Open ? null : this.gradient('top') }} />
             <img style={styles.img.ipad_p} src={background_ipad_p} alt="room enlarged view" />
             <div>
               {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_p" />)}
               <div style={styles.content.ipad_p}>
                 <div style={styles.full}>
                   <ContentBlocks
+                    temperature={temperature}
+                    humidity={humidity}
                     orientation='vertical'
                     handleOpen={this.handleOpen}
                     inventory={inventory}
@@ -280,16 +280,17 @@ class App extends Component {
           </Hidden>
           <Hidden mdUp xsDown>{this.getOrientation() === 'landscape' ? (
             <div>
-              {console.log('2')}
-              <div style={styles.hall.ipad_l} />
-              <div style={styles.B1447.ipad_l} />
-              <div style={styles.B1453.ipad_l} />
-              <div style={styles.B1498.ipad_l} />
+              <div onMouseEnter={this.handleOpen('hallOpen')} onMouseLeave={this.handleClose('hallOpen')} style={{ ...styles.hall.ipad_l, backgroundImage: hallOpen ? null : this.gradient('right') }} />
+              <div onMouseEnter={this.handleOpen('B1447Open')} onMouseLeave={this.handleClose('B1447Open')} style={{ ...styles.B1447.ipad_l, backgroundImage: B1447Open ? null : this.gradient('bottom') }} />
+              <div onMouseEnter={this.handleOpen('B1453Open')} onMouseLeave={this.handleClose('B1453Open')} style={{ ...styles.B1453.ipad_l, backgroundImage: B1453Open ? null : this.gradient('top') }} />
+              <div onMouseEnter={this.handleOpen('B1498Open')} onMouseLeave={this.handleClose('B1498Open')} style={{ ...styles.B1498.ipad_l, backgroundImage: B1498Open ? null : this.gradient('left') }} />
               <img style={styles.img.ipad_l} src={background_ipad_l} alt="room enlarged view" />
               {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="ipad_l" />)}
               <div style={styles.content.ipad_l}>
                 <div style={styles.full}>
                   <ContentBlocks
+                    temperature={temperature}
+                    humidity={humidity}
                     orientation='horizontal'
                     handleOpen={this.handleOpen}
                     inventory={inventory}
@@ -318,16 +319,17 @@ class App extends Component {
             </div>
           ) : (
               <div>
-                {console.log('3')}
-                <div style={styles.hall.pro_p} />
-                <div style={styles.B1447.pro_p} />
-                <div style={styles.B1453.pro_p} />
-                <div style={styles.B1498.pro_p} />
+                <div onMouseEnter={this.handleOpen('hallOpen')} onMouseLeave={this.handleClose('hallOpen')} style={{ ...styles.hall.pro_p, backgroundImage: hallOpen ? null : this.gradient('bottom') }} />
+                <div onMouseEnter={this.handleOpen('B1447Open')} onMouseLeave={this.handleClose('B1447Open')} style={{ ...styles.B1447.pro_p, backgroundImage: B1447Open ? null : this.gradient('left') }} />
+                <div onMouseEnter={this.handleOpen('B1453Open')} onMouseLeave={this.handleClose('B1453Open')} style={{ ...styles.B1453.pro_p, backgroundImage: B1453Open ? null : this.gradient('right') }} />
+                <div onMouseEnter={this.handleOpen('B1498Open')} onMouseLeave={this.handleClose('B1498Open')} style={{ ...styles.B1498.pro_p, backgroundImage: B1498Open ? null : this.gradient('top') }} />
                 <img style={styles.img.pro_p} src={background_pro_p} alt="room enlarged view" />
                 {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="pro_p" />)}
                 <div style={styles.content.pro_p}>
                   <div style={styles.full}>
                     <ContentBlocks
+                      temperature={temperature}
+                      humidity={humidity}
                       orientation='vertical'
                       handleOpen={this.handleOpen}
                       inventory={inventory}
@@ -356,16 +358,17 @@ class App extends Component {
               </div>
             )}</Hidden>
           <Hidden smDown>
-            {console.log('4')}
-            <div style={styles.hall.pro_l} />
-            <div style={styles.B1447.pro_l} />
-            <div style={styles.B1453.pro_l} />
-            <div style={styles.B1498.pro_l} />
+            <div onMouseEnter={this.handleOpen('hallOpen')} onMouseLeave={this.handleClose('hallOpen')} style={{ ...styles.hall.pro_l, backgroundImage: hallOpen ? null : this.gradient('right') }} />
+            <div onMouseEnter={this.handleOpen('B1447Open')} onMouseLeave={this.handleClose('B1447Open')} style={{ ...styles.B1447.pro_l, backgroundImage: B1447Open ? null : this.gradient('bottom') }} />
+            <div onMouseEnter={this.handleOpen('B1453Open')} onMouseLeave={this.handleClose('B1453Open')} style={{ ...styles.B1453.pro_l, backgroundImage: B1453Open ? null : this.gradient('top') }} />
+            <div onMouseEnter={this.handleOpen('B1498Open')} onMouseLeave={this.handleClose('B1498Open')} style={{ ...styles.B1498.pro_l, backgroundImage: B1498Open ? null : this.gradient('left') }} />
             <img style={styles.img.pro_l} src={background_pro_l} alt="room enlarged view" />
             {inventory.filter(x => x.type === 'item').map(item => <Item item={item} workOrders={workOrders} key={item._id} styleKey="pro_l" />)}
             <div style={styles.content.pro_l}>
               <div style={styles.full}>
                 <ContentBlocks
+                  temperature={temperature}
+                  humidity={humidity}
                   orientation='horizontal'
                   handleOpen={this.handleOpen}
                   inventory={inventory}
@@ -425,10 +428,10 @@ const styles = {
   content: {
     ipad_p: {
       position: 'absolute',
-      top: 45,
+      top: 50,
       left: 68,
       width: 630,
-      height: 917,
+      height: 900,
     },
     ipad_l: {
       position: 'absolute',
@@ -513,42 +516,38 @@ const styles = {
     ipad_p: {
       height: 42,
       width: 752,
-      top: 960,
+      top: 952,
       display: 'inline-block',
-      opacity: .5,
       // backgroundColor: 'green',
       position: 'absolute',
-      zIndex: 900
+      zIndex: 900,
     },
     ipad_l: {
       width: 42,
-      left: 975,
+      left: 972,
       height: 768,
       display: 'inline-block',
-      opacity: .5,
       // backgroundColor: 'green',
       position: 'absolute',
-      zIndex: 900
+      zIndex: 900,
     },
     pro_p: {
       height: 55,
       width: 1024,
-      top: 1320,
+      top: 1300,
       display: 'inline-block',
-      opacity: .5,
       // backgroundColor: 'green',
       position: 'absolute',
-      zIndex: 900
+      zIndex: 900,
     },
     pro_l: {
       width: 55,
-      left: 1320,
+      left: 1305,
       height: 1024,
       display: 'inline-block',
-      opacity: .5,
-      // backgroundColor: 'green',
       position: 'absolute',
-      zIndex: 900
+      // backgroundColor: 'green',
+      zIndex: 1100,
     },
     desktop: {}
   },
@@ -556,45 +555,41 @@ const styles = {
   B1453: {
     ipad_p: {
       width: 53,
-      height: 912,
+      height: 925,
       left: 708,
-      top: 50,
+      top: 42,
       display: 'inline-block',
       position: 'absolute',
       zIndex: 900,
       // backgroundColor: 'red',
-      opacity: .5,
     },
     ipad_l: {
       height: 68,
-      width: 920,
+      width: 942,
+      left: 43,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 900,
+      // backgroundColor: 'red',
+    },
+    pro_p: {
+      width: 83,
+      height: 1270,
+      left: 942,
+      top: 55,
+      display: 'inline-block',
+      position: 'absolute',
+      zIndex: 900,
+      // backgroundColor: 'red',
+    },
+    pro_l: {
+      height: 90,
+      width: 1268,
       left: 55,
       display: 'inline-block',
       position: 'absolute',
       zIndex: 900,
       // backgroundColor: 'red',
-      opacity: .5,
-    },
-    pro_p: {
-      width: 73,
-      height: 1244,
-      left: 950,
-      top: 65,
-      display: 'inline-block',
-      position: 'absolute',
-      zIndex: 900,
-      // backgroundColor: 'red',
-      opacity: .5,
-    },
-    pro_l: {
-      height: 73,
-      width: 1244,
-      left: 65,
-      display: 'inline-block',
-      position: 'absolute',
-      zIndex: 900,
-      // backgroundColor: 'red',
-      opacity: .5,
     },
     desktop: {}
   },
@@ -602,45 +597,41 @@ const styles = {
   B1447: {
     ipad_p: {
       width: 55,
-      height: 904,
-      top: 55,
+      height: 924,
+      top: 42,
       display: 'inline-block',
       position: 'absolute',
       zIndex: 901,
       // backgroundColor: 'yellow',
-      opacity: .5,
     },
     ipad_l: {
       height: 55,
-      width: 920,
-      left: 55,
+      width: 943,
+      left: 42,
       top: 720,
       display: 'inline-block',
       position: 'absolute',
       zIndex: 900,
       // backgroundColor: 'yellow',
-      opacity: .5,
     },
     pro_p: {
       width: 75,
-      height: 1244,
-      top: 65,
+      height: 1268,
+      top: 55,
       display: 'inline-block',
       position: 'absolute',
       zIndex: 901,
       // backgroundColor: 'yellow',
-      opacity: .5,
     },
     pro_l: {
-      height: 75,
-      width: 1244,
-      left: 65,
-      top: 950,
+      height: 95,
+      width: 1268,
+      left: 55,
+      top: 940,
       display: 'inline-block',
       position: 'absolute',
       zIndex: 900,
       // backgroundColor: 'yellow',
-      opacity: .5,
     },
     desktop: {}
   },
@@ -650,37 +641,33 @@ const styles = {
       height: 47,
       width: 752,
       display: 'inline-block',
-      opacity: .5,
       // backgroundColor: 'blue',
       position: 'absolute',
-      zIndex: 900
+      zIndex: 900,
     },
     ipad_l: {
       width: 47,
       height: 768,
       display: 'inline-block',
-      opacity: .5,
       // backgroundColor: 'blue',
       position: 'absolute',
-      zIndex: 900
+      zIndex: 900,
     },
     pro_p: {
-      height: 57,
+      height: 60,
       width: 1024,
       display: 'inline-block',
-      opacity: .5,
       // backgroundColor: 'blue',
       position: 'absolute',
-      zIndex: 900
+      zIndex: 900,
     },
     pro_l: {
       width: 57,
       height: 1024,
       display: 'inline-block',
-      opacity: .5,
       // backgroundColor: 'blue',
       position: 'absolute',
-      zIndex: 900
+      zIndex: 900,
     },
     desktop: {}
   },
@@ -688,87 +675,7 @@ const styles = {
     height: '100%',
     width: '100%'
   },
-  icon: {}
 }
 
-
-const horizontalStyles = {
-  img: {
-    zIndex: 100,
-    position: 'absolute',
-    // height: '100%',
-    width: '100%'
-  },
-  fab: {
-    position: 'fixed',
-    top: 690,
-    left: 950,
-    zIndex: 1000,
-  },
-  menuFab: {
-    position: 'fixed',
-    top: 690,
-    left: 875,
-    zIndex: 1000,
-  },
-  left: {
-    width: 47,
-    height: 768,
-    display: 'inline-block',
-    opacity: .5,
-    // backgroundColor: 'blue',
-    position: 'absolute',
-    zIndex: 900
-  },
-  top: {
-    height: 68,
-    width: 920,
-    left: 55,
-    display: 'inline-block',
-    position: 'absolute',
-    zIndex: 900,
-    // backgroundColor: 'red',
-    opacity: .5,
-  },
-  bottom: {
-    height: 55,
-    width: 920,
-    left: 55,
-    top: 720,
-    display: 'inline-block',
-    position: 'absolute',
-    zIndex: 900,
-    // backgroundColor: 'yellow',
-    opacity: .5,
-  },
-  right: {
-    width: 42,
-    left: 975,
-    height: 768,
-    display: 'inline-block',
-    opacity: .5,
-    // backgroundColor: 'green',
-    position: 'absolute',
-    zIndex: 900
-  },
-  content: {
-    position: 'absolute',
-    top: 75,
-    left: 55,
-    height: 630,
-    width: 917,
-  },
-  chart: {
-    width: '75%',
-    position: 'relative',
-    margin: '200px auto'
-  },
-  ongoing: {
-    marginTop: 175
-  },
-  full: {
-    height: '100%', width: '100%'
-  }
-}
 
 export default App

@@ -49,7 +49,9 @@ class ContentBlocks extends React.Component {
       researchOpen,
       husbandryOpen,
       veterinaryOpen,
-      handleClose
+      handleClose,
+      temperature,
+      humidity,
     } = this.props;
     return (
       <Grid container justify="space-between" className={classes.root} style={orientation === 'vertical' ? { overflowY: 'scroll' } : null}>
@@ -78,12 +80,12 @@ class ContentBlocks extends React.Component {
                   {workOrders && workOrders.length > 0 && (
                     <div>
                       <Divider className={classes.divider} />
-                      <Typography variant="h6" className={classes.center}>Open Orders</Typography>
+                      <Typography variant="h6" className={classes.center}>Open Work Orders</Typography>
                       <OrdersContent orders={workOrders} />
                       <Divider className={classes.divider} />
                     </div>
                   )}
-                  <EnvContent handleOpen={handleOpen} />
+                  <EnvContent handleOpen={handleOpen} temperature={temperature} humidity={humidity} />
                   <InventoryContent inventory={inventory} />
                   <RoomDetailsContent roomDetails={roomDetails} />
                 </CardContent>

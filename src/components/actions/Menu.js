@@ -81,8 +81,8 @@ class ViewMenu extends React.Component {
                             label="Veterinary"
                         />
                     </div>
-                    <MenuItem onClick={openContent}>Open All Content</MenuItem>
-                    <MenuItem onClick={closeContent}>Close All Content</MenuItem>
+                    <MenuItem onClick={() => { openContent(); onClose() }}>Open All Content</MenuItem>
+                    <MenuItem onClick={() => { closeContent(); onClose() }}>Close All Content</MenuItem>
                 </Menu>
             </div>
         );

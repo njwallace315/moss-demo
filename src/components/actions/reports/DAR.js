@@ -18,10 +18,10 @@ class DAR extends React.Component {
     protocol: 'M005160',
     species: 'Mouse',
     reportedBy: 'Nate',
-    placement: 'test',
+    placement: 'rack 5',
     numDead: '1',
     numInCage: '5',
-    comments: 'test',
+    comments: 'The pup was found dead in a new litter.',
   };
 
   handleChange = name => event => {
