@@ -63,7 +63,7 @@ const EnvContent = (
             <Typography variant="subheading" className={classes.inlineLabel}>
               Temperature:&nbsp;
             </Typography>
-            <Typography style={getTextStyle(temperature, tempBase)} className={classes.inline}>{temperature} F</Typography>
+            <Typography className={classes.inline}>{temperature} F</Typography>
             <Tooltip title="Show Temperature Time Series Data">
               <IconButton className={classes.timeline} onClick={handleOpen('temperatureOpen')}>
                 <Timeline />
@@ -76,7 +76,7 @@ const EnvContent = (
             <Typography variant="subheading" className={classes.inlineLabel}>
               Humidity:&nbsp;
             </Typography>
-            <Typography style={getTextStyle(humidity, humidBase)} className={classes.inline}>{humidity} %</Typography>
+            <Typography className={classes.inline}>{humidity} %</Typography>
             <Tooltip title="Show Humidity Time Series Data">
               <IconButton className={classes.timeline} onClick={handleOpen('humidityOpen')}>
                 <Timeline />

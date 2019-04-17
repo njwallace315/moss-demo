@@ -97,7 +97,7 @@ class Item extends React.Component {
                         {orders.length > 0 && (
                             <div>
                                 <Divider className={classes.divider} />
-                                <Typography variant="subheading" className={classes.em}>Open Work Orders</Typography>
+                                <Typography variant="subheading" className={classes.emRed}>Open Work Orders</Typography>
                                 <OrdersContent orders={orders} />
                                 <Divider className={classes.divider} />
                             </div>
@@ -170,6 +170,10 @@ Item.defaultProps = {
 
 const styles = theme => ({
     em: {
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    emRed: {
         fontWeight: 'bold',
         color: theme.palette.primary.main,
         textAlign: 'center'
