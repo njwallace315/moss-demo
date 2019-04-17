@@ -104,6 +104,8 @@ const rack5 = uniqid()
 const rack6 = uniqid()
 const rack7 = uniqid()
 
+const bscMoment = moment().subtract(4, 'years').subtract(9, 'months')
+
 const inventory = [
     {
         type: 'item',
@@ -113,20 +115,122 @@ const inventory = [
         label: 'Class II BSC',
         details: [
             {
-                label: 'Last filter change',
-                value: moment().subtract(5, 'months').format('MM/DD/YYYY')
+                label: 'Serial Number',
+                value: '109262'
             },
             {
-                label: 'Last calibration',
-                value: moment().subtract(51, 'days').format('MM/DD/YYYY')
+                label: 'Last certification',
+                value: moment().subtract(9, 'months').format('MM/DD/YYYY')
             },
             {
-                label: 'Acceptable pressure range',
-                value: '-0.54 ' + String.fromCharCode(0xB1) + ' 0.07'
+                label: 'Next certification due',
+                value: moment().add(3, 'months').add(1, 'day').format('MM/DD/YYYY')
+            },
+
+            {
+                label: 'Supply Diff. Pressure',
+                value: '0.47 ' + String.fromCharCode(0xB1) + ' 0.05'
+            },
+            {
+                label: 'Exhaust Diff. Pressure',
+                value: '0.42 ' + String.fromCharCode(0xB1) + ' 0.04'
             },
         ],
+        dependencies: ['WIMR B1 Breaker Power', 'WIMR Grid Power', 'WIMR Water Utility', 'Air Handling Unit #2', 'Air handling Unit #3'],
+        purchaseHistory: [
+            {
+                label: 'Purchase and Installation',
+                type: 'materials',
+                value: 10565,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Arm rest 6\'',
+                type: 'materials',
+                value: 58.10,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Certification',
+                type: 'smx',
+                value: 359.33,
+                date: bscMoment.add(1, 'year').toDate()
+            },
+            {
+                label: 'labor',
+                type: 'smx',
+                value: 50.08,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Black foam pre-filter kit',
+                type: 'materials',
+                value: 197,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Speed control',
+                type: 'umx',
+                value: 440.70,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Certification',
+                type: 'smx',
+                value: 359.33,
+                date: bscMoment.add(1, 'year').toDate()
+            },
+            {
+                label: 'labor',
+                type: 'smx',
+                value: 50.08,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Black foam pre-filter kit',
+                type: 'materials',
+                value: 197,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Certification',
+                type: 'smx',
+                value: 359.33,
+                date: bscMoment.add(1, 'year').toDate()
+            },
+            {
+                label: 'labor',
+                type: 'smx',
+                value: 50.08,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Black foam pre-filter kit',
+                type: 'materials',
+                value: 197,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Certification',
+                type: 'smx',
+                value: 359.33,
+                date: bscMoment.add(1, 'year').toDate()
+            },
+            {
+                label: 'labor',
+                type: 'smx',
+                value: 50.08,
+                date: bscMoment.toDate()
+            },
+            {
+                label: 'Black foam pre-filter kit',
+                type: 'materials',
+                value: 197,
+                date: bscMoment.toDate()
+            },],
         description: 'SterilGard Class II BSC.',
-        orders: [],
+        orders: [
+        ],
         style: {
             ipad_p: {
                 left: ipad_BSC_p.x - (ipad_BSC_p.width / 2),

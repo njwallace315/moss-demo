@@ -43,10 +43,10 @@ class App extends Component {
         { label: 'Models', value: 'Mouse' },
         { label: 'Emergency Power', value: 'Available' },
       ],
-      researchOpen: true,
+      researchOpen: false,
       roomOpen: true,
-      veterinaryOpen: true,
-      husbandryOpen: true,
+      veterinaryOpen: false,
+      husbandryOpen: false,
       orientation: window.scceen ? window.screen.orientation.type : window.orientation
     }
   }
