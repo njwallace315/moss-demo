@@ -11,7 +11,10 @@ export const generateDataPoint = (base, multiplier) => {
 export const generateTempData = (numPoints = 1000) => {
     let values = []
     for (let i = 0; i < numPoints; i++) {
-        values.push(generateDataPoint(i > 0 ? values[i - 1] : 72, 0.5))
+        let val = generateDataPoint(i > 0 ? values[i - 1] : 72, 0.5)
+        if (val > 78) val = 78;
+        if (val < 68) val = 68;
+        values.push(val)
     }
     return values;
 }
@@ -19,8 +22,8 @@ export const generateHumidData = (numPoints = 1000) => {
     let values = []
     for (let i = 0; i < numPoints; i++) {
         let val = generateDataPoint(i > 0 ? values[i - 1] : 50, 1)
-        if (val > 100) val = 100
-        if (val < 0) val = 0
+        if (val > 52) val = 52
+        if (val < 10) val = 10
         values.push(val)
     }
     return values;
