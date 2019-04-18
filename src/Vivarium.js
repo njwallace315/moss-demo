@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import floorplan from './static/floormap.svg'
 
 const Vivarium = props => {
     return (
         <div>
-            <h1>Place map markup here (src/Vivarium.js)</h1>
+            <img src={floorplan} style={{ display: 'block', height: '90%', width: '90%' }} />
         </div>
     );
 };

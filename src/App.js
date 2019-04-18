@@ -33,10 +33,17 @@ import Menu from './components/actions/Menu'
 import axios from "axios";
 
 class App extends Component {
+
   constructor(props) {
+    const { temperature, humidity, temps, humids, tempMoments, humidMoments } = seed;
     super(props);
     this.state = {
-      ...seed,
+      temperature,
+      humidity,
+      temps,
+      humids,
+      tempMoments,
+      humidMoments,
       envOpen: true,
       light: 'On',
       roomDetails: [
@@ -241,7 +248,35 @@ class App extends Component {
     return `linear-gradient(to ${direction}, rgba(255,255,255,0), rgba(255,255,255,1))`
   }
 
+  // seedDatabase = () => {
+  //   seed.SARs.forEach(x => {
+  //     this.putDataToDB('SARs', x)
+  //   })
+  //   seed.DARs.forEach(x => {
+  //     this.putDataToDB('DARs', x)
+  //   })
+  //   seed.OCRs.forEach(x => {
+  //     this.putDataToDB('OCRs', x)
+  //   })
+  //   seed.workOrders.forEach(x => {
+  //     this.putDataToDB('workOrders', x)
+  //   })
+  //   seed.alerts.forEach(x => {
+  //     this.putDataToDB('alerts', x)
+  //   })
+  //   seed.hazards.forEach(x => {
+  //     this.putDataToDB('hazards', x)
+  //   })
+  //   seed.tasks.forEach(x => {
+  //     this.putDataToDB('tasks', x)
+  //   })
+  //   seed.inventory.forEach(x => {
+  //     this.putDataToDB('inventory', x)
+  //   })
+  // }
+
   getDataFromDb = () => {
+    const self = this;
     fetch("https://nate-dev-brms-db.ngrok.io/api/getData")
       .then(data => data.json())
       .then(res => {
@@ -254,7 +289,9 @@ class App extends Component {
         const alerts = data.filter(x => x.name === 'alerts').map(x => x.data)
         const workOrders = data.filter(x => x.name === 'workOrders').map(x => x.data)
         const inventory = data.filter(x => x.name === 'inventory').map(x => x.data)
-        console.log(inventory)
+        // if (inventory.length < 1) {
+        //   // self.seedDatabase()
+        // }
         this.setState({ SARs, DARs, OCRs, tasks, hazards, alerts, workOrders, inventory })
       });
   };
