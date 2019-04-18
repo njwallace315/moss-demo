@@ -564,25 +564,25 @@ const styles = {
   },
   fab: {
     ipad_p: {
-      position: 'fixed',
+      position: 'absolute',
       top: 935,
       left: 690,
       zIndex: 1000,
     },
     ipad_l: {
-      position: 'fixed',
+      position: 'absolute',
       top: 690,
       left: 950,
       zIndex: 1000,
     },
     pro_p: {
-      position: 'fixed',
+      position: 'absolute',
       top: 1275,
       left: 930,
       zIndex: 1000,
     },
     pro_l: {
-      position: 'fixed',
+      position: 'absolute',
       top: 945,
       left: 1275,
       zIndex: 1000,
@@ -591,25 +591,25 @@ const styles = {
   },
   menuFab: {
     ipad_p: {
-      position: 'fixed',
+      position: 'absolute',
       top: 935,
       left: 615,
       zIndex: 1000,
     },
     ipad_l: {
-      position: 'fixed',
+      position: 'absolute',
       top: 690,
       left: 875,
       zIndex: 1000,
     },
     pro_p: {
-      position: 'fixed',
+      position: 'absolute',
       top: 1275,
       left: 855,
       zIndex: 1000,
     },
     pro_l: {
-      position: 'fixed',
+      position: 'absolute',
       top: 945,
       left: 1200,
       zIndex: 1000,
@@ -679,7 +679,7 @@ const styles = {
       // backgroundColor: 'red',
     },
     pro_p: {
-      width: 83,
+      width: 93,
       height: 1270,
       left: 942,
       top: 55,
